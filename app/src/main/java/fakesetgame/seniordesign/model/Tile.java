@@ -8,6 +8,7 @@ public class Tile {
     private Shape shape;
     private Shading shading;
     private Color color;
+    private int shapeCount;
 
     public Tile(Shape shape, Shading shading, Color color, int shapeCount){
 
@@ -27,6 +28,7 @@ public class Tile {
         this.shape = shape;
         this.shading = shading;
         this.color = color;
+        this.shapeCount = shapeCount;
     }
 
     public Shape getShape(){
@@ -39,5 +41,9 @@ public class Tile {
 
     public Color getColor(){
         return this.color;
+    }
+
+    public int getShapeCount(){
+        return this.shapeCount;
     }
 }
