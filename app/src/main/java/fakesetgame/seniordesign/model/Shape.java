@@ -20,7 +20,7 @@ public enum Shape {
         }
     }
 
-    Shape(int numVal){
+    private Shape(int numVal){
         this.numVal = numVal;
     }
 
