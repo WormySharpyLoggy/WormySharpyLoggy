@@ -28,7 +28,7 @@ public enum Shading {
         return numVal;
     }
 
-    public Shading valueOf(int numVal){
+    public static Shading valueOf(int numVal){
         return shadingMap.get(numVal);
     }
 }

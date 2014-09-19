@@ -28,7 +28,7 @@ public enum Color {
         return numVal;
     }
 
-    public Color valueOf(int numVal){
+    public static Color valueOf(int numVal){
         return colorMap.get(numVal);
     }
 }

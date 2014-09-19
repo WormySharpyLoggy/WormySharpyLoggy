@@ -28,7 +28,7 @@ public enum Shape {
         return numVal;
     }
 
-    public Shape valueOf(int numVal){
+    public static Shape valueOf(int numVal){
         return shapeMap.get(numVal);
     }
 }
