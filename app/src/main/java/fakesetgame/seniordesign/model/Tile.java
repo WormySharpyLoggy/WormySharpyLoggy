@@ -64,4 +64,27 @@ public class Tile {
 
         return drawable;
     }
+
+    @Override
+    public int hashCode() {
+        return (Integer.valueOf(getShapeCount()).toString()
+                + Integer.valueOf(getShape().getNumVal()).toString()
+                + Integer.valueOf(getColor().getNumVal()).toString()
+                + Integer.valueOf(getShading().getNumVal()).toString()).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null)
+            return false;
+        if(!(o instanceof Tile))
+            return false;
+
+        Tile other = (Tile)o;
+
+        return getColor().equals(other.getColor())
+                && getShape().equals(other.getShape())
+                && getShading().equals(other.getShading())
+                && getShapeCount() == other.getShapeCount();
+    }
 }
