@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import fakesetgame.seniordesign.model.Color;
-import fakesetgame.seniordesign.model.Set;
+import fakesetgame.seniordesign.model.TileSet;
 import fakesetgame.seniordesign.model.Shading;
 import fakesetgame.seniordesign.model.Shape;
 import fakesetgame.seniordesign.model.Tile;
@@ -36,10 +36,10 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
             Tile t2 = new Tile(shape, shading, color, shapeNum);
             Tile t3 = new Tile(shape, shading, color, shapeNum);
 
-            Assert.assertTrue(Set.isValidSet(t1, t2, t3));
+            Assert.assertTrue(TileSet.isValidSet(t1, t2, t3));
 
             Tile badTile = new Tile(shape, shading, color, shapeNum % 3 + 1);
-            Assert.assertFalse(Set.isValidSet(t1, badTile, t2));
+            Assert.assertFalse(TileSet.isValidSet(t1, badTile, t2));
         }
     }
 
@@ -67,7 +67,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         for(int i=0; i<3; i++)
             tiles[i] = new Tile(shapes[i], shadings[i], colors[i], quantities[i]);
 
-        Assert.assertTrue(Set.isValidSet(tiles[0], tiles[1], tiles[2]));
+        Assert.assertTrue(TileSet.isValidSet(tiles[0], tiles[1], tiles[2]));
     }
 
     private int[] randomize(int[] input){
