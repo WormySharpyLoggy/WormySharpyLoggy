@@ -3,11 +3,14 @@ package fakesetgame.seniordesign.model;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+import java.util.Random;
+
 /**
  * Created by Chris on 9/10/2014.
  */
 public class Tile {
 
+    private static final Random random = new Random();
     private Shape shape;
     private Shading shading;
     private Color color;
@@ -32,6 +35,15 @@ public class Tile {
         this.shading = shading;
         this.color = color;
         this.shapeCount = shapeCount;
+    }
+
+    public static Tile generateRandom(){
+        Shape shape = Shape.valueOf(random.nextInt(3) + 1);
+        Shading shading = Shading.valueOf(random.nextInt(3) + 1);
+        Color color = Color.valueOf(random.nextInt(3) + 1);
+        int shapeNum = random.nextInt(3) + 1;
+
+        return new Tile(shape, shading, color, shapeNum);
     }
 
     public Shape getShape() {
