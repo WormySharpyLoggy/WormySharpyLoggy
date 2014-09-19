@@ -70,6 +70,12 @@ public class Board {
         return setCount;
     }
 
+    /**
+     * Get the tile at zero-based coordinates by Row and Column.
+     * @param row
+     * @param column
+     * @return
+     */
     public Tile getTile(int row, int column) {
         if (row < 0 || row >= ROWS) {
             throw new IllegalArgumentException("Row out of bounds.");
