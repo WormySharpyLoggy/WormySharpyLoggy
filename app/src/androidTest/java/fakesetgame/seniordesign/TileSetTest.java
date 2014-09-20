@@ -24,9 +24,9 @@ public class TileSetTest extends ApplicationTestCase<Application> {
 
     Random random = new Random();
 
-    public void testSetEvaluation_SameEverything() throws Exception{
+    public void testSetEvaluation_SameEverything() throws Exception {
 
-        for(int i=0; i<100; i++) {
+        for (int i = 0; i < 100; i++) {
             Shape shape = Shape.valueOf(random.nextInt(3) + 1);
             Shading shading = Shading.valueOf(random.nextInt(3) + 1);
             Color color = Color.valueOf(random.nextInt(3) + 1);
@@ -43,37 +43,37 @@ public class TileSetTest extends ApplicationTestCase<Application> {
         }
     }
 
-    public void testSetEvaluation_DifferentEverything() throws Exception{
-        int[] seed = new int[]{1,2,3};
+    public void testSetEvaluation_DifferentEverything() throws Exception {
+        int[] seed = new int[]{1, 2, 3};
 
         int[] rand3 = randomize(seed);
         Color[] colors = new Color[3];
-        for(int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
             colors[i] = Color.valueOf(rand3[i]);
 
         rand3 = randomize(seed);
         Shading[] shadings = new Shading[3];
-        for(int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
             shadings[i] = Shading.valueOf(rand3[i]);
 
         rand3 = randomize(seed);
         Shape[] shapes = new Shape[3];
-        for(int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
             shapes[i] = Shape.valueOf(rand3[i]);
 
         int[] quantities = randomize(seed);
 
         Tile[] tiles = new Tile[3];
-        for(int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
             tiles[i] = new Tile(shapes[i], shadings[i], colors[i], quantities[i]);
 
         Assert.assertTrue(TileSet.isValidSet(tiles[0], tiles[1], tiles[2]));
     }
 
-    private int[] randomize(int[] input){
+    private int[] randomize(int[] input) {
         int[] copy = Arrays.copyOf(input, input.length);
 
-        for(int i=copy.length-1; i>0; i--){
+        for (int i = copy.length - 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
             int temp = copy[j];
             copy[j] = copy[i];
