@@ -73,8 +73,8 @@ public class TileSetTest extends ApplicationTestCase<Application> {
     private int[] randomize(int[] input){
         int[] copy = Arrays.copyOf(input, input.length);
 
-        for(int i=0; i<copy.length; i++){
-            int j = random.nextInt(copy.length);
+        for(int i=copy.length-1; i>0; i--){
+            int j = random.nextInt(i + 1);
             int temp = copy[j];
             copy[j] = copy[i];
             copy[i] = temp;
