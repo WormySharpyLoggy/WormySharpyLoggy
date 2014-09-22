@@ -36,15 +36,11 @@ public class Board {
     }
 
     public static Board generateRandom(){
-        int targetSetNum = 3; // in testing, more than 3 sets in 9 cards is rare.
+        int targetSetNum = 3;
         int tries = 0;
         while(true) {
             tries++;
-            Set<Tile> tileSet = new HashSet<Tile>();
-
-            while (tileSet.size() < TILES)
-                tileSet.add(Tile.generateRandom());
-
+            Set<Tile> tileSet = TileSet.getRandom(TILES);
             Board board = new Board(tileSet.toArray(new Tile[TILES]));
 
             int sets = board.countSets();
@@ -59,15 +55,7 @@ public class Board {
 
     public int countSets(){
 
-        int setCount = 0;
-
-        for(int i=0; i<tiles.length; i++)
-            for(int j=i+1; j<tiles.length; j++)
-                for(int k=j+1; k<tiles.length; k++)
-                    if(TileSet.isValidSet(tiles[i], tiles[j], tiles[k]))
-                        setCount++;
-
-        return setCount;
+        return TileSet.countSets(tiles);
     }
 
     /**
