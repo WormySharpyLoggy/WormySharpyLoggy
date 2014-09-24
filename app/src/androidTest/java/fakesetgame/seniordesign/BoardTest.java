@@ -31,8 +31,29 @@ public class BoardTest extends ApplicationTestCase<Application> {
 
     public void testRandomBoardGeneration() throws Exception{
 
-        Board board = Board.generateRandom();
+        Board board = Board.generateRandom(0);
+        Assert.assertEquals(0, board.countSets());
+
+        board = Board.generateRandom(1);
+        Assert.assertEquals(1, board.countSets());
+
+        board = Board.generateRandom(2);
+        Assert.assertEquals(2, board.countSets());
+
+        board = Board.generateRandom(3);
         Assert.assertEquals(3, board.countSets());
+
+        board = Board.generateRandom(4);
+        Assert.assertEquals(4, board.countSets());
+
+        board = Board.generateRandom(5);
+        Assert.assertEquals(5, board.countSets());
+
+        board = Board.generateRandom(6);
+        Assert.assertEquals(6, board.countSets());
+
+        board = Board.generateRandom(12);
+        Assert.assertEquals(12, board.countSets());
     }
 
     public void testExplicitBoardGeneration() throws Exception{
