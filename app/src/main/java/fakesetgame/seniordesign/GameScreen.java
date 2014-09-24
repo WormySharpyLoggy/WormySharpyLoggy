@@ -17,7 +17,7 @@ import android.view.View;
  *
  * @see SystemUiHider
  */
-public class FlashScreen extends Activity {
+public class GameScreen extends Activity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -50,7 +50,7 @@ public class FlashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_flash_screen);
+        setContentView(R.layout.game_activity);
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
