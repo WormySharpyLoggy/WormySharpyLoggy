@@ -93,20 +93,11 @@ public class Board {
         return TileSet.countSets(tiles);
     }
 
-    /**
-     * Get the tile at zero-based coordinates by Row and Column.
-     * @param row
-     * @param column
-     * @return
-     */
-    public Tile getTile(int row, int column) {
-        if (row < 0 || row >= ROWS) {
-            throw new IllegalArgumentException("Row out of bounds.");
-        }
-        if (column < 0 || column >= COLS) {
-            throw new IllegalArgumentException("Column out of bounds.");
+    public Tile getTile(int index) {
+        if (index < 0 || index >= TILES) {
+            throw new IllegalArgumentException("Index out of bounds.");
         }
 
-        return tiles[row * COLS + column];
+        return tiles[index];
     }
 }
