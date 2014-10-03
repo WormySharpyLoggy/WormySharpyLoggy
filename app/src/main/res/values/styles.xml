@@ -23,4 +23,19 @@
 
     <style name="ButtonBarButton" />
 
+    <style name="TileRow">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="TileButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
 </resources>
