@@ -37,9 +37,9 @@ public class GameScreen extends Activity {
 
         for (int i = 0; i < 9; i++) {
 
-            final ImageButton imageButton = (ImageButton)findViewById(getResources()
+            final ImageView tile = (ImageView)findViewById(getResources()
                     .getIdentifier(String.format("tile%d", i), "id", getPackageName()));
-            imageButton.setImageDrawable(board.getTile(i).getDrawable(this));
+            tile.setImageDrawable(board.getTile(i).getDrawable(this));
         }
     }
 }

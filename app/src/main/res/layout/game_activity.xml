@@ -22,15 +22,15 @@
             android:id="@+id/board_row1"
             style="@style/TileRow">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/tile0"
                 style="@style/TileButton" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/tile1"
                 style="@style/TileButton" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/tile2"
                 style="@style/TileButton" />
         </LinearLayout>
@@ -39,15 +39,15 @@
             android:id="@+id/board_row2"
             style="@style/TileRow">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/tile3"
                 style="@style/TileButton" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/tile4"
                 style="@style/TileButton" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/tile5"
                 style="@style/TileButton" />
         </LinearLayout>
@@ -56,15 +56,15 @@
             android:id="@+id/board_row3"
             style="@style/TileRow">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/tile6"
                 style="@style/TileButton" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/tile7"
                 style="@style/TileButton" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/tile8"
                 style="@style/TileButton" />
         </LinearLayout>
