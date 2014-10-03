@@ -15,15 +15,15 @@ public class Game {
     Set<Tile> tileSet = new HashSet<Tile>();
 
     public boolean attemptSet(Tile tile1, Tile tile2, Tile tile3) {
-        if (trackSet.isValidSet(tile1, tile2, tile3)) {
+        if (TileSet.isValidSet(tile1, tile2, tile3)) {
             tileSet.add(tile1);
             tileSet.add(tile2);
             tileSet.add(tile3);
             trackSet.add(tileSet);
             score = score + 1;
-            return True;
+            return true;
         }
-        return False;
+        return false;
     }
     public int getScore() {
         return score;
