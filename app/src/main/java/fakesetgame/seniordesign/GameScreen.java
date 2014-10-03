@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
@@ -23,26 +25,21 @@ import android.widget.ImageView;
  */
 public class GameScreen extends Activity {
 
+    private final String TAG = "GameScreen";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.game_activity);
 
-        final GridLayout boardGrid = (GridLayout) findViewById(R.id.board_grid);
-        boardGrid.setColumnCount(3);
-        boardGrid.setRowCount(3);
-
         Board board = Board.generateRandom(5);
 
         for (int i = 0; i < 9; i++) {
-            final ImageButton imageButton = new ImageButton(this);
-            imageButton.setImageDrawable(board.getTile(i).getDrawable(this));
-            imageButton.setMaxWidth(boardGrid.getWidth() / 3);
-            imageButton.setMaxHeight(boardGrid.getHeight() / 3);
-            imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
-            boardGrid.addView(imageButton);
+            final ImageButton imageButton = (ImageButton)findViewById(getResources()
+                    .getIdentifier(String.format("tile%d", i), "id", getPackageName()));
+            imageButton.setImageDrawable(board.getTile(i).getDrawable(this));
         }
     }
 }
