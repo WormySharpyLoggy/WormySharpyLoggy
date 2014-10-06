@@ -1,5 +1,6 @@
 package fakesetgame.seniordesign;
 
+import fakesetgame.seniordesign.model.Board;
 import fakesetgame.seniordesign.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 
 /**
@@ -55,106 +57,34 @@ public class GameScreen extends Activity {
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
 
-        // Set up an instance of SystemUiHider to control the system UI for
-        // this activity.
-        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
-        mSystemUiHider.setup();
-        mSystemUiHider
-                .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-                    // Cached values.
-                    int mControlsHeight;
-                    int mShortAnimTime;
-
-                    @Override
-                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-                    public void onVisibilityChange(boolean visible) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-                            // If the ViewPropertyAnimator API is available
-                            // (Honeycomb MR2 and later), use it to animate the
-                            // in-layout UI controls at the bottom of the
-                            // screen.
-                            if (mControlsHeight == 0) {
-                                mControlsHeight = controlsView.getHeight();
-                            }
-                            if (mShortAnimTime == 0) {
-                                mShortAnimTime = getResources().getInteger(
-                                        android.R.integer.config_shortAnimTime);
-                            }
-                            controlsView.animate()
-                                    .translationY(visible ? 0 : mControlsHeight)
-                                    .setDuration(mShortAnimTime);
-                        } else {
-                            // If the ViewPropertyAnimator APIs aren't
-                            // available, simply show or hide the in-layout UI
-                            // controls.
-                            controlsView.setVisibility(visible ? View.VISIBLE : View.GONE);
-                        }
-
-                        if (visible && AUTO_HIDE) {
-                            // Schedule a hide().
-                            delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                        }
-                    }
-                });
-
-        // Set up the user interaction to manually show or hide the system UI.
-        contentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TOGGLE_ON_CLICK) {
-                    mSystemUiHider.toggle();
-                } else {
-                    mSystemUiHider.show();
-                }
-            }
-        });
-
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        BoardSetup();
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+    private void BoardSetup() {
+        Board b = Board.generateRandom(6);
 
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100);
-    }
+        ImageView tileTL = (ImageView)findViewById(getResources().getIdentifier("TileTL", "id", getPackageName()));
+        ImageView tileTC = (ImageView)findViewById(getResources().getIdentifier("TileTC", "id", getPackageName()));
+        ImageView tileTR = (ImageView)findViewById(getResources().getIdentifier("TileTR", "id", getPackageName()));
+        ImageView tileCL = (ImageView)findViewById(getResources().getIdentifier("TileCL", "id", getPackageName()));
+        ImageView tileCC = (ImageView)findViewById(getResources().getIdentifier("TileCC", "id", getPackageName()));
+        ImageView tileCR = (ImageView)findViewById(getResources().getIdentifier("TileCR", "id", getPackageName()));
+        ImageView tileBL = (ImageView)findViewById(getResources().getIdentifier("TileBL", "id", getPackageName()));
+        ImageView tileBC = (ImageView)findViewById(getResources().getIdentifier("TileBC", "id", getPackageName()));
+        ImageView tileBR = (ImageView)findViewById(getResources().getIdentifier("TileBR", "id", getPackageName()));
 
-
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
-
-    Handler mHideHandler = new Handler();
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
-        }
-    };
-
-    /**
-     * Schedules a call to hide() in [delay] milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+        tileTL.setImageDrawable(b.getTile(0,0).getDrawable(this));
+        tileTC.setImageDrawable(b.getTile(0,1).getDrawable(this));
+        tileTR.setImageDrawable(b.getTile(0,2).getDrawable(this));
+        tileCL.setImageDrawable(b.getTile(1,0).getDrawable(this));
+        tileCC.setImageDrawable(b.getTile(1,1).getDrawable(this));
+        tileCR.setImageDrawable(b.getTile(1,2).getDrawable(this));
+        tileBL.setImageDrawable(b.getTile(2,0).getDrawable(this));
+        tileBC.setImageDrawable(b.getTile(2,1).getDrawable(this));
+        tileBR.setImageDrawable(b.getTile(2,2).getDrawable(this));
     }
 }
