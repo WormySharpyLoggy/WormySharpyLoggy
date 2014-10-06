@@ -8,12 +8,8 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.GridLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 
@@ -24,8 +20,33 @@ import android.widget.ImageView;
  * @see SystemUiHider
  */
 public class GameScreen extends Activity {
+    /**
+     * Whether or not the system UI should be auto-hidden after
+     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
+     */
+    private static final boolean AUTO_HIDE = true;
 
-    private final String TAG = "GameScreen";
+    /**
+     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
+     * user interaction before hiding the system UI.
+     */
+    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+
+    /**
+     * If set, will toggle the system UI visibility upon interaction. Otherwise,
+     * will show the system UI visibility upon interaction.
+     */
+    private static final boolean TOGGLE_ON_CLICK = true;
+
+    /**
+     * The flags to pass to {@link SystemUiHider#getInstance}.
+     */
+    private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +54,37 @@ public class GameScreen extends Activity {
 
         setContentView(R.layout.game_activity);
 
-        Board board = Board.generateRandom(5);
+        final View controlsView = findViewById(R.id.fullscreen_content_controls);
+        final View contentView = findViewById(R.id.fullscreen_content);
 
-        for (int i = 0; i < 9; i++) {
+        // Upon interacting with UI controls, delay any scheduled hide()
+        // operations to prevent the jarring behavior of controls going away
+        // while interacting with the UI.
 
-            final ImageView tile = (ImageView)findViewById(getResources()
-                    .getIdentifier(String.format("tile%d", i), "id", getPackageName()));
-            tile.setImageDrawable(board.getTile(i).getDrawable(this));
-        }
+        BoardSetup();
+    }
+
+    private void BoardSetup() {
+        Board b = Board.generateRandom(6);
+
+        ImageView tileTL = (ImageView)findViewById(getResources().getIdentifier("TileTL", "id", getPackageName()));
+        ImageView tileTC = (ImageView)findViewById(getResources().getIdentifier("TileTC", "id", getPackageName()));
+        ImageView tileTR = (ImageView)findViewById(getResources().getIdentifier("TileTR", "id", getPackageName()));
+        ImageView tileCL = (ImageView)findViewById(getResources().getIdentifier("TileCL", "id", getPackageName()));
+        ImageView tileCC = (ImageView)findViewById(getResources().getIdentifier("TileCC", "id", getPackageName()));
+        ImageView tileCR = (ImageView)findViewById(getResources().getIdentifier("TileCR", "id", getPackageName()));
+        ImageView tileBL = (ImageView)findViewById(getResources().getIdentifier("TileBL", "id", getPackageName()));
+        ImageView tileBC = (ImageView)findViewById(getResources().getIdentifier("TileBC", "id", getPackageName()));
+        ImageView tileBR = (ImageView)findViewById(getResources().getIdentifier("TileBR", "id", getPackageName()));
+
+        tileTL.setImageDrawable(b.getTile(0,0).getDrawable(this));
+        tileTC.setImageDrawable(b.getTile(0,1).getDrawable(this));
+        tileTR.setImageDrawable(b.getTile(0,2).getDrawable(this));
+        tileCL.setImageDrawable(b.getTile(1,0).getDrawable(this));
+        tileCC.setImageDrawable(b.getTile(1,1).getDrawable(this));
+        tileCR.setImageDrawable(b.getTile(1,2).getDrawable(this));
+        tileBL.setImageDrawable(b.getTile(2,0).getDrawable(this));
+        tileBC.setImageDrawable(b.getTile(2,1).getDrawable(this));
+        tileBR.setImageDrawable(b.getTile(2,2).getDrawable(this));
     }
 }
