@@ -54,13 +54,6 @@ public class GameScreen extends Activity {
 
         setContentView(R.layout.game_activity);
 
-        final View controlsView = findViewById(R.id.fullscreen_content_controls);
-        final View contentView = findViewById(R.id.fullscreen_content);
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-
         BoardSetup();
     }
 
@@ -77,14 +70,14 @@ public class GameScreen extends Activity {
         ImageView tileBC = (ImageView)findViewById(getResources().getIdentifier("TileBC", "id", getPackageName()));
         ImageView tileBR = (ImageView)findViewById(getResources().getIdentifier("TileBR", "id", getPackageName()));
 
-        tileTL.setImageDrawable(b.getTile(0,0).getDrawable(this));
-        tileTC.setImageDrawable(b.getTile(0,1).getDrawable(this));
-        tileTR.setImageDrawable(b.getTile(0,2).getDrawable(this));
-        tileCL.setImageDrawable(b.getTile(1,0).getDrawable(this));
-        tileCC.setImageDrawable(b.getTile(1,1).getDrawable(this));
-        tileCR.setImageDrawable(b.getTile(1,2).getDrawable(this));
-        tileBL.setImageDrawable(b.getTile(2,0).getDrawable(this));
-        tileBC.setImageDrawable(b.getTile(2,1).getDrawable(this));
-        tileBR.setImageDrawable(b.getTile(2,2).getDrawable(this));
+        tileTL.setImageDrawable(b.getTile(0).getDrawable(this));
+        tileTC.setImageDrawable(b.getTile(1).getDrawable(this));
+        tileTR.setImageDrawable(b.getTile(2).getDrawable(this));
+        tileCL.setImageDrawable(b.getTile(3).getDrawable(this));
+        tileCC.setImageDrawable(b.getTile(4).getDrawable(this));
+        tileCR.setImageDrawable(b.getTile(5).getDrawable(this));
+        tileBL.setImageDrawable(b.getTile(6).getDrawable(this));
+        tileBC.setImageDrawable(b.getTile(7).getDrawable(this));
+        tileBR.setImageDrawable(b.getTile(8).getDrawable(this));
     }
 }
