@@ -5,18 +5,12 @@ import android.test.ApplicationTestCase;
 
 import junit.framework.Assert;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Random;
 import java.util.Set;
 
 import fakesetgame.seniordesign.model.Board;
-import fakesetgame.seniordesign.model.Color;
-import fakesetgame.seniordesign.model.TileSet;
-import fakesetgame.seniordesign.model.Shading;
-import fakesetgame.seniordesign.model.Shape;
 import fakesetgame.seniordesign.model.Tile;
 
 /**
@@ -26,8 +20,6 @@ public class BoardTest extends ApplicationTestCase<Application> {
     public BoardTest() {
         super(Application.class);
     }
-
-    Random random = new Random();
 
     public void testRandomBoardGeneration() throws Exception{
 
@@ -74,14 +66,14 @@ public class BoardTest extends ApplicationTestCase<Application> {
 
         Board board = new Board(t11, t12, t13, t21, t22, t23, t31, t32, t33);
 
-        Assert.assertEquals(t11, board.getTile(0, 0));
-        Assert.assertEquals(t12, board.getTile(0, 1));
-        Assert.assertEquals(t13, board.getTile(0, 2));
-        Assert.assertEquals(t21, board.getTile(1, 0));
-        Assert.assertEquals(t22, board.getTile(1, 1));
-        Assert.assertEquals(t23, board.getTile(1, 2));
-        Assert.assertEquals(t31, board.getTile(2, 0));
-        Assert.assertEquals(t32, board.getTile(2, 1));
-        Assert.assertEquals(t33, board.getTile(2, 2));
+        Assert.assertEquals(t11, board.getTile(0));
+        Assert.assertEquals(t12, board.getTile(1));
+        Assert.assertEquals(t13, board.getTile(2));
+        Assert.assertEquals(t21, board.getTile(3));
+        Assert.assertEquals(t22, board.getTile(4));
+        Assert.assertEquals(t23, board.getTile(5));
+        Assert.assertEquals(t31, board.getTile(6));
+        Assert.assertEquals(t32, board.getTile(7));
+        Assert.assertEquals(t33, board.getTile(8));
     }
 }
