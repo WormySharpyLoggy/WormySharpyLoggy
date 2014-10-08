@@ -27,25 +27,18 @@ public class GameScreen extends Activity {
 
     private void BoardSetup() {
         Board b = Board.generateRandom(6);
+        ImageView[] tiles = new ImageView[9];
+        tiles[0] = (ImageView)findViewById(R.id.TileTL);
+        tiles[1] = (ImageView)findViewById(R.id.TileTC);
+        tiles[2] = (ImageView)findViewById(R.id.TileTR);
+        tiles[3] = (ImageView)findViewById(R.id.TileCL);
+        tiles[4] = (ImageView)findViewById(R.id.TileCC);
+        tiles[5] = (ImageView)findViewById(R.id.TileCR);
+        tiles[6] = (ImageView)findViewById(R.id.TileBL);
+        tiles[7] = (ImageView)findViewById(R.id.TileBC);
+        tiles[8] = (ImageView)findViewById(R.id.TileBR);
 
-        ImageView tileTL = (ImageView)findViewById(getResources().getIdentifier("TileTL", "id", getPackageName()));
-        ImageView tileTC = (ImageView)findViewById(getResources().getIdentifier("TileTC", "id", getPackageName()));
-        ImageView tileTR = (ImageView)findViewById(getResources().getIdentifier("TileTR", "id", getPackageName()));
-        ImageView tileCL = (ImageView)findViewById(getResources().getIdentifier("TileCL", "id", getPackageName()));
-        ImageView tileCC = (ImageView)findViewById(getResources().getIdentifier("TileCC", "id", getPackageName()));
-        ImageView tileCR = (ImageView)findViewById(getResources().getIdentifier("TileCR", "id", getPackageName()));
-        ImageView tileBL = (ImageView)findViewById(getResources().getIdentifier("TileBL", "id", getPackageName()));
-        ImageView tileBC = (ImageView)findViewById(getResources().getIdentifier("TileBC", "id", getPackageName()));
-        ImageView tileBR = (ImageView)findViewById(getResources().getIdentifier("TileBR", "id", getPackageName()));
-
-        tileTL.setImageDrawable(b.getTile(0).getDrawable(this));
-        tileTC.setImageDrawable(b.getTile(1).getDrawable(this));
-        tileTR.setImageDrawable(b.getTile(2).getDrawable(this));
-        tileCL.setImageDrawable(b.getTile(3).getDrawable(this));
-        tileCC.setImageDrawable(b.getTile(4).getDrawable(this));
-        tileCR.setImageDrawable(b.getTile(5).getDrawable(this));
-        tileBL.setImageDrawable(b.getTile(6).getDrawable(this));
-        tileBC.setImageDrawable(b.getTile(7).getDrawable(this));
-        tileBR.setImageDrawable(b.getTile(8).getDrawable(this));
+        for (int i = 0; i < tiles.length; i++)
+            tiles[i].setImageDrawable(b.getTile(i).getDrawable(this));
     }
 }
