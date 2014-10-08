@@ -19,6 +19,7 @@ public class GameScreen extends Activity {
 
     private static final String TAG = "GameScreen";
     private ImageView[] tiles = new ImageView[9];
+    private ImageView[][] found = new ImageView[6][3];
     private Board board = null;
 
     @Override
@@ -27,16 +28,29 @@ public class GameScreen extends Activity {
 
         setContentView(R.layout.game_activity);
 
+        // Init board imageviews
         for (int i = 0; i < tiles.length; i++) {
             tiles[i] = (ImageView) findViewById(getResources().getIdentifier(
                     "Tile" + Integer.valueOf(i + 1).toString(),
                     "id",
                     getPackageName()));
             tiles[i].setTag(i);
-            if (tiles[i] != null)
-                Log.d(TAG, String.format("tiles[%d] set to Tile%d", i, i + 1));
-            else
-                Log.e(TAG, String.format("Attempted to set tiles[%d] set to Tile%d, but value is null.", i, i + 1));
+
+            if (tiles[i] == null)
+                Log.e(TAG, String.format("Failed to set tiles[%d]. Value is null.", i));
+        }
+
+        // Init found set imageviews
+        for (int set = 0; set < found.length; set++) {
+            for (int tile = 0; tile < found[set].length; tile++) {
+                found[set][tile] = (ImageView) findViewById(getResources().getIdentifier(
+                        "FoundSet" + Integer.valueOf(set + 1).toString() + "_" + Integer.valueOf(tile + 1).toString(),
+                        "id",
+                        getPackageName()));
+
+                if (found[set][tile] == null)
+                    Log.e(TAG, String.format("Failed to set found[%d][%d]. Value is null.", set, tile));
+            }
         }
 
         BoardSetup();
