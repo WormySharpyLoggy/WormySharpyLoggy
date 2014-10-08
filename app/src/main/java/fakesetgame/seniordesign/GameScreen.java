@@ -18,8 +18,12 @@ import android.widget.ImageView;
 public class GameScreen extends Activity {
 
     private static final String TAG = "GameScreen";
-    private ImageView[] tiles = new ImageView[9];
-    private ImageView[][] found = new ImageView[6][3];
+    private static final int TILES = 9;
+    private static final int SETS = 6;
+    private static final int TILES_IN_A_SET = 3;
+
+    private ImageView[] tiles = new ImageView[TILES];
+    private ImageView[][] found = new ImageView[SETS][TILES_IN_A_SET];
     private Board board = null;
 
     @Override
@@ -58,7 +62,7 @@ public class GameScreen extends Activity {
 
 
     private void BoardSetup() {
-        board = Board.generateRandom(6);
+        board = Board.generateRandom(SETS);
 
         for (int i = 0; i < tiles.length; i++) {
             tiles[i].setImageDrawable(board.getTile(i).getDrawable(this));
