@@ -1,6 +1,7 @@
 package fakesetgame.seniordesign;
 
 import fakesetgame.seniordesign.model.Board;
+import fakesetgame.seniordesign.model.Tile;
 import fakesetgame.seniordesign.util.SystemUiHider;
 import fakesetgame.seniordesign.view.ShadedImageView;
 
@@ -84,6 +85,9 @@ public class GameScreen extends Activity implements View.OnClickListener {
             Log.d(TAG, "Event: onClick for Tile " + idx);
 
             setTileSelected(idx, !getTileSelected(idx));
+
+            // The actual tile associated with the image
+            Tile tile = board.getTile(idx);
             //TODO: Use this click event to select a potential set
         }
     }
