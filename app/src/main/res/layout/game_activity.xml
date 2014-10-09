@@ -1,7 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    tools:context=".GameScreen"
     android:background="#FFFFFF">
 
     <LinearLayout
@@ -248,19 +250,19 @@
 
         <LinearLayout style="@style/TileRow">
 
-            <ImageView
+            <fakesetgame.seniordesign.view.ShadedImageView
                 android:id="@+id/Tile1"
                 style="@style/TileButton"
                 android:clickable="true"
                 android:src="@drawable/tile_3111" />
 
-            <ImageView
+            <fakesetgame.seniordesign.view.ShadedImageView
                 android:id="@+id/Tile2"
                 style="@style/TileButton"
                 android:clickable="true"
                 android:src="@drawable/tile_1112" />
 
-            <ImageView
+            <fakesetgame.seniordesign.view.ShadedImageView
                 android:id="@+id/Tile3"
                 style="@style/TileButton"
                 android:clickable="true"
@@ -269,19 +271,19 @@
 
         <LinearLayout style="@style/TileRow">
 
-            <ImageView
+            <fakesetgame.seniordesign.view.ShadedImageView
                 android:id="@+id/Tile4"
                 style="@style/TileButton"
                 android:clickable="true"
                 android:src="@drawable/tile_3111" />
 
-            <ImageView
+            <fakesetgame.seniordesign.view.ShadedImageView
                 android:id="@+id/Tile5"
                 style="@style/TileButton"
                 android:clickable="true"
                 android:src="@drawable/tile_1112" />
 
-            <ImageView
+            <fakesetgame.seniordesign.view.ShadedImageView
                 android:id="@+id/Tile6"
                 style="@style/TileButton"
                 android:clickable="true"
@@ -290,19 +292,19 @@
 
         <LinearLayout style="@style/TileRow">
 
-            <ImageView
+            <fakesetgame.seniordesign.view.ShadedImageView
                 android:id="@+id/Tile7"
                 style="@style/TileButton"
                 android:clickable="true"
                 android:src="@drawable/tile_3121" />
 
-            <ImageView
+            <fakesetgame.seniordesign.view.ShadedImageView
                 android:id="@+id/Tile8"
                 style="@style/TileButton"
                 android:clickable="true"
                 android:src="@drawable/tile_1112" />
 
-            <ImageView
+            <fakesetgame.seniordesign.view.ShadedImageView
                 android:id="@+id/Tile9"
                 style="@style/TileButton"
                 android:clickable="true"
