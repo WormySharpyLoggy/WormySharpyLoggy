@@ -25,7 +25,7 @@ public class ShadedImageView extends ImageView {
     public void setShaded(boolean shaded) {
         if (this.shaded != shaded) {
             this.shaded = shaded;
-            invalidate();
+            postInvalidate();
         }
     }
 
