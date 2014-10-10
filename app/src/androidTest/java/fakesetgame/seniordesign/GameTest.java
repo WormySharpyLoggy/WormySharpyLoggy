@@ -30,10 +30,10 @@ public class GameTest extends ApplicationTestCase<Application> {
             Tile tile2 = new Tile(Shape.Oval, Shading.Filled, Color.Red, 2);
             Tile tile3 = new Tile(Shape.Oval, Shading.Filled, Color.Green, 1);
 
-            initialScore = gameState.getScore();
+            initialScore = gameState.getFoundSetCount();
             isValidFalse = gameState.attemptSet(tile1, tile2, tile3);
 
-            Assert.assertEquals(initialScore, gameState.getScore());
+            Assert.assertEquals(initialScore, gameState.getFoundSetCount());
             Assert.assertFalse(isValidFalse);
         }
 
@@ -46,10 +46,10 @@ public class GameTest extends ApplicationTestCase<Application> {
             Tile validTile2 = new Tile(Shape.Oval, Shading.Filled, Color.Red, 2);
             Tile validTile3 = new Tile(Shape.Oval, Shading.Filled, Color.Red, 3);
 
-            initialScore2 = gameState2.getScore();
+            initialScore2 = gameState2.getFoundSetCount();
             isValidTrue = gameState2.attemptSet(validTile1, validTile2, validTile3);
 
-            Assert.assertEquals(initialScore2 + 1, gameState2.getScore());
+            Assert.assertEquals(initialScore2 + 1, gameState2.getFoundSetCount());
             Assert.assertTrue(isValidTrue);
         }
 

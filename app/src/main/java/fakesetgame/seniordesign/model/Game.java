@@ -48,6 +48,10 @@ public class Game {
         return sets;
     }
 
+    public int getFoundSetCount(){
+        return trackSet.size();
+    }
+
     public int getScore() {
         return trackSet.size();
     }
