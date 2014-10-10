@@ -78,6 +78,12 @@ public class GameTest extends ApplicationTestCase<Application> {
         Assert.assertTrue(
                 String.format("After resuming, timer should have elapsed about 200ms, but old elapsed time is %dms and new elapsed time is %dms.", elapsed, newElapsed),
                 newElapsed >= elapsed + 200 && newElapsed < elapsed + 400);
+
+        game.restartTimer();
+        Assert.assertTrue(
+                "Restarting timer didn't work.",
+                game.getElapsedTime() < 200
+        );
     }
 }
 
