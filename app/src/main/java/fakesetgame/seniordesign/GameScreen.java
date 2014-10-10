@@ -14,8 +14,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -35,7 +37,7 @@ public class GameScreen extends Activity implements View.OnClickListener {
     private ShadedImageView[] tiles = new ShadedImageView[TILES];
     private ImageView[][] found = new ImageView[SETS][TILES_IN_A_SET];
     private Board board = null;
-    private Set<Tile> selectedTiles = new HashSet<Tile>();
+    private List<Tile> selectedTiles = new ArrayList<Tile>();
 
     // Won't need this after Game class is done
     private Set<Set<Tile>> foundSets = new HashSet<Set<Tile>>();
