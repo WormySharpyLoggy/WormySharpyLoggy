@@ -70,7 +70,7 @@ public class GameScreen extends Activity implements View.OnClickListener {
             }
         }
 
-        NewGame();
+        newGame();
     }
 
     private void setTileSelected(int tileIndex, boolean selected){
@@ -139,7 +139,7 @@ public class GameScreen extends Activity implements View.OnClickListener {
         }
     }
 
-    private void NewGame() {
+    private void newGame() {
         board = Board.generateRandom(SETS);
         clearTileSelection();
 
