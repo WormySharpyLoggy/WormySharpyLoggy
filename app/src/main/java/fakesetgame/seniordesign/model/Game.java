@@ -34,6 +34,9 @@ public class Game {
             tileSet.add(tile2);
             tileSet.add(tile3);
             if (trackSet.add(tileSet)) {
+                if(getFoundSetCount() == getBoardSetCount())
+                    pauseTimer();
+
                 return true;
             }
         }
