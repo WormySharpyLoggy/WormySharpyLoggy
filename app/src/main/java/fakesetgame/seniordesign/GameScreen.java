@@ -9,8 +9,10 @@ import fakesetgame.seniordesign.view.ShadedImageView;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -120,9 +122,11 @@ public class GameScreen extends Activity implements View.OnClickListener {
                 found[set][1].setImageDrawable(tile2.getDrawable(this));
                 found[set][2].setImageDrawable(tile3.getDrawable(this));
 
+                messageUser("Good job!");
                 return true;
             }
         }
+        messageUser("Try again");
         return false;
     }
 
@@ -137,6 +141,12 @@ public class GameScreen extends Activity implements View.OnClickListener {
 
             setTileSelected(idx, !getTileSelected(idx));
         }
+    }
+
+    private void messageUser(String message){
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
     }
 
     private void newGame() {
