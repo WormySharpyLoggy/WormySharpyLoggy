@@ -16,6 +16,7 @@ import android.os.Handler;
 public class SplashScreen extends Activity {
 
     private static int TIMEOUT = 3000;
+    private static boolean active = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +33,25 @@ public class SplashScreen extends Activity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreen.this, HomeScreen.class);
-                startActivity(i);
-
+                if(active) {
+                    Intent i = new Intent(SplashScreen.this, HomeScreen.class);
+                    startActivity(i);
+                }
                 // close this activity
                 finish();
             }
         }, TIMEOUT);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        active= false;
     }
 }
