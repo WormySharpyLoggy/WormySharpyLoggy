@@ -1,5 +1,6 @@
 package fakesetgame.seniordesign.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,10 +9,23 @@ import java.util.Set;
  */
 public class Game {
 
-    private Board board;
-    private int timeElapsed;
-    private Set<Set> trackSet = new HashSet<Set>();
+    private static final int SETS = 6;
 
+    private final Board board;
+    private final int sets;
+    private final Set<Set<Tile>> trackSet;
+
+    private Date startTime;
+    private long accumulatedTime;
+    private boolean active;
+
+
+    public Game(){
+        sets = SETS;
+        board = Board.generateRandom(sets);
+        trackSet = new HashSet<Set<Tile>>();
+        restartTimer();
+    }
 
     public boolean attemptSet(Tile tile1, Tile tile2, Tile tile3) {
         if (TileSet.isValidSet(tile1, tile2, tile3)) {
@@ -25,17 +39,44 @@ public class Game {
         }
         return false;
     }
+
+    public Tile getTile(int index){
+        return board.getTile(index);
+    }
+
+    public int getBoardSetCount(){
+        return sets;
+    }
+
     public int getScore() {
         return trackSet.size();
     }
 
-    public int getTimeElapsed() {
-        return timeElapsed;
+    public void restartTimer() {
+        startTime = new Date();
+        accumulatedTime = 0;
+        active = true;
     }
 
+    public void pauseTimer() {
+        accumulatedTime = new Date().getTime() - startTime.getTime();
+        active = false;
+    }
 
+    public void startTimer() {
+        startTime = new Date();
+        active = true;
+    }
 
-    //the game has a board, timer, score (sets found), keep track of sets found
-
-
+    /**
+     * Gets the time elapsed since the game started, in milliseconds
+     *
+     * @return Elapsed play time in milliseconds
+     */
+    public long getElapsedTime() {
+        long elapsed = accumulatedTime;
+        if (active)
+            elapsed += new Date().getTime() - startTime.getTime();
+        return elapsed;
+    }
 }
