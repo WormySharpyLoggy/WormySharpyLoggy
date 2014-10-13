@@ -66,13 +66,17 @@ public class Game {
     }
 
     public void pauseTimer() {
-        accumulatedTime = new Date().getTime() - startTime.getTime();
-        active = false;
+        if(active) {
+            accumulatedTime += new Date().getTime() - startTime.getTime();
+            active = false;
+        }
     }
 
     public void startTimer() {
-        startTime = new Date();
-        active = true;
+        if(!active) {
+            startTime = new Date();
+            active = true;
+        }
     }
 
     /**
