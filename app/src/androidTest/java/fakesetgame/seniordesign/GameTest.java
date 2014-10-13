@@ -37,19 +37,23 @@ public class GameTest extends ApplicationTestCase<Application> {
     }
 
     public void testValidAttemptingSet() throws Exception {
-        Game gameState2 = new Game();
-        int initialScore2;
+        Game gameState = new Game();
+        int initialScore;
         boolean isValidTrue;
 
         Tile validTile1 = new Tile(Shape.Oval, Shading.Filled, Color.Red, 1);
         Tile validTile2 = new Tile(Shape.Oval, Shading.Filled, Color.Red, 2);
         Tile validTile3 = new Tile(Shape.Oval, Shading.Filled, Color.Red, 3);
 
-        initialScore2 = gameState2.getFoundSetCount();
-        isValidTrue = gameState2.attemptSet(validTile1, validTile2, validTile3);
+        initialScore = gameState.getFoundSetCount();
+        isValidTrue = gameState.attemptSet(validTile1, validTile2, validTile3);
 
-        Assert.assertEquals(initialScore2 + 1, gameState2.getFoundSetCount());
+        Assert.assertEquals(initialScore + 1, gameState.getFoundSetCount());
         Assert.assertTrue(isValidTrue);
+
+        Assert.assertFalse("Sending the same elements again should not be a valid attempt.",
+                gameState.attemptSet(validTile1, validTile2, validTile3)
+        );
     }
 
     public void testGameTimer() throws Exception {
