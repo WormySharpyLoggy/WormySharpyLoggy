@@ -19,6 +19,7 @@ public class Game {
     private Date startTime;
     private long accumulatedTime;
     private boolean active;
+    private boolean gameOver;
 
 
     public Game(){
@@ -35,8 +36,10 @@ public class Game {
             tileSet.add(tile2);
             tileSet.add(tile3);
             if (trackSet.add(tileSet)) {
-                if(getFoundSetCount() == getBoardSetCount())
+                if(getFoundSetCount() == getBoardSetCount()) {
                     pauseTimer();
+                    gameOver = true;
+                }
 
                 return true;
             }
@@ -70,6 +73,7 @@ public class Game {
         startTime = new Date();
         accumulatedTime = 0;
         active = true;
+        gameOver = false;
     }
 
     public void pauseTimer() {
@@ -79,8 +83,8 @@ public class Game {
         }
     }
 
-    public void startTimer() {
-        if(!active) {
+    public void unpauseTimer() {
+        if(!active && !gameOver) {
             startTime = new Date();
             active = true;
         }

@@ -90,6 +90,20 @@ public class GameScreen extends Activity implements View.OnClickListener {
         }, 0, 200);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        game.pauseTimer();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        game.unpauseTimer();
+    }
+
     private void setTileSelected(int tileIndex, boolean selected){
         if(tileIndex < 0 || tileIndex > Board.TILES)
             throw new IllegalArgumentException("tileIndex out of bounds.");

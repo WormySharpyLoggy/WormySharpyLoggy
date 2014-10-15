@@ -68,7 +68,7 @@ public class GameTest extends ApplicationTestCase<Application> {
                 Math.abs(game.getElapsedTime() - 200) < 10
         );
 
-        game.startTimer();
+        game.unpauseTimer();
         Assert.assertTrue(
                 "Starting a timer that is already running should not cause a change in elapsed time, but it has.",
                 Math.abs(elapsed - game.getElapsedTime()) < 10
@@ -87,7 +87,7 @@ public class GameTest extends ApplicationTestCase<Application> {
                 "Pausing twice should not cause elapsed time to change, but it has.",
                 elapsed, game.getElapsedTime());
 
-        game.startTimer();
+        game.unpauseTimer();
 
         Thread.sleep(200);
         long newElapsed = game.getElapsedTime();
@@ -107,7 +107,7 @@ public class GameTest extends ApplicationTestCase<Application> {
                 "Timer should not have elapsed while paused (2nd pause), but it has.",
                 elapsed, game.getElapsedTime());
 
-        game.startTimer();
+        game.unpauseTimer();
 
         Thread.sleep(200);
         newElapsed = game.getElapsedTime();
