@@ -8,14 +8,18 @@ import fakesetgame.seniordesign.view.ShadedImageView;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -29,8 +33,18 @@ public class GameScreen extends Activity implements View.OnClickListener {
     private static final String TAG = "GameScreen";
     private ShadedImageView[] tiles = new ShadedImageView[Board.TILES];
     private ImageView[][] found = new ImageView[Game.SETS][Game.TILES_IN_A_SET];
+    private TextView timeView = null;
+    private final Handler handler = new Handler();
     private Game game = null;
     private List<Tile> selectedTiles = new ArrayList<Tile>();
+
+    private final Runnable updateClock = new Runnable(){
+        @Override
+        public void run() {
+            long elapsedSeconds = game.getElapsedTime() / 1000;
+            timeView.setText(String.format("%02d:%02d", elapsedSeconds / 60, elapsedSeconds % 60));
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +79,15 @@ public class GameScreen extends Activity implements View.OnClickListener {
         }
 
         newGame();
+
+        timeView = (TextView)findViewById(R.id.TimeView);
+        Timer clockUpdateTimer = new Timer();
+        clockUpdateTimer.schedule(new TimerTask(){
+            @Override
+            public void run() {
+                handler.post(updateClock);
+            }
+        }, 0, 200);
     }
 
     private void setTileSelected(int tileIndex, boolean selected){
