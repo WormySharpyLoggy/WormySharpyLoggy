@@ -155,7 +155,7 @@ public class GameScreen extends Activity implements View.OnClickListener {
     public void onClick(View view){
         Object o = view.getTag(R.id.TILE_INDEX);
         if(view instanceof ImageView && o instanceof Integer){
-            if(game.getUnfoundSetCount() == 0)
+            if(game.getGameOver())
                 return;
 
             int idx = (Integer)o;

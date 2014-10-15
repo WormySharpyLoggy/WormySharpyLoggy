@@ -22,7 +22,7 @@ public class Game {
     private boolean gameOver;
 
 
-    public Game(){
+    public Game() {
         sets = SETS;
         board = Board.generateRandom(sets);
         trackSet = new HashSet<Set<Tile>>();
@@ -36,7 +36,7 @@ public class Game {
             tileSet.add(tile2);
             tileSet.add(tile3);
             if (trackSet.add(tileSet)) {
-                if(getFoundSetCount() == getBoardSetCount()) {
+                if (getFoundSetCount() == getBoardSetCount()) {
                     pauseTimer();
                     gameOver = true;
                 }
@@ -47,23 +47,25 @@ public class Game {
         return false;
     }
 
-    public int size(){
+    public int size() {
         return board.size();
     }
 
-    public Tile getTile(int index){
+    public Tile getTile(int index) {
         return board.getTile(index);
     }
 
-    public int getBoardSetCount(){
+    public int getBoardSetCount() {
         return sets;
     }
 
-    public int getFoundSetCount(){
+    public int getFoundSetCount() {
         return trackSet.size();
     }
 
-    public int getUnfoundSetCount() {return getBoardSetCount() - getFoundSetCount();}
+    public boolean getGameOver() {
+        return gameOver;
+    }
 
     public int getScore() {
         return trackSet.size();
@@ -77,14 +79,14 @@ public class Game {
     }
 
     public void pauseTimer() {
-        if(active) {
+        if (active) {
             accumulatedTime += new Date().getTime() - startTime.getTime();
             active = false;
         }
     }
 
     public void unpauseTimer() {
-        if(!active && !gameOver) {
+        if (!active && !gameOver) {
             startTime = new Date();
             active = true;
         }
