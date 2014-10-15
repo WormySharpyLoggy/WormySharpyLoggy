@@ -15,7 +15,7 @@ import android.os.Handler;
  */
 public class SplashScreen extends Activity {
 
-    private static int TIMEOUT = 3000;
+    private static int TIMEOUT = 1500;
     private static boolean active = false;
 
     protected void onCreate(Bundle savedInstanceState) {
