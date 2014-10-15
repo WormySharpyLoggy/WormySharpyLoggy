@@ -42,7 +42,7 @@ public class GameScreen extends Activity implements View.OnClickListener {
         @Override
         public void run() {
             long elapsedSeconds = game.getElapsedTime() / 1000;
-            timeView.setText(String.format("%02d:%02d", elapsedSeconds / 60, elapsedSeconds % 60));
+            timeView.setText(String.format("%d:%02d", elapsedSeconds / 60, elapsedSeconds % 60));
         }
     };
 
