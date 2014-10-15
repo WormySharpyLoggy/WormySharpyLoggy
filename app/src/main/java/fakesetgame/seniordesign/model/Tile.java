@@ -78,6 +78,14 @@ public class Tile {
     }
 
     @Override
+    public String toString() {
+        return Integer.valueOf(getShapeCount()).toString()
+                + Integer.valueOf(getShape().getNumVal()).toString()
+                + Integer.valueOf(getColor().getNumVal()).toString()
+                + Integer.valueOf(getShading().getNumVal()).toString();
+    }
+
+    @Override
     public int hashCode() {
         return (Integer.valueOf(getShapeCount()).toString()
                 + Integer.valueOf(getShape().getNumVal()).toString()
