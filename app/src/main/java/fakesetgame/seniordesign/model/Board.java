@@ -16,15 +16,13 @@ import java.util.Set;
 public class Board {
     private Tile[] tiles;
 
-    private static final int ROWS = 3;
-    private static final int COLS = 3;
-    private static final int TILES = ROWS * COLS;
+    public static final int TILES = 9;
     private static final String TAG = "Board";
 
     public Board(Tile... tiles) {
 
         if(tiles.length!= TILES)
-            throw new IllegalArgumentException(String.format("Board is %dx%d, having %d tiles. Please provide the correct number of tiles.", ROWS, COLS, TILES));
+            throw new IllegalArgumentException(String.format("Board has %d tiles. Please provide the correct number of tiles.", TILES));
 
         Set<Tile> tileSet = new HashSet<Tile>();
         for(int i=0; i<tiles.length; i++) {
@@ -86,6 +84,10 @@ public class Board {
                 tileSet.add(newTile);
             }
         }
+    }
+
+    public int size(){
+        return tiles.length;
     }
 
     public int countSets(){

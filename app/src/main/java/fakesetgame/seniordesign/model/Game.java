@@ -9,7 +9,8 @@ import java.util.Set;
  */
 public class Game {
 
-    private static final int SETS = 6;
+    public static final int SETS = 6;
+    public static final int TILES_IN_A_SET = 3;
 
     private final Board board;
     private final int sets;
@@ -43,6 +44,10 @@ public class Game {
         return false;
     }
 
+    public int size(){
+        return board.size();
+    }
+
     public Tile getTile(int index){
         return board.getTile(index);
     }
@@ -54,6 +59,8 @@ public class Game {
     public int getFoundSetCount(){
         return trackSet.size();
     }
+
+    public int getUnfoundSetCount() {return getBoardSetCount() - getFoundSetCount();}
 
     public int getScore() {
         return trackSet.size();
