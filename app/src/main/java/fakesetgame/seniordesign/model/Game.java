@@ -27,6 +27,9 @@ public class Game {
     }
 
     private void onGameOver(){
+        pauseTimer();
+        gameOver = true;
+
         GameOverEvent e = new GameOverEvent(this);
         for(GameOverListener listener: gameOverListeners)
             listener.gameOver(e);
@@ -47,19 +50,13 @@ public class Game {
             tileSet.add(tile3);
             if (trackSet.add(tileSet)) {
                 if (getFoundSetCount() == getBoardSetCount()) {
-                    completed();
+                    onGameOver();
                 }
 
                 return true;
             }
         }
         return false;
-    }
-
-    public void completed(){
-        pauseTimer();
-        gameOver = true;
-        onGameOver();
     }
 
     public int getBoardSetCount() {
