@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,21 +18,32 @@ import fakesetgame.seniordesign.model.Game;
  * Created by Chris on 10/17/2014.
  */
 public class PlayerDataDbHelper extends SQLiteOpenHelper {
+
+    /**
+     * Defines the game outcomes table
+     */
+    public static abstract class GameOutcomeEntry implements BaseColumns {
+        public static final String TABLE_NAME = "outcome";
+        public static final String COLUMN_NAME_BOARD = "board";
+        public static final String COLUMN_NAME_ELAPSED = "elapsed";
+        public static final String COLUMN_NAME_INSERTED = "inserted";
+    }
+
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "PlayerData.db";
     public static final String TAG = "PlayerDataDbHelper";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + GameOutcomeContract.GameOutcomeEntry.TABLE_NAME + " (" +
-                    GameOutcomeContract.GameOutcomeEntry._ID + " INTEGER PRIMARY KEY," +
-                    GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_BOARD + " TEXT," +
-                    GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_ELAPSED + " INTEGER," +
-                    GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_INSERTED + " INTEGER" +
+            "CREATE TABLE " + GameOutcomeEntry.TABLE_NAME + " (" +
+                    GameOutcomeEntry._ID + " INTEGER PRIMARY KEY," +
+                    GameOutcomeEntry.COLUMN_NAME_BOARD + " TEXT," +
+                    GameOutcomeEntry.COLUMN_NAME_ELAPSED + " INTEGER," +
+                    GameOutcomeEntry.COLUMN_NAME_INSERTED + " INTEGER" +
                     " )";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + GameOutcomeContract.GameOutcomeEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + GameOutcomeEntry.TABLE_NAME;
 
     public PlayerDataDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -71,13 +83,13 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
 
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_BOARD, game.board.toString());
-        values.put(GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_ELAPSED, game.getElapsedTime());
-        values.put(GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_INSERTED, new Date().getTime());
+        values.put(GameOutcomeEntry.COLUMN_NAME_BOARD, game.board.toString());
+        values.put(GameOutcomeEntry.COLUMN_NAME_ELAPSED, game.getElapsedTime());
+        values.put(GameOutcomeEntry.COLUMN_NAME_INSERTED, new Date().getTime());
 
         // Insert the new row, returning the primary key value of the new row
         return db.insert(
-                GameOutcomeContract.GameOutcomeEntry.TABLE_NAME,
+                GameOutcomeEntry.TABLE_NAME,
                 null,
                 values);
     }
@@ -89,18 +101,18 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
-                GameOutcomeContract.GameOutcomeEntry._ID,
-                GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_BOARD,
-                GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_ELAPSED,
-                GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_INSERTED,
+                GameOutcomeEntry._ID,
+                GameOutcomeEntry.COLUMN_NAME_BOARD,
+                GameOutcomeEntry.COLUMN_NAME_ELAPSED,
+                GameOutcomeEntry.COLUMN_NAME_INSERTED,
         };
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =
-                GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_INSERTED + " DESC";
+                GameOutcomeEntry.COLUMN_NAME_INSERTED + " DESC";
 
         Cursor c = db.query(
-                GameOutcomeContract.GameOutcomeEntry.TABLE_NAME,    // The table to query
+                GameOutcomeEntry.TABLE_NAME,    // The table to query
                 projection, // The columns to return
                 null,       // The columns for the WHERE clause
                 null,       // The values for the WHERE clause
@@ -113,10 +125,10 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         while (c.moveToNext() && count-- > 0) {
             outcomes.add(
                     new GameOutcome(
-                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeContract.GameOutcomeEntry._ID)),
-                            c.getString(c.getColumnIndexOrThrow(GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_BOARD)),
-                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_ELAPSED)),
-                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_INSERTED))
+                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeEntry._ID)),
+                            c.getString(c.getColumnIndexOrThrow(GameOutcomeEntry.COLUMN_NAME_BOARD)),
+                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeEntry.COLUMN_NAME_ELAPSED)),
+                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeEntry.COLUMN_NAME_INSERTED))
                     )
             );
         }
