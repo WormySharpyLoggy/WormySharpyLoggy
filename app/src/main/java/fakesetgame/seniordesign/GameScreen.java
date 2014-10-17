@@ -3,6 +3,8 @@ package fakesetgame.seniordesign;
 import fakesetgame.seniordesign.data.PlayerDataDbHelper;
 import fakesetgame.seniordesign.model.Board;
 import fakesetgame.seniordesign.model.Game;
+import fakesetgame.seniordesign.model.GameOverEvent;
+import fakesetgame.seniordesign.model.GameOverListener;
 import fakesetgame.seniordesign.model.Tile;
 import fakesetgame.seniordesign.util.SystemUiHider;
 import fakesetgame.seniordesign.view.ShadedImageView;
@@ -29,7 +31,7 @@ import java.util.TimerTask;
  *
  * @see SystemUiHider
  */
-public class GameScreen extends Activity implements View.OnClickListener {
+public class GameScreen extends Activity implements View.OnClickListener, GameOverListener {
 
     private static final String TAG = "GameScreen";
     private ShadedImageView[] tiles = new ShadedImageView[Board.TILES];
@@ -128,10 +130,6 @@ public class GameScreen extends Activity implements View.OnClickListener {
                     found[set][0].setImageDrawable(tiles[0].getDrawable(this));
                     found[set][1].setImageDrawable(tiles[1].getDrawable(this));
                     found[set][2].setImageDrawable(tiles[2].getDrawable(this));
-
-                    if(game.isGameOver()){
-                        PlayerDataDbHelper.saveOutcome(this, game);
-                    }
                 }
                 else{
                     messageUser("Try again");
@@ -142,6 +140,11 @@ public class GameScreen extends Activity implements View.OnClickListener {
         else{
             selectedTiles.remove(game.board.getTile(tileIndex));
         }
+    }
+
+    @Override
+    public void gameOver(GameOverEvent e) {
+        PlayerDataDbHelper.saveOutcome(this, game);
     }
 
     private boolean getTileSelected(int tileIndex){
@@ -178,6 +181,8 @@ public class GameScreen extends Activity implements View.OnClickListener {
 
     private void newGame() {
         game = new Game();
+        game.addGameOverListener(this);
+
         clearTileSelection();
 
         for (int i = 0; i < tiles.length; i++) {

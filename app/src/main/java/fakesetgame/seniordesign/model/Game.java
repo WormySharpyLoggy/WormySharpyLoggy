@@ -12,6 +12,7 @@ public class Game {
     public static final int SETS = 6;
     public static final int TILES_IN_A_SET = 3;
 
+    Set<GameOverListener> gameOverListeners = new HashSet<GameOverListener>();
     public final Board board;
     private final int sets;
     private final Set<Set<Tile>> trackSet;
@@ -21,6 +22,15 @@ public class Game {
     private boolean active;
     private boolean gameOver;
 
+    public void addGameOverListener(GameOverListener listener){
+        gameOverListeners.add(listener);
+    }
+
+    private void onGameOver(){
+        GameOverEvent e = new GameOverEvent(this);
+        for(GameOverListener listener: gameOverListeners)
+            listener.gameOver(e);
+    }
 
     public Game() {
         sets = SETS;
@@ -49,6 +59,7 @@ public class Game {
     public void completed(){
         pauseTimer();
         gameOver = true;
+        onGameOver();
     }
 
     public int getBoardSetCount() {
