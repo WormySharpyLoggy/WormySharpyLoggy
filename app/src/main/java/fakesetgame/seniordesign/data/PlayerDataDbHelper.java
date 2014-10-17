@@ -27,6 +27,13 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         public static final String COLUMN_NAME_BOARD = "board";
         public static final String COLUMN_NAME_ELAPSED = "elapsed";
         public static final String COLUMN_NAME_INSERTED = "inserted";
+
+        public static final String[] ALL_COLUMNS = {
+                GameOutcomeEntry._ID,
+                GameOutcomeEntry.COLUMN_NAME_BOARD,
+                GameOutcomeEntry.COLUMN_NAME_ELAPSED,
+                GameOutcomeEntry.COLUMN_NAME_INSERTED,
+        };
     }
 
     // If you change the database schema, you must increment the database version.
@@ -100,12 +107,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
-        String[] projection = {
-                GameOutcomeEntry._ID,
-                GameOutcomeEntry.COLUMN_NAME_BOARD,
-                GameOutcomeEntry.COLUMN_NAME_ELAPSED,
-                GameOutcomeEntry.COLUMN_NAME_INSERTED,
-        };
+        String[] projection = GameOutcomeEntry.ALL_COLUMNS;
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =
@@ -124,15 +126,36 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
         while (c.moveToNext() && count-- > 0) {
             outcomes.add(
-                    new GameOutcome(
-                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeEntry._ID)),
-                            c.getString(c.getColumnIndexOrThrow(GameOutcomeEntry.COLUMN_NAME_BOARD)),
-                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeEntry.COLUMN_NAME_ELAPSED)),
-                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeEntry.COLUMN_NAME_INSERTED))
-                    )
+                    GameOutcome.fromCursor(c)
             );
         }
 
         return outcomes;
+    }
+
+    public static GameOutcome getOutcomeByID(Context context, long id) {
+        InstantiateHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = GameOutcomeEntry.ALL_COLUMNS;
+
+        Cursor c = db.query(
+                GameOutcomeEntry.TABLE_NAME,        // The table to query
+                projection,                         // The columns to return
+                GameOutcomeEntry._ID + "=?",        // The columns for the WHERE clause
+                new String[]{String.valueOf(id)},   // The values for the WHERE clause
+                null,                               // don't group the rows
+                null,                               // don't filter by row groups
+                null                                // The sort order
+        );
+
+        List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
+        if (c.moveToFirst()) {
+            return GameOutcome.fromCursor(c);
+        }
+
+        return null;
     }
 }
