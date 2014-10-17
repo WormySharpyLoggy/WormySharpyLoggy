@@ -37,6 +37,18 @@ public class Tile {
         this.shapeCount = shapeCount;
     }
 
+    public static Tile fromString(String tile){
+        if(!tile.matches("[123]{4}"))
+            throw new IllegalArgumentException(String.format("Tile string must be like [123]{4}. Provided string (%s) does not match.", tile));
+
+        return new Tile(
+                Shape.valueOf(Integer.valueOf(String.valueOf(tile.charAt(1)))),
+                Shading.valueOf(Integer.valueOf(String.valueOf(tile.charAt(3)))),
+                Color.valueOf(Integer.valueOf(String.valueOf(tile.charAt(2)))),
+                Integer.valueOf(String.valueOf(tile.charAt(0)))
+        );
+    }
+
     public static Tile generateRandom(){
         Shape shape = Shape.valueOf(random.nextInt(3) + 1);
         Shading shading = Shading.valueOf(random.nextInt(3) + 1);

@@ -76,4 +76,21 @@ public class BoardTest extends ApplicationTestCase<Application> {
         Assert.assertEquals(t32, board.getTile(7));
         Assert.assertEquals(t33, board.getTile(8));
     }
+
+    public void testBoardSerialization() throws Exception{
+        for(int i=0; i<10; i++) {
+            Board board = Board.generateRandom(3);
+            String boardString = board.toString();
+
+            Assert.assertTrue(
+                    String.format("Board string doesn't look like [123]{4}(,[123]{4}){8}.\n%s", boardString),
+                    boardString.matches("[123]{4}(,[123]{4}){8}"));
+
+            Board deserializedBoard = Board.fromString(boardString);
+
+            Assert.assertEquals(
+                    String.format("Board either incorrectly serialized or deserialized.\nOriginal:\n\t%s\nAfter Serialize-Deserialize:\n\t%s", board, deserializedBoard),
+                    board, deserializedBoard);
+        }
+    }
 }

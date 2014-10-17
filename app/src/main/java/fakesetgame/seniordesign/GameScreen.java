@@ -1,5 +1,6 @@
 package fakesetgame.seniordesign;
 
+import fakesetgame.seniordesign.data.PlayerDataDbHelper;
 import fakesetgame.seniordesign.model.Board;
 import fakesetgame.seniordesign.model.Game;
 import fakesetgame.seniordesign.model.Tile;
@@ -115,7 +116,7 @@ public class GameScreen extends Activity implements View.OnClickListener {
         Log.d(TAG, String.format("Setting tile %d shading = %s", tileIndex, Boolean.valueOf(selected).toString()));
 
         if(selected){
-            selectedTiles.add(game.getTile(tileIndex));
+            selectedTiles.add(game.board.getTile(tileIndex));
 
             // this should call Game class, but it isn't finished yet
             if(selectedTiles.size()==3){
@@ -127,6 +128,10 @@ public class GameScreen extends Activity implements View.OnClickListener {
                     found[set][0].setImageDrawable(tiles[0].getDrawable(this));
                     found[set][1].setImageDrawable(tiles[1].getDrawable(this));
                     found[set][2].setImageDrawable(tiles[2].getDrawable(this));
+
+                    if(game.isGameOver()){
+                        PlayerDataDbHelper.saveOutcome(this, game);
+                    }
                 }
                 else{
                     messageUser("Try again");
@@ -135,7 +140,7 @@ public class GameScreen extends Activity implements View.OnClickListener {
             }
         }
         else{
-            selectedTiles.remove(game.getTile(tileIndex));
+            selectedTiles.remove(game.board.getTile(tileIndex));
         }
     }
 
@@ -155,7 +160,7 @@ public class GameScreen extends Activity implements View.OnClickListener {
     public void onClick(View view){
         Object o = view.getTag(R.id.TILE_INDEX);
         if(view instanceof ImageView && o instanceof Integer){
-            if(game.getGameOver())
+            if(game.isGameOver())
                 return;
 
             int idx = (Integer)o;
@@ -176,7 +181,7 @@ public class GameScreen extends Activity implements View.OnClickListener {
         clearTileSelection();
 
         for (int i = 0; i < tiles.length; i++) {
-            tiles[i].setImageDrawable(game.getTile(i).getDrawable(this));
+            tiles[i].setImageDrawable(game.board.getTile(i).getDrawable(this));
             Log.d(TAG, String.format("Set tile image for tiles[%d]", i));
         }
 

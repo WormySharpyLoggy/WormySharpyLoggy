@@ -12,7 +12,7 @@ public class Game {
     public static final int SETS = 6;
     public static final int TILES_IN_A_SET = 3;
 
-    private final Board board;
+    public final Board board;
     private final int sets;
     private final Set<Set<Tile>> trackSet;
 
@@ -37,8 +37,7 @@ public class Game {
             tileSet.add(tile3);
             if (trackSet.add(tileSet)) {
                 if (getFoundSetCount() == getBoardSetCount()) {
-                    pauseTimer();
-                    gameOver = true;
+                    completed();
                 }
 
                 return true;
@@ -47,12 +46,9 @@ public class Game {
         return false;
     }
 
-    public int size() {
-        return board.size();
-    }
-
-    public Tile getTile(int index) {
-        return board.getTile(index);
+    public void completed(){
+        pauseTimer();
+        gameOver = true;
     }
 
     public int getBoardSetCount() {
@@ -63,7 +59,7 @@ public class Game {
         return trackSet.size();
     }
 
-    public boolean getGameOver() {
+    public boolean isGameOver() {
         return gameOver;
     }
 

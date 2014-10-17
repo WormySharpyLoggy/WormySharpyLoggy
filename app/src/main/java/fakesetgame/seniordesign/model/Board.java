@@ -31,6 +31,18 @@ public class Board {
         this.tiles = tiles;
     }
 
+    public static Board fromString(String board){
+        String[] tileStrings = board.split(",");
+        if(tileStrings.length != 9)
+            throw new IllegalArgumentException(String.format("Board should contain exactly 9 tiles. Found %d.", tileStrings.length));
+
+        Tile[] tiles = new Tile[tileStrings.length];
+        for(int i=0; i<tiles.length; i++)
+            tiles[i] = Tile.fromString(tileStrings[i]);
+
+        return new Board(tiles);
+    }
+
     public static Board generateRandom(int targetSetCount) {
         if (targetSetCount < 0)
             throw new IllegalArgumentException("Cannot produce a board with negative set count.");
@@ -114,5 +126,25 @@ public class Board {
         }
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null)
+            return false;
+        if(!(o instanceof Board))
+            return false;
+
+        Board other = (Board)o;
+
+        Set<Tile> theseTiles = new HashSet<Tile>(Arrays.asList(tiles));
+        Set<Tile> otherTiles = new HashSet<Tile>(Arrays.asList(other.tiles));
+
+        return theseTiles.equals(otherTiles);
     }
 }
