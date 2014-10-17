@@ -36,12 +36,14 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
     public PlayerDataDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate():\n" + SQL_CREATE_ENTRIES);
         db.execSQL(SQL_CREATE_ENTRIES);
     }
+
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        switch(newVersion){
+        switch (newVersion) {
             default:
                 Log.d(TAG, "onUpgrade():\n" + SQL_DELETE_ENTRIES);
                 db.execSQL(SQL_DELETE_ENTRIES);
@@ -49,6 +51,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
                 break;
         }
     }
+
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onDowngrade():\n" + SQL_DELETE_ENTRIES);
         db.execSQL(SQL_DELETE_ENTRIES);
@@ -56,12 +59,13 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
     }
 
     public static PlayerDataDbHelper helper = null;
-    public static void InstantiateHelper(Context context){
-        if(helper == null)
+
+    public static void InstantiateHelper(Context context) {
+        if (helper == null)
             helper = new PlayerDataDbHelper(context);
     }
 
-    public static long saveOutcome(Context context, Game game){
+    public static long saveOutcome(Context context, Game game) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
 
@@ -78,14 +82,14 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
                 values);
     }
 
-    public static List<GameOutcome> getLastOutcomes(Context context, int count){
+    public static List<GameOutcome> getLastOutcomes(Context context, int count) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
-                "_ID",
+                GameOutcomeContract.GameOutcomeEntry._ID,
                 GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_BOARD,
                 GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_ELAPSED,
                 GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_INSERTED,
@@ -106,10 +110,10 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         );
 
         List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
-        while(c.moveToNext() && count-- > 0){
+        while (c.moveToNext() && count-- > 0) {
             outcomes.add(
                     new GameOutcome(
-                            c.getLong(c.getColumnIndexOrThrow("_ID")),
+                            c.getLong(c.getColumnIndexOrThrow(GameOutcomeContract.GameOutcomeEntry._ID)),
                             c.getString(c.getColumnIndexOrThrow(GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_BOARD)),
                             c.getLong(c.getColumnIndexOrThrow(GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_ELAPSED)),
                             c.getLong(c.getColumnIndexOrThrow(GameOutcomeContract.GameOutcomeEntry.COLUMN_NAME_INSERTED))
