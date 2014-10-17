@@ -133,7 +133,6 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
                 null                                // The sort order
         );
 
-        List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
         if (c.moveToFirst()) {
             return GameOutcome.fromCursor(c);
         }
