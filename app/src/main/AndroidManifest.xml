@@ -16,6 +16,7 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -24,14 +25,27 @@
         <activity
             android:name=".HomeScreen"
             android:label="@string/title_activity_home_screen"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
         </activity>
 
         <!-- General Gameplay Screen -->
         <activity
             android:name=".GameScreen"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_game_screen"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
+
+        <!-- Game Over/Summary Screen -->
+        <activity
+            android:name=".SummaryScreen"
+            android:label="@string/title_activity_summary_screen"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
+
+        <!-- Option Modification Screen -->
+        <activity
+            android:name=".OptionsScreen"
+            android:label="@string/title_activity_options_screen"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
         </activity>
     </application>

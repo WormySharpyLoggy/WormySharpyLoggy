@@ -11,6 +11,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_game_screen">GameScreen</string>
-    <item type="id" name="TILE_INDEX"/>
+    <string name="elapsedTime">Your Last Time:</string>
+    <string name="defaultTime">00:00</string>
+    <item name="TILE_INDEX" type="id"/>
+
+    <string name="title_activity_options_screen">OptionsScreen</string>
+    <string name="title_activity_summary_screen">SummaryScreen</string>
 
 </resources>

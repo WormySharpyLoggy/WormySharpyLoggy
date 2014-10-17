@@ -37,4 +37,9 @@ public class HomeScreen extends Activity {
         Intent i = new Intent(HomeScreen.this, GameScreen.class);
         startActivity(i);
     }
+
+    public void SetOptions(View v) {
+        Intent i = new Intent(HomeScreen.this, OptionsScreen.class);
+        startActivity(i);
+    }
 }

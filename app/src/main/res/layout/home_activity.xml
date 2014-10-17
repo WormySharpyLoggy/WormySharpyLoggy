@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".HomeScreen">
+    tools:context=".HomeScreen"
+    android:clickable="true">
 
     <Button
         android:id="@+id/newSingle"
@@ -16,7 +17,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:onClick="StartSP"
-        android:text="@string/newSingle" />
+        android:text="@string/newSingle"
+        android:enabled="true" />
 
     <Button
         android:id="@+id/newMulti"
@@ -33,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/newMulti"
         android:layout_centerHorizontal="true"
-        android:enabled="false"
-        android:text="@string/options" />
+        android:enabled="true"
+        android:text="@string/options"
+        android:onClick="SetOptions" />
 </RelativeLayout>

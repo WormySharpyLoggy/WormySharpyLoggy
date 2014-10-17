@@ -10,6 +10,7 @@ import fakesetgame.seniordesign.util.SystemUiHider;
 import fakesetgame.seniordesign.view.ShadedImageView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -144,7 +145,10 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 
     @Override
     public void gameOver(GameOverEvent e) {
-        PlayerDataDbHelper.saveOutcome(this, game);
+        long lastGame = PlayerDataDbHelper.saveOutcome(this, game);
+        Intent i = new Intent(GameScreen.this, SummaryScreen.class);
+        i.putExtra("lastGame", lastGame);
+        startActivity(i);
     }
 
     private boolean getTileSelected(int tileIndex){
