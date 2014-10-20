@@ -35,6 +35,7 @@ public class SplashScreen extends Activity {
                 // Start your app main activity
                 if(active) {
                     Intent i = new Intent(SplashScreen.this, HomeScreen.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
                 // close this activity

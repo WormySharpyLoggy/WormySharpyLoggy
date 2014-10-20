@@ -16,7 +16,6 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,14 +31,24 @@
         <activity
             android:name=".GameScreen"
             android:label="@string/title_activity_game_screen"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
+            android:parentActivityName=".HomeScreen">
+            <!-- Support for API levels under 16 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeScreen" />
         </activity>
 
         <!-- Game Over/Summary Screen -->
         <activity
             android:name=".SummaryScreen"
             android:label="@string/title_activity_summary_screen"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
+            android:parentActivityName=".HomeScreen">
+            <!-- Support for API levels under 16 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeScreen" />
         </activity>
 
         <!-- Option Modification Screen -->

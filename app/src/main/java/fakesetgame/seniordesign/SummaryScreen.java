@@ -6,6 +6,7 @@ import fakesetgame.seniordesign.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -60,5 +61,11 @@ public class SummaryScreen extends Activity {
 
         TextView elapsed = (TextView)findViewById(R.id.elapsedTime);
         elapsed.setText(String.format("%d:%02d", lastGameTime / 60, lastGameTime % 60));
+    }
+
+    public void StartNewGame(View v) {
+        Intent i = new Intent(SummaryScreen.this, GameScreen.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 }
