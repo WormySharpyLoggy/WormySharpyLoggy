@@ -1,9 +1,12 @@
 package fakesetgame.seniordesign.data;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import fakesetgame.seniordesign.model.Board;
 
@@ -15,27 +18,33 @@ public class GameOutcome {
     public final Board board;
     public final long elapsed;
     public final Date inserted;
+    public final List<FoundSetRecord> foundSetRecordList;
 
-    public GameOutcome(long _id, String board, long elapsed, long inserted){
+    private GameOutcome(long _id, String board, long elapsed, long inserted, List<FoundSetRecord> foundSets){
         this._id = _id;
         this.board = Board.fromString(board);
         this.elapsed = elapsed;
         this.inserted = new Date(inserted);
+        this.foundSetRecordList = new ArrayList<FoundSetRecord>(foundSets);
     }
 
-    public static GameOutcome fromCursor(Cursor c){
+    public static GameOutcome fromCursor(Context context, Cursor c){
+
+        long outcomeId = c.getLong(c.getColumnIndexOrThrow(TableDef._ID));
+
         return new GameOutcome(
-                c.getLong(c.getColumnIndexOrThrow(Columns._ID)),
-                c.getString(c.getColumnIndexOrThrow(Columns.COLUMN_NAME_BOARD)),
-                c.getLong(c.getColumnIndexOrThrow(Columns.COLUMN_NAME_ELAPSED)),
-                c.getLong(c.getColumnIndexOrThrow(Columns.COLUMN_NAME_INSERTED))
+                outcomeId,
+                c.getString(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_BOARD)),
+                c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_ELAPSED)),
+                c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_INSERTED)),
+                PlayerDataDbHelper.getFoundSetsByGameOutcome(context, outcomeId)
         );
     }
 
     /**
      * Defines the game outcomes table
      */
-    public static abstract class Columns implements BaseColumns {
+    public static abstract class TableDef implements BaseColumns {
 
         public static final String TABLE_NAME = "outcome";
 
@@ -44,10 +53,10 @@ public class GameOutcome {
         public static final String COLUMN_NAME_INSERTED = "inserted";
 
         public static final String[] ALL_COLUMNS = {
-                Columns._ID,
-                Columns.COLUMN_NAME_BOARD,
-                Columns.COLUMN_NAME_ELAPSED,
-                Columns.COLUMN_NAME_INSERTED,
+                TableDef._ID,
+                TableDef.COLUMN_NAME_BOARD,
+                TableDef.COLUMN_NAME_ELAPSED,
+                TableDef.COLUMN_NAME_INSERTED,
         };
     }
 }

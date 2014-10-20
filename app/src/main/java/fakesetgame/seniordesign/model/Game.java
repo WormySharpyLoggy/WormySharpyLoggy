@@ -1,7 +1,11 @@
 package fakesetgame.seniordesign.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -9,46 +13,51 @@ import java.util.Set;
  */
 public class Game {
 
-    public static final int SETS = 6;
+    public static final int SETS = 1;
     public static final int TILES_IN_A_SET = 3;
 
     Set<GameOverListener> gameOverListeners = new HashSet<GameOverListener>();
     public final Board board;
     private final int sets;
-    private final Set<Set<Tile>> trackSet;
+    private final List<FoundSet> foundSetList;
 
     private Date startTime;
     private long accumulatedTime;
     private boolean active;
     private boolean gameOver;
 
-    public void addGameOverListener(GameOverListener listener){
+    public void addGameOverListener(GameOverListener listener) {
         gameOverListeners.add(listener);
     }
 
-    private void onGameOver(){
+    private void onGameOver() {
         pauseTimer();
         gameOver = true;
 
         GameOverEvent e = new GameOverEvent(this);
-        for(GameOverListener listener: gameOverListeners)
+        for (GameOverListener listener : gameOverListeners)
             listener.gameOver(e);
     }
 
     public Game() {
         sets = SETS;
         board = Board.generateRandom(sets);
-        trackSet = new HashSet<Set<Tile>>();
+        foundSetList = new ArrayList<FoundSet>();
         restartTimer();
     }
 
     public boolean attemptSet(Tile tile1, Tile tile2, Tile tile3) {
         if (TileSet.isValidSet(tile1, tile2, tile3)) {
-            Set<Tile> tileSet = new HashSet<Tile>();
-            tileSet.add(tile1);
-            tileSet.add(tile2);
-            tileSet.add(tile3);
-            if (trackSet.add(tileSet)) {
+            long elapsed = getElapsedTime();
+
+            FoundSet tileSet = new FoundSet(
+                    new HashSet<Tile>(Arrays.asList(tile1, tile2, tile3)),
+                    elapsed,
+                    elapsed - (foundSetList.size() == 0 ? 0 : foundSetList.get(foundSetList.size() - 1).getTotalElapsed())
+            );
+
+            if (!foundSetList.contains(tileSet)) {
+                foundSetList.add(tileSet);
                 if (getFoundSetCount() == getBoardSetCount()) {
                     onGameOver();
                 }
@@ -63,8 +72,13 @@ public class Game {
         return sets;
     }
 
+
+    public List<FoundSet> getFoundSetList() {
+        return foundSetList;
+    }
+
     public int getFoundSetCount() {
-        return trackSet.size();
+        return foundSetList.size();
     }
 
     public boolean isGameOver() {
@@ -72,7 +86,7 @@ public class Game {
     }
 
     public int getScore() {
-        return trackSet.size();
+        return foundSetList.size();
     }
 
     public void restartTimer() {
@@ -106,5 +120,41 @@ public class Game {
         if (active)
             elapsed += new Date().getTime() - startTime.getTime();
         return elapsed;
+    }
+
+    public class FoundSet {
+        private final Set<Tile> tileSet;
+        private final long totalElapsed;
+        private final long deltaElapsed;
+
+        public Set<Tile> getTileSet() {
+            return new HashSet<Tile>(tileSet);
+        }
+
+        public long getTotalElapsed() {
+            return totalElapsed;
+        }
+
+        public long getDeltaElapsed() {
+            return deltaElapsed;
+        }
+
+        public FoundSet(Collection<Tile> tileSet, long totalElapsed, long deltaElapsed) {
+            this.tileSet = new HashSet<Tile>(tileSet);
+            this.totalElapsed = totalElapsed;
+            this.deltaElapsed = deltaElapsed;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null)
+                return false;
+            return o instanceof FoundSet && tileSet.equals(((FoundSet) o).tileSet);
+        }
+
+        @Override
+        public int hashCode() {
+            return tileSet.hashCode();
+        }
     }
 }
