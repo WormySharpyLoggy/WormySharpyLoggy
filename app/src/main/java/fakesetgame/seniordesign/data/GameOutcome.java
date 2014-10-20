@@ -18,7 +18,7 @@ public class GameOutcome {
     public final Board board;
     public final long elapsed;
     public final Date inserted;
-    public final List<FoundSetRecord> foundSetRecordList;
+    private final List<FoundSetRecord> foundSetRecordList;
 
     private GameOutcome(long _id, String board, long elapsed, long inserted, List<FoundSetRecord> foundSets){
         this._id = _id;
@@ -26,6 +26,10 @@ public class GameOutcome {
         this.elapsed = elapsed;
         this.inserted = new Date(inserted);
         this.foundSetRecordList = new ArrayList<FoundSetRecord>(foundSets);
+    }
+
+    public List<FoundSetRecord> getFoundSetList(){
+        return new ArrayList<FoundSetRecord>(foundSetRecordList);
     }
 
     public static GameOutcome fromCursor(Context context, Cursor c){
