@@ -109,44 +109,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     }
 
     protected void onNewIntent(Intent n) {
-        setContentView(R.layout.game_activity);
-
-        // Init board imageviews
-        for (int i = 0; i < Board.TILES; i++) {
-            tiles[i] = (ShadedImageView) findViewById(getResources().getIdentifier(
-                    "Tile" + Integer.valueOf(i + 1).toString(),
-                    "id",
-                    getPackageName()));
-            tiles[i].setTag(R.id.TILE_INDEX, i);
-            tiles[i].setOnClickListener(this);
-
-            if (tiles[i] == null)
-                Log.e(TAG, String.format("Failed to set tiles[%d]. Value is null.", i));
-        }
-
-        // Init found set imageviews
-        for (int set = 0; set < found.length; set++) {
-            for (int tile = 0; tile < found[set].length; tile++) {
-                found[set][tile] = (ImageView) findViewById(getResources().getIdentifier(
-                        "FoundSet" + Integer.valueOf(set + 1).toString() + "_" + Integer.valueOf(tile + 1).toString(),
-                        "id",
-                        getPackageName()));
-
-                if (found[set][tile] == null)
-                    Log.e(TAG, String.format("Failed to set found[%d][%d]. Value is null.", set, tile));
-            }
-        }
-
         newGame();
-
-        timeView = (TextView)findViewById(R.id.TimeView);
-        Timer clockUpdateTimer = new Timer();
-        clockUpdateTimer.schedule(new TimerTask(){
-            @Override
-            public void run() {
-                handler.post(updateClock);
-            }
-        }, 0, 200);
     }
 
     private void setTileSelected(int tileIndex, boolean selected){
