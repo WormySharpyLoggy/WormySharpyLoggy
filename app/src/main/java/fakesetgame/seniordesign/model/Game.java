@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class Game {
 
-    public static final int SETS = 1;
+    public static final int SETS = 6;
     public static final int TILES_IN_A_SET = 3;
 
     Set<GameOverListener> gameOverListeners = new HashSet<GameOverListener>();
