@@ -1,7 +1,6 @@
 package fakesetgame.seniordesign.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,14 +17,14 @@ public class HintProvider {
 
     private Set<Set<Tile>> hintedSets = new HashSet<Set<Tile>>();
     private List<Tile> hintTiles = null;
-    private List<Tile> providedHints = null;
+    private Set<Tile> providedHints = null;
 
     public boolean wasHintProvided(Set<Tile> tileSet) {
         return hintedSets.contains(tileSet);
     }
 
-    public Collection<Tile> getHint() {
-        if (game.getFoundSetCount() == Game.SETS)
+    public Set<Tile> getHint() {
+        if (game.isGameOver())
             return null;
 
         // If the hint we're working on has already been found,
@@ -43,7 +42,7 @@ public class HintProvider {
                 if (!game.isFound(set)) {
                     hintedSets.add(set);
                     hintTiles = new ArrayList<Tile>(set);
-                    providedHints = new ArrayList<Tile>();
+                    providedHints = new HashSet<Tile>();
                     break;
                 }
             }

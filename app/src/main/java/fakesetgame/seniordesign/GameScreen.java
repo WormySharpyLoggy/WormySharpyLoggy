@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Timer;
@@ -182,14 +181,16 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     }
 
     public void onClickHint(View view) {
-        Set<Tile> hintTiles = new HashSet<Tile>(game.hintProvider.getHint());
+        Set<Tile> hintTiles = game.hintProvider.getHint();
 
         clearTileSelection();
 
-        for (ShadedImageView tile : tiles) {
-            int tileIndex = (Integer) tile.getTag(R.id.TILE_INDEX);
-            if (hintTiles.contains(game.board.getTile(tileIndex)))
-                setTileSelected(tileIndex, true);
+        if(hintTiles != null) {
+            for (ShadedImageView tile : tiles) {
+                int tileIndex = (Integer) tile.getTag(R.id.TILE_INDEX);
+                if (hintTiles.contains(game.board.getTile(tileIndex)))
+                    setTileSelected(tileIndex, true);
+            }
         }
     }
 
