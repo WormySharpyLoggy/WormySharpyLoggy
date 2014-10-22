@@ -20,7 +20,7 @@ public class HintProvider {
     private List<Tile> hintTiles = null;
     private List<Tile> providedHints = null;
 
-    public boolean wasHintProvided(Set<Tile> tileSet){
+    public boolean wasHintProvided(Set<Tile> tileSet) {
         return hintedSets.contains(tileSet);
     }
 
@@ -48,11 +48,11 @@ public class HintProvider {
                 }
             }
 
-            if(hintTiles == null)
+            if (hintTiles == null)
                 throw new RuntimeException("We haven't found all the sets, but still couldn't find a set to make a hint for. This shouldn't happen.");
         }
 
-        if(providedHints.size() < hintTiles.size())
+        if (providedHints.size() < hintTiles.size() - 1)
             providedHints.add(hintTiles.get(providedHints.size()));
 
         return providedHints;
