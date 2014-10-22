@@ -14,6 +14,7 @@
     <string name="elapsedTime">Your Last Time:</string>
     <string name="defaultTime">00:00</string>
     <string name="newGame">Start New Game</string>
+    <string name="hint">Hint</string>
     <item name="TILE_INDEX" type="id"/>
 
     <string name="title_activity_options_screen">OptionsScreen</string>

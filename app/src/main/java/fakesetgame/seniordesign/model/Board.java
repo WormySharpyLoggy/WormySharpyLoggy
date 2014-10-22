@@ -11,6 +11,7 @@ import java.util.Set;
  */
 public class Board {
     private Tile[] tiles;
+    private Set<Set<Tile>> sets;
 
     public static final int TILES = 9;
     private static final String TAG = "Board";
@@ -29,6 +30,7 @@ public class Board {
         }
 
         this.tiles = tiles;
+        sets = TileSet.getSets(tiles);
     }
 
     public static Board fromString(String board){
@@ -97,8 +99,11 @@ public class Board {
         return tiles.length;
     }
 
-    public int countSets() {
+    public Set<Set<Tile>> getSets(){
+        return new HashSet<Set<Tile>>(sets);
+    }
 
+    public int countSets() {
         return TileSet.countSets(tiles);
     }
 

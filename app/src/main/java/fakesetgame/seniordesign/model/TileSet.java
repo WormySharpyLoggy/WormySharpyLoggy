@@ -1,8 +1,7 @@
 package fakesetgame.seniordesign.model;
 
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -56,6 +55,18 @@ public class TileSet {
                 && (shapesAllTheSame || shapesAllDifferent)
                 && (shadingsAllTheSame || shadingsAllDifferent)
                 && (countsAllTheSame || countsAllDifferent);
+    }
+
+    public static Set<Set<Tile>> getSets(Tile... tiles){
+        Set<Set<Tile>> sets = new HashSet<Set<Tile>>();
+
+        for(int i=0; i<tiles.length; i++)
+            for(int j=i+1; j<tiles.length; j++)
+                for(int k=j+1; k<tiles.length; k++)
+                    if(isValidSet(tiles[i], tiles[j], tiles[k]))
+                        sets.add(new HashSet<Tile>(Arrays.asList(tiles[i], tiles[j], tiles[k])));
+
+        return sets;
     }
 
     public static int countSets(Tile... tiles){

@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -42,7 +44,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     private Game game = null;
     private List<Tile> selectedTiles = new ArrayList<Tile>();
 
-    private final Runnable updateClock = new Runnable(){
+    private final Runnable updateClock = new Runnable() {
         @Override
         public void run() {
             long elapsedSeconds = game.getElapsedTime() / 1000;
@@ -84,9 +86,9 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 
         newGame();
 
-        timeView = (TextView)findViewById(R.id.TimeView);
+        timeView = (TextView) findViewById(R.id.TimeView);
         Timer clockUpdateTimer = new Timer();
-        clockUpdateTimer.schedule(new TimerTask(){
+        clockUpdateTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 handler.post(updateClock);
@@ -112,37 +114,35 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         newGame();
     }
 
-    private void setTileSelected(int tileIndex, boolean selected){
-        if(tileIndex < 0 || tileIndex > Board.TILES)
+    private void setTileSelected(int tileIndex, boolean selected) {
+        if (tileIndex < 0 || tileIndex > Board.TILES)
             throw new IllegalArgumentException("tileIndex out of bounds.");
 
-        if(getTileSelected(tileIndex) == selected)
+        if (getTileSelected(tileIndex) == selected)
             return;
 
         tiles[tileIndex].setShaded(selected);
         Log.d(TAG, String.format("Setting tile %d shading = %s", tileIndex, Boolean.valueOf(selected).toString()));
 
-        if(selected){
+        if (selected) {
             selectedTiles.add(game.board.getTile(tileIndex));
 
             // this should call Game class, but it isn't finished yet
-            if(selectedTiles.size()==3){
+            if (selectedTiles.size() == 3) {
                 Tile[] tiles = selectedTiles.toArray(new Tile[3]);
-                if(game.attemptSet(tiles[0], tiles[1], tiles[2])){
+                if (game.attemptSet(tiles[0], tiles[1], tiles[2])) {
                     messageUser("Good job!");
                     int set = game.getFoundSetCount() - 1;
 
                     found[set][0].setImageDrawable(tiles[0].getDrawable(this));
                     found[set][1].setImageDrawable(tiles[1].getDrawable(this));
                     found[set][2].setImageDrawable(tiles[2].getDrawable(this));
-                }
-                else{
+                } else {
                     messageUser("Try again");
                 }
                 clearTileSelection();
             }
-        }
-        else{
+        } else {
             selectedTiles.remove(game.board.getTile(tileIndex));
         }
     }
@@ -155,33 +155,45 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         startActivity(i);
     }
 
-    private boolean getTileSelected(int tileIndex){
-        if(tileIndex < 0 || tileIndex > Board.TILES)
+    private boolean getTileSelected(int tileIndex) {
+        if (tileIndex < 0 || tileIndex > Board.TILES)
             throw new IllegalArgumentException("tileIndex out of bounds.");
 
         return tiles[tileIndex].getShaded();
     }
 
-    private void clearTileSelection(){
+    private void clearTileSelection() {
         selectedTiles.clear();
-        for(int i=0; i<Board.TILES; i++)
+        for (int i = 0; i < Board.TILES; i++)
             setTileSelected(i, false);
     }
 
-    public void onClick(View view){
+    public void onClick(View view) {
         Object o = view.getTag(R.id.TILE_INDEX);
-        if(view instanceof ImageView && o instanceof Integer){
-            if(game.isGameOver())
+        if (view instanceof ImageView && o instanceof Integer) {
+            if (game.isGameOver())
                 return;
 
-            int idx = (Integer)o;
+            int idx = (Integer) o;
             Log.d(TAG, "Event: onClick for Tile " + idx);
 
             setTileSelected(idx, !getTileSelected(idx));
         }
     }
 
-    private void messageUser(String message){
+    public void onClickHint(View view) {
+        Set<Tile> hintTiles = new HashSet<Tile>(game.hintProvider.getHint());
+
+        clearTileSelection();
+
+        for (ShadedImageView tile : tiles) {
+            int tileIndex = (Integer) tile.getTag(R.id.TILE_INDEX);
+            if (hintTiles.contains(game.board.getTile(tileIndex)))
+                setTileSelected(tileIndex, true);
+        }
+    }
+
+    private void messageUser(String message) {
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
@@ -198,8 +210,8 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
             Log.d(TAG, String.format("Set tile image for tiles[%d]", i));
         }
 
-        for(int set = 0; set < found.length; set++)
-            for(int tile = 0; tile < found[set].length; tile++)
+        for (int set = 0; set < found.length; set++)
+            for (int tile = 0; tile < found[set].length; tile++)
                 found[set][tile].setImageDrawable(getResources().getDrawable(R.drawable.tile_blank));
     }
 }

@@ -21,7 +21,7 @@ import fakesetgame.seniordesign.model.Tile;
 public class PlayerDataDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "PlayerData.db";
     public static final String TAG = "PlayerDataDbHelper";
 
@@ -38,6 +38,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
                     FoundSetRecord.TableDef.COLUMN_NAME_TILES + " TEXT, " +
                     FoundSetRecord.TableDef.COLUMN_NAME_ELAPSED + " INTEGER, " +
                     FoundSetRecord.TableDef.COLUMN_NAME_DELTA + " INTEGER, " +
+                    FoundSetRecord.TableDef.COLUMN_NAME_HINT + " INTEGER," +
                     FoundSetRecord.TableDef.COLUMN_NAME_INSERTED + " INTEGER, " +
                     "FOREIGN KEY (" + FoundSetRecord.TableDef.COLUMN_NAME_OUTCOME + ") " +
                     "REFERENCES " + GameOutcome.TableDef.TABLE_NAME + " (" + GameOutcome.TableDef._ID + "))"
@@ -122,6 +123,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
             values.put(FoundSetRecord.TableDef.COLUMN_NAME_TILES, sb.toString());
             values.put(FoundSetRecord.TableDef.COLUMN_NAME_ELAPSED, found.getTotalElapsed());
             values.put(FoundSetRecord.TableDef.COLUMN_NAME_DELTA, found.getDeltaElapsed());
+            values.put(FoundSetRecord.TableDef.COLUMN_NAME_HINT, found.wasHintProvided());
             values.put(FoundSetRecord.TableDef.COLUMN_NAME_INSERTED, new Date().getTime());
 
             db.insert(
@@ -200,7 +202,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =
-                FoundSetRecord.TableDef._ID + " ASC";
+                FoundSetRecord.TableDef.COLUMN_NAME_ELAPSED + " ASC";
 
         Cursor c = db.query(
                 FoundSetRecord.TableDef.TABLE_NAME,    // The table to query

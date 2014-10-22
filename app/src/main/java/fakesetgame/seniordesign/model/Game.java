@@ -18,6 +18,7 @@ public class Game {
 
     Set<GameOverListener> gameOverListeners = new HashSet<GameOverListener>();
     public final Board board;
+    public final HintProvider hintProvider = new HintProvider(this);
     private final int sets;
     private final List<FoundSet> foundSetList;
 
@@ -46,15 +47,15 @@ public class Game {
         restartTimer();
     }
 
+    public boolean isFound(Collection<Tile> tiles) {
+        FoundSet tileSet = new FoundSet(tiles);
+        return foundSetList.contains(tileSet);
+    }
+
     public boolean attemptSet(Tile tile1, Tile tile2, Tile tile3) {
         if (TileSet.isValidSet(tile1, tile2, tile3)) {
-            long elapsed = getElapsedTime();
-
             FoundSet tileSet = new FoundSet(
-                    new HashSet<Tile>(Arrays.asList(tile1, tile2, tile3)),
-                    elapsed,
-                    elapsed - (foundSetList.size() == 0 ? 0 : foundSetList.get(foundSetList.size() - 1).getTotalElapsed())
-            );
+                    new HashSet<Tile>(Arrays.asList(tile1, tile2, tile3)));
 
             if (!foundSetList.contains(tileSet)) {
                 foundSetList.add(tileSet);
@@ -71,7 +72,6 @@ public class Game {
     public int getBoardSetCount() {
         return sets;
     }
-
 
     public List<FoundSet> getFoundSetList() {
         return foundSetList;
@@ -126,6 +126,7 @@ public class Game {
         private final Set<Tile> tileSet;
         private final long totalElapsed;
         private final long deltaElapsed;
+        private final boolean gotHints;
 
         public Set<Tile> getTileSet() {
             return new HashSet<Tile>(tileSet);
@@ -139,10 +140,15 @@ public class Game {
             return deltaElapsed;
         }
 
-        public FoundSet(Collection<Tile> tileSet, long totalElapsed, long deltaElapsed) {
+        public boolean wasHintProvided() {
+            return gotHints;
+        }
+
+        public FoundSet(Collection<Tile> tileSet) {
             this.tileSet = new HashSet<Tile>(tileSet);
-            this.totalElapsed = totalElapsed;
-            this.deltaElapsed = deltaElapsed;
+            this.gotHints = hintProvider.wasHintProvided(new HashSet<Tile>(tileSet));
+            this.totalElapsed = getElapsedTime();
+            this.deltaElapsed = this.totalElapsed - (foundSetList.size() == 0 ? 0 : foundSetList.get(foundSetList.size() - 1).getTotalElapsed());
         }
 
         @Override

@@ -17,11 +17,29 @@ public class FoundSetRecord{
     private final Set<Tile> tileSet;
     private final long totalElapsed;
     private final long deltaElapsed;
+    private final boolean hintProvided;
 
-    private FoundSetRecord(Collection<Tile> tileSet, long totalElapsed, long deltaElapsed){
+    public Set<Tile> getTileSet(){
+        return tileSet;
+    }
+
+    public long getTotalElapsed(){
+        return totalElapsed;
+    }
+
+    public long getDeltaElapsed(){
+        return deltaElapsed;
+    }
+
+    public boolean wasHintProvided(){
+        return hintProvided;
+    }
+
+    private FoundSetRecord(Collection<Tile> tileSet, long totalElapsed, long deltaElapsed, boolean hintProvided){
         this.tileSet = new HashSet<Tile>(tileSet);
         this.totalElapsed = totalElapsed;
         this.deltaElapsed = deltaElapsed;
+        this.hintProvided = hintProvided;
     }
 
     public static FoundSetRecord fromCursor(Cursor c){
@@ -36,7 +54,8 @@ public class FoundSetRecord{
         return new FoundSetRecord(
                 Arrays.asList(tiles),
                 c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_ELAPSED)),
-                c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_DELTA))
+                c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_DELTA)),
+                c.getInt(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_HINT)) == 1
         );
     }
 
@@ -51,6 +70,7 @@ public class FoundSetRecord{
         public static final String COLUMN_NAME_TILES = "tiles";
         public static final String COLUMN_NAME_ELAPSED = "elapsed";
         public static final String COLUMN_NAME_DELTA = "delta";
+        public static final String COLUMN_NAME_HINT = "hint";
         public static final String COLUMN_NAME_INSERTED = "inserted";
 
         public static final String[] ALL_COLUMNS = {
@@ -59,6 +79,7 @@ public class FoundSetRecord{
                 TableDef.COLUMN_NAME_TILES,
                 TableDef.COLUMN_NAME_ELAPSED,
                 TableDef.COLUMN_NAME_DELTA,
+                TableDef.COLUMN_NAME_HINT,
                 TableDef.COLUMN_NAME_INSERTED,
         };
     }

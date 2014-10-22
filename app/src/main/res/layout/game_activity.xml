@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
+    android:background="#FFFFFF"
     android:keepScreenOn="true"
-    tools:context=".GameScreen"
-    android:background="#FFFFFF">
+    android:orientation="vertical"
+    tools:context=".GameScreen">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -226,17 +226,26 @@
             android:layout_height="fill_parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/HintButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint"
+                    android:onClick="onClickHint" />
 
                 <TextView
                     android:id="@+id/TimeView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:text="00:00"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
+
             </LinearLayout>
         </RelativeLayout>
 
