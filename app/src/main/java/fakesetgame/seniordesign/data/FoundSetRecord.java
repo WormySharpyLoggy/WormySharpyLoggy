@@ -13,45 +13,52 @@ import fakesetgame.seniordesign.model.Tile;
 /**
  * Created by Chris on 10/20/2014.
  */
-public class FoundSetRecord{
+public class FoundSetRecord {
+    private final long _id;
     private final Set<Tile> tileSet;
     private final long totalElapsed;
     private final long deltaElapsed;
     private final boolean hintProvided;
 
-    public Set<Tile> getTileSet(){
+    public Set<Tile> getTileSet() {
         return tileSet;
     }
 
-    public long getTotalElapsed(){
+    public long getId() {
+        return _id;
+    }
+
+    public long getTotalElapsed() {
         return totalElapsed;
     }
 
-    public long getDeltaElapsed(){
+    public long getDeltaElapsed() {
         return deltaElapsed;
     }
 
-    public boolean wasHintProvided(){
+    public boolean wasHintProvided() {
         return hintProvided;
     }
 
-    private FoundSetRecord(Collection<Tile> tileSet, long totalElapsed, long deltaElapsed, boolean hintProvided){
+    private FoundSetRecord(long _id, Collection<Tile> tileSet, long totalElapsed, long deltaElapsed, boolean hintProvided) {
+        this._id = _id;
         this.tileSet = new HashSet<Tile>(tileSet);
         this.totalElapsed = totalElapsed;
         this.deltaElapsed = deltaElapsed;
         this.hintProvided = hintProvided;
     }
 
-    public static FoundSetRecord fromCursor(Cursor c){
+    public static FoundSetRecord fromCursor(Cursor c) {
 
         String tilesString = c.getString(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_TILES));
         String[] tilesStrings = tilesString.split(",");
         Tile[] tiles = new Tile[tilesStrings.length];
-        for(int i=0; i<tiles.length; i++)
+        for (int i = 0; i < tiles.length; i++)
             tiles[i] = Tile.fromString(tilesStrings[i]);
 
 
         return new FoundSetRecord(
+                c.getLong(c.getColumnIndexOrThrow(TableDef._ID)),
                 Arrays.asList(tiles),
                 c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_ELAPSED)),
                 c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_DELTA)),

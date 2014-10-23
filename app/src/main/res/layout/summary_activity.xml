@@ -1,42 +1,53 @@
-<TableLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="5">
 
-        <TextView
+        <ListView
+            android:id="@+id/listView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/elapsedTime"
-            android:id="@+id/lastTimeText" />
-    </TableRow>
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-    <TableRow
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/defaultTime"
-            android:id="@+id/elapsedTime" />
-    </TableRow>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+            <TextView
+                android:id="@+id/lastTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/elapsedTime"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:padding="6dp" />
+
+            <TextView
+                android:id="@+id/elapsedTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/defaultTime"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:padding="6dp" />
+        </LinearLayout>
+
 
         <Button
+            android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/newGame"
-            android:id="@+id/button"
-            android:onClick="StartNewGame" />
-    </TableRow>
+            android:onClick="StartNewGame"
+            android:text="@string/newGame" />
+    </LinearLayout>
 
-</TableLayout>
+</LinearLayout>

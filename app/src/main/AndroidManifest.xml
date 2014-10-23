@@ -44,7 +44,7 @@
         <activity
             android:name=".SummaryScreen"
             android:label="@string/title_activity_summary_screen"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             android:parentActivityName=".HomeScreen">
             <!-- Support for API levels under 16 -->
             <meta-data

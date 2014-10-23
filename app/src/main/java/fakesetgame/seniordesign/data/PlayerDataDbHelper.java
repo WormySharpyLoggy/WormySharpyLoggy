@@ -135,7 +135,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         return outcomeId;
     }
 
-    public static List<GameOutcome> getLastOutcomes(Context context, int count) {
+    private static Cursor getTopOutcomes(Context context, int rows, String sortOrder){
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
@@ -143,31 +143,27 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         // you will actually use after this query.
         String[] projection = GameOutcome.TableDef.ALL_COLUMNS;
 
-        // How you want the results sorted in the resulting Cursor
-        String sortOrder =
-                GameOutcome.TableDef.COLUMN_NAME_INSERTED + " DESC";
-
-        Cursor c = db.query(
+        return db.query(
                 GameOutcome.TableDef.TABLE_NAME,    // The table to query
                 projection, // The columns to return
                 null,       // The columns for the WHERE clause
                 null,       // The values for the WHERE clause
                 null,       // don't group the rows
                 null,       // don't filter by row groups
-                sortOrder   // The sort order
+                sortOrder,   // The sort order
+                Integer.valueOf(rows).toString()
         );
-
-        List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
-        while (c.moveToNext() && count-- > 0) {
-            outcomes.add(
-                    GameOutcome.fromCursor(context, c)
-            );
-        }
-
-        return outcomes;
     }
 
-    public static GameOutcome getOutcomeByID(Context context, long id) {
+    public static Cursor getLastOutcomes(Context context, int rows) {
+        return getTopOutcomes(context, rows, GameOutcome.TableDef.COLUMN_NAME_INSERTED + " DESC");
+    }
+
+    public static Cursor getBestOutcomes(Context context, int rows){
+        return getTopOutcomes(context, rows, GameOutcome.TableDef.COLUMN_NAME_ELAPSED + " ASC");
+    }
+
+    public static GameOutcome getOutcome(Context context, long id) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 

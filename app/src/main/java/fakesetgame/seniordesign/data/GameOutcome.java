@@ -14,13 +14,13 @@ import fakesetgame.seniordesign.model.Board;
  * Created by Chris on 10/17/2014.
  */
 public class GameOutcome {
-    public final long _id;
-    public final Board board;
-    public final long elapsed;
-    public final Date inserted;
+    private final long _id;
+    private final Board board;
+    private final long elapsed;
+    private final Date inserted;
     private final List<FoundSetRecord> foundSetRecordList;
 
-    private GameOutcome(long _id, String board, long elapsed, long inserted, List<FoundSetRecord> foundSets){
+    private GameOutcome(long _id, String board, long elapsed, long inserted, List<FoundSetRecord> foundSets) {
         this._id = _id;
         this.board = Board.fromString(board);
         this.elapsed = elapsed;
@@ -28,11 +28,27 @@ public class GameOutcome {
         this.foundSetRecordList = new ArrayList<FoundSetRecord>(foundSets);
     }
 
-    public List<FoundSetRecord> getFoundSetList(){
+    public long getId() {
+        return _id;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public long getElapsed() {
+        return elapsed;
+    }
+
+    public Date getInserted() {
+        return inserted;
+    }
+
+    public List<FoundSetRecord> getFoundSetList() {
         return new ArrayList<FoundSetRecord>(foundSetRecordList);
     }
 
-    public static GameOutcome fromCursor(Context context, Cursor c){
+    public static GameOutcome fromCursor(Context context, Cursor c) {
 
         long outcomeId = c.getLong(c.getColumnIndexOrThrow(TableDef._ID));
 
