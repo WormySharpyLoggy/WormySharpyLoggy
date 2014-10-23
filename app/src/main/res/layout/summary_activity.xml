@@ -41,13 +41,27 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/button"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="StartNewGame"
-            android:text="@string/newGame" />
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="StartNewGame"
+                android:singleLine="true"
+                android:text="@string/newGame" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="MainMenu"
+                android:singleLine="true"
+                android:text="@string/mainMenu" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -54,7 +54,13 @@ public class SummaryScreen extends Activity {
     }
 
     public void StartNewGame(View v) {
-        Intent i = new Intent(SummaryScreen.this, GameScreen.class);
+        Intent i = new Intent(this, GameScreen.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
+    public void MainMenu(View v){
+        Intent i = new Intent(this, HomeScreen.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
     }

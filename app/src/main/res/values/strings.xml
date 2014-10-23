@@ -13,7 +13,8 @@
     <string name="title_activity_game_screen">GameScreen</string>
     <string name="elapsedTime">Your Last Time:</string>
     <string name="defaultTime">00:00</string>
-    <string name="newGame">Start New Game</string>
+    <string name="newGame">New Game</string>
+    <string name="mainMenu">Main Menu</string>
     <string name="hint">Hint</string>
     <item name="TILE_INDEX" type="id"/>
     <string name="hintUsed">Last game was won using hints. To see your time on the board, win without hints!</string>
