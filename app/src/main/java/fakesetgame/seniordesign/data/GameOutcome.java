@@ -18,13 +18,15 @@ public class GameOutcome {
     private final Board board;
     private final long elapsed;
     private final Date inserted;
+    private final boolean hintUsed;
     private final List<FoundSetRecord> foundSetRecordList;
 
-    private GameOutcome(long _id, String board, long elapsed, long inserted, List<FoundSetRecord> foundSets) {
+    private GameOutcome(long _id, String board, long elapsed, long inserted, boolean hintUsed, List<FoundSetRecord> foundSets) {
         this._id = _id;
         this.board = Board.fromString(board);
         this.elapsed = elapsed;
         this.inserted = new Date(inserted);
+        this.hintUsed = hintUsed;
         this.foundSetRecordList = new ArrayList<FoundSetRecord>(foundSets);
     }
 
@@ -44,6 +46,10 @@ public class GameOutcome {
         return inserted;
     }
 
+    public boolean wasHintUsed() {
+        return hintUsed;
+    }
+
     public List<FoundSetRecord> getFoundSetList() {
         return new ArrayList<FoundSetRecord>(foundSetRecordList);
     }
@@ -57,6 +63,7 @@ public class GameOutcome {
                 c.getString(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_BOARD)),
                 c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_ELAPSED)),
                 c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_INSERTED)),
+                c.getInt(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_HINT)) == 1,
                 PlayerDataDbHelper.getFoundSetsByGameOutcome(context, outcomeId)
         );
     }
@@ -71,12 +78,14 @@ public class GameOutcome {
         public static final String COLUMN_NAME_BOARD = "board";
         public static final String COLUMN_NAME_ELAPSED = "elapsed";
         public static final String COLUMN_NAME_INSERTED = "inserted";
+        public static final String COLUMN_NAME_HINT = "hint";
 
         public static final String[] ALL_COLUMNS = {
                 TableDef._ID,
                 TableDef.COLUMN_NAME_BOARD,
                 TableDef.COLUMN_NAME_ELAPSED,
                 TableDef.COLUMN_NAME_INSERTED,
+                TableDef.COLUMN_NAME_HINT
         };
     }
 }

@@ -26,6 +26,7 @@ public class Game {
     private long accumulatedTime;
     private boolean active;
     private boolean gameOver;
+    private boolean hintUsed = false;
 
     public void addGameOverListener(GameOverListener listener) {
         gameOverListeners.add(listener);
@@ -83,6 +84,14 @@ public class Game {
 
     public boolean isGameOver() {
         return gameOver;
+    }
+
+    public void setHintUsed() {
+        hintUsed = true;
+    }
+
+    public boolean wasHintUsed() {
+        return hintUsed;
     }
 
     public int getScore() {

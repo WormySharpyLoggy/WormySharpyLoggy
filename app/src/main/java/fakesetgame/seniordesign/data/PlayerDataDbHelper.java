@@ -21,7 +21,7 @@ import fakesetgame.seniordesign.model.Tile;
 public class PlayerDataDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "PlayerData.db";
     public static final String TAG = "PlayerDataDbHelper";
 
@@ -30,7 +30,8 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
                     GameOutcome.TableDef._ID + " INTEGER PRIMARY KEY, " +
                     GameOutcome.TableDef.COLUMN_NAME_BOARD + " TEXT, " +
                     GameOutcome.TableDef.COLUMN_NAME_ELAPSED + " INTEGER, " +
-                    GameOutcome.TableDef.COLUMN_NAME_INSERTED + " INTEGER" +
+                    GameOutcome.TableDef.COLUMN_NAME_INSERTED + " INTEGER, " +
+                    GameOutcome.TableDef.COLUMN_NAME_HINT + " INTEGER" +
                     " )",
             "CREATE TABLE " + FoundSetRecord.TableDef.TABLE_NAME + " (" +
                     FoundSetRecord.TableDef._ID + " INTEGER PRIMARY KEY, " +
@@ -96,6 +97,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         values.put(GameOutcome.TableDef.COLUMN_NAME_BOARD, game.board.toString());
         values.put(GameOutcome.TableDef.COLUMN_NAME_ELAPSED, game.getElapsedTime());
         values.put(GameOutcome.TableDef.COLUMN_NAME_INSERTED, new Date().getTime());
+        values.put(GameOutcome.TableDef.COLUMN_NAME_HINT, game.wasHintUsed());
 
         // Insert the new row, returning the primary key value of the new row
         long outcomeId = db.insert(
@@ -135,7 +137,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         return outcomeId;
     }
 
-    private static Cursor getTopOutcomes(Context context, int rows, String sortOrder){
+    private static Cursor getTopOutcomes(Context context, int rows, String sortOrder, String where, String[] whereArgs){
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
@@ -146,8 +148,8 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         return db.query(
                 GameOutcome.TableDef.TABLE_NAME,    // The table to query
                 projection, // The columns to return
-                null,       // The columns for the WHERE clause
-                null,       // The values for the WHERE clause
+                where,       // The columns for the WHERE clause
+                whereArgs,       // The values for the WHERE clause
                 null,       // don't group the rows
                 null,       // don't filter by row groups
                 sortOrder,   // The sort order
@@ -156,11 +158,20 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
     }
 
     public static Cursor getLastOutcomes(Context context, int rows) {
-        return getTopOutcomes(context, rows, GameOutcome.TableDef.COLUMN_NAME_INSERTED + " DESC");
+        return getTopOutcomes(context, rows, GameOutcome.TableDef.COLUMN_NAME_INSERTED + " DESC", null, null);
     }
 
-    public static Cursor getBestOutcomes(Context context, int rows){
-        return getTopOutcomes(context, rows, GameOutcome.TableDef.COLUMN_NAME_ELAPSED + " ASC");
+    public static Cursor getBestOutcomes(Context context, int rows, boolean showGamesWithHints){
+
+        String where = null;
+        String[] whereArgs = null;
+
+        if(!showGamesWithHints){
+            where = GameOutcome.TableDef.COLUMN_NAME_HINT + "=?";
+            whereArgs = new String[]{"0"};
+        }
+
+        return getTopOutcomes(context, rows, GameOutcome.TableDef.COLUMN_NAME_ELAPSED + " ASC", where, whereArgs);
     }
 
     public static GameOutcome getOutcome(Context context, long id) {

@@ -54,6 +54,7 @@ public class HintProvider {
         if (providedHints.size() < hintTiles.size() - 1)
             providedHints.add(hintTiles.get(providedHints.size()));
 
+        game.setHintUsed();
         return providedHints;
     }
 }

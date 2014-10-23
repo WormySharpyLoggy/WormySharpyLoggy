@@ -28,23 +28,23 @@
                 android:id="@+id/lastTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="6dp"
                 android:text="@string/elapsedTime"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:padding="6dp" />
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/elapsedTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="6dp"
                 android:text="@string/defaultTime"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:padding="6dp" />
+                android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="StartNewGame"
             android:text="@string/newGame" />
