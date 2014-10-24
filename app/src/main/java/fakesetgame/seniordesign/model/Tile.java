@@ -89,6 +89,21 @@ public class Tile {
         return drawable;
     }
 
+    public Drawable getSmallDrawable(Context context) {
+        Drawable drawable = context.getResources().getDrawable(
+                context.getResources().getIdentifier(
+                        "tile_small_"
+                                + Integer.valueOf(getShapeCount()).toString()
+                                + Integer.valueOf(getShape().getNumVal()).toString()
+                                + Integer.valueOf(getColor().getNumVal()).toString()
+                                + Integer.valueOf(getShading().getNumVal()).toString(),
+                        "drawable",
+                        context.getPackageName()
+                ));
+
+        return drawable;
+    }
+
     @Override
     public String toString() {
         return Integer.valueOf(getShapeCount()).toString()
