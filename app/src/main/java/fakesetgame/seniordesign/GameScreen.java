@@ -6,7 +6,6 @@ import fakesetgame.seniordesign.model.Game;
 import fakesetgame.seniordesign.model.GameOverEvent;
 import fakesetgame.seniordesign.model.GameOverListener;
 import fakesetgame.seniordesign.model.Tile;
-import fakesetgame.seniordesign.util.SystemUiHider;
 import fakesetgame.seniordesign.view.ShadedImageView;
 
 import android.app.Activity;
@@ -27,12 +26,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- *
- * @see SystemUiHider
- */
 public class GameScreen extends Activity implements View.OnClickListener, GameOverListener {
 
     private static final String TAG = "GameScreen";
@@ -195,7 +188,8 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     }
 
     private void messageUser(String message) {
-        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, message,
+                (message.length() > 24 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT));
         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
     }

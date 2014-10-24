@@ -1,18 +1,10 @@
 package fakesetgame.seniordesign;
 
-import fakesetgame.seniordesign.util.SystemUiHider;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- *
- * @see SystemUiHider
- */
 public class SplashScreen extends Activity {
 
     private static int TIMEOUT = 1500;
