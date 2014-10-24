@@ -35,11 +35,6 @@ public class SummaryScreen extends Activity {
         messageUser(getResources().getString(lastGame.wasHintUsed() ? R.string.hintUsed : R.string.hintNotUsed));
     }
 
-    @Override
-    public void onBackPressed() {
-        // do nothing on back button pressed
-    }
-
     private void messageUser(String message) {
         Toast toast = Toast.makeText(this, message,
                 (message.length() > 24 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT));
