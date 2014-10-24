@@ -32,7 +32,6 @@
             android:name=".GameScreen"
             android:label="@string/title_activity_game_screen"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
-            android:parentActivityName=".HomeScreen"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <!-- Support for API levels under 16 -->
             <meta-data
@@ -44,8 +43,7 @@
         <activity
             android:name=".SummaryScreen"
             android:label="@string/title_activity_summary_screen"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
-            android:parentActivityName=".HomeScreen">
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar">
             <!-- Support for API levels under 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
