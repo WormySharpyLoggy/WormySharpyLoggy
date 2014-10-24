@@ -43,7 +43,7 @@ public class Game {
 
     public Game() {
         sets = SETS;
-        board = Board.generateRandom(sets);
+        board = Board.generateRandom(sets, Double.MIN_VALUE, Double.MAX_VALUE);
         foundSetList = new ArrayList<FoundSet>();
         restartTimer();
     }

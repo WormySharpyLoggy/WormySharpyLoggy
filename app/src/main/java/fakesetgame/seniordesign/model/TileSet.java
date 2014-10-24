@@ -57,6 +57,45 @@ public class TileSet {
                 && (countsAllTheSame || countsAllDifferent);
     }
 
+    public static double getSetDifficulty (Tile tile1, Tile tile2, Tile tile3) {
+        double diff = 1;
+
+        if (!isValidSet(tile1, tile2, tile3)) {
+            return 0;
+        }
+
+        boolean colorsAllDifferent = tile1.getColor() != tile2.getColor()
+                && tile2.getColor() != tile3.getColor()
+                && tile3.getColor() != tile1.getColor();
+        diff *= colorsAllDifferent ? Modifier.COLOR_DIFFERENCE.getValue() : 1;
+
+        boolean shapesAllDifferent = tile1.getShape() != tile2.getShape()
+                && tile2.getShape() != tile3.getShape()
+                && tile3.getShape() != tile1.getShape();
+        diff *= shapesAllDifferent ? Modifier.SHAPE_DIFFERENCE.getValue() : 1;
+
+        boolean shadingsAllDifferent = tile1.getShading() != tile2.getShading()
+                && tile2.getShading() != tile3.getShading()
+                && tile3.getShading() != tile1.getShading();
+        diff *= shadingsAllDifferent ? Modifier.SHADING_DIFFERENCE.getValue() : 1;
+
+        boolean countsAllDifferent = tile1.getShapeCount() != tile2.getShapeCount()
+                && tile2.getShapeCount() != tile3.getShapeCount()
+                && tile3.getShapeCount() != tile1.getShapeCount();
+        diff *= countsAllDifferent ? Modifier.COUNT_DIFFERENCE.getValue() : 1;
+
+        return diff;
+    }
+
+    public static double getSetDifficulty(Set<Tile> tileSet) {
+        if (tileSet.size() != 3)
+            return 0;
+
+        Tile[] tileAry = tileSet.toArray(new Tile[3]);
+
+        return getSetDifficulty(tileAry[0], tileAry[1], tileAry[2]);
+    }
+
     public static Set<Set<Tile>> getSets(Tile... tiles){
         Set<Set<Tile>> sets = new HashSet<Set<Tile>>();
 

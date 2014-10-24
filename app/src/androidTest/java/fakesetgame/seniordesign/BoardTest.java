@@ -2,6 +2,7 @@ package fakesetgame.seniordesign;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
+import android.util.Log;
 
 import junit.framework.Assert;
 
@@ -11,6 +12,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import fakesetgame.seniordesign.model.Board;
+import fakesetgame.seniordesign.model.Modifier;
 import fakesetgame.seniordesign.model.Tile;
 
 /**
@@ -23,29 +25,79 @@ public class BoardTest extends ApplicationTestCase<Application> {
 
     public void testRandomBoardGeneration() throws Exception{
 
-        Board board = Board.generateRandom(0);
+        Board board = Board.generateRandom(0, 0 * Modifier.minModifier, 0 * Modifier.maxModifier);
         Assert.assertEquals(0, board.countSets());
 
-        board = Board.generateRandom(1);
+        board = Board.generateRandom(1, 1 * Modifier.minModifier, 1 * Modifier.maxModifier);
         Assert.assertEquals(1, board.countSets());
 
-        board = Board.generateRandom(2);
+        board = Board.generateRandom(2, 2 * Modifier.minModifier, 2 * Modifier.maxModifier);
         Assert.assertEquals(2, board.countSets());
 
-        board = Board.generateRandom(3);
+        board = Board.generateRandom(3, 3 * Modifier.minModifier, 3 * Modifier.maxModifier);
         Assert.assertEquals(3, board.countSets());
 
-        board = Board.generateRandom(4);
+        board = Board.generateRandom(4, 4 * Modifier.minModifier, 4 * Modifier.maxModifier);
         Assert.assertEquals(4, board.countSets());
 
-        board = Board.generateRandom(5);
+        board = Board.generateRandom(5, 5 * Modifier.minModifier, 5 * Modifier.maxModifier);
         Assert.assertEquals(5, board.countSets());
 
-        board = Board.generateRandom(6);
+        board = Board.generateRandom(6, 6 * Modifier.minModifier, 6 * Modifier.maxModifier);
         Assert.assertEquals(6, board.countSets());
 
-        board = Board.generateRandom(12);
+        board = Board.generateRandom(12, 12 * Modifier.minModifier, 12 * Modifier.maxModifier);
         Assert.assertEquals(12, board.countSets());
+    }
+
+    public void testTopThirdDifficultyBoardGeneration() throws Exception {
+        double minDiff = 6 * Modifier.COUNT_DIFFERENCE.getValue() *
+                Modifier.COLOR_DIFFERENCE.getValue() * Modifier.SHAPE_DIFFERENCE.getValue();
+
+        double maxDiff = 6 * Modifier.maxModifier;
+
+        int foundBoards = 0;
+        for (int i = 1; i < 11; i++) {
+            Board b = Board.generateRandom(6, minDiff, maxDiff);
+            if (b.getDifficulty() >= minDiff && b.getDifficulty() <= maxDiff) {
+                foundBoards++;
+                Log.d("Fini", String.format("Found board for round %d", i));
+            }
+        }
+        Assert.assertEquals(10, foundBoards);
+    }
+
+    public void testMiddleThirdDifficultyBoardGeneration() throws Exception {
+        double minDiff = 6 * Modifier.COUNT_DIFFERENCE.getValue() *
+                Modifier.SHADING_DIFFERENCE.getValue();
+
+        double maxDiff = 6 * Modifier.COUNT_DIFFERENCE.getValue() *
+                Modifier.COLOR_DIFFERENCE.getValue() * Modifier.SHAPE_DIFFERENCE.getValue();
+        int foundBoards = 0;
+        for (int i = 1; i < 11; i++) {
+            Board b = Board.generateRandom(6, minDiff, maxDiff);
+            if (b.getDifficulty() >= minDiff && b.getDifficulty() <= maxDiff) {
+                foundBoards++;
+                Log.d("Fini", String.format("Found board for round %d", i));
+            }
+        }
+        Assert.assertEquals(10, foundBoards);
+    }
+
+    public void testBottomThirdDifficultyBoardGeneration() throws Exception {
+        double minDiff = 6 * Modifier.minModifier;
+
+        double maxDiff = 6 * Modifier.COUNT_DIFFERENCE.getValue() *
+                Modifier.SHADING_DIFFERENCE.getValue();
+        int foundBoards = 0;
+        for (int i = 1; i < 11; i++) {
+            Board b = Board.generateRandom(6, minDiff, maxDiff);
+            if (b.getDifficulty() >= minDiff && b.getDifficulty() <= maxDiff) {
+                foundBoards++;
+                Log.d("Fini", String.format("Found board for round %d", i));
+            }
+        }
+        Assert.assertEquals(10, foundBoards);
     }
 
     public void testExplicitBoardGeneration() throws Exception{
@@ -79,7 +131,7 @@ public class BoardTest extends ApplicationTestCase<Application> {
 
     public void testBoardSerialization() throws Exception{
         for(int i=0; i<10; i++) {
-            Board board = Board.generateRandom(3);
+            Board board = Board.generateRandom(3, 3 * Modifier.minModifier, 3 * Modifier.maxModifier);
             String boardString = board.toString();
 
             Assert.assertTrue(

@@ -10,10 +10,11 @@ import java.util.Set;
  * Created by Sami on 9/17/2014.
  */
 public class Board {
+    private double difficulty = 0;
     private Tile[] tiles;
     private Set<Set<Tile>> sets;
 
-    public static final int TILES = 9;
+    public static final int TILES = BoardSize.NORMAL.getValue();
     private static final String TAG = "Board";
 
     public Board(Tile... tiles) {
@@ -31,6 +32,10 @@ public class Board {
 
         this.tiles = tiles;
         sets = TileSet.getSets(tiles);
+
+        for (Set<Tile> set : sets) {
+            difficulty += TileSet.getSetDifficulty(set);
+        }
     }
 
     public static Board fromString(String board){
@@ -45,32 +50,47 @@ public class Board {
         return new Board(tiles);
     }
 
-    public static Board generateRandom(int targetSetCount) {
+    public static Board generateRandom(int targetSetCount, double minBoardDiff, double maxBoardDiff) {
         if (targetSetCount < 0)
             throw new IllegalArgumentException("Cannot produce a board with negative set count.");
 
-        if (TILES == 9 && (targetSetCount > 12 || targetSetCount == 7 || targetSetCount == 9 || targetSetCount == 10 || targetSetCount == 11))
-            throw new IllegalArgumentException("A 9-tile board can have 0, 1, 2, 3, 4, 5, 6, 8, or 12 sets. No other number of sets is possible.");
+        if (minBoardDiff > maxBoardDiff)
+            throw new IllegalArgumentException("Minimum board difficulty cannot be greater than maximum board difficulty.");
 
-        if (TILES != 9)
-            throw new IllegalArgumentException("Statistics for boards of a size other than 9 have not been determined.");
+        if (TILES == BoardSize.NORMAL.getValue()) {
+            if (targetSetCount > 12 || targetSetCount == 7 || targetSetCount == 9 || targetSetCount == 10 || targetSetCount == 11)
+                throw new IllegalArgumentException("A 9-tile board can have 0, 1, 2, 3, 4, 5, 6, 8, or 12 sets. No other number of sets is possible.");
+        }
 
-        Set<Tile> tileSet = TileSet.getRandom(TILES);
-        int tries = 0;
-        while (true) {
-            tries++;
-            Tile[] tiles = tileSet.toArray(new Tile[TILES]);
-            int sets = TileSet.countSets(tiles);
-            if (sets == targetSetCount) {
-                Log.d(TAG, String.format("Generated a random board with %d sets in %d tries.", sets, tries));
-                return new Board(tileSet.toArray(new Tile[TILES]));
-            } else {
-                Log.d(TAG, String.format("Board has %d sets of target %d sets. Adjusting...", sets, targetSetCount));
+        // TODO flesh out support for 12-tile boards
+        else if (TILES == BoardSize.LARGE.getValue()) {
+            if (targetSetCount > 12 || targetSetCount == 7 || targetSetCount == 9 || targetSetCount == 10 || targetSetCount == 11)
+                throw new IllegalArgumentException("A 9-tile board can have 0, 1, 2, 3, 4, 5, 6, 8, or 12 sets. No other number of sets is possible.");
+        }
+
+        else
+            throw new IllegalArgumentException("Statistics for boards of a size other than 9 or 12 have not been determined.");
+
+        Board genBoard;
+        int diffTries = 0;
+        do {
+            diffTries++;
+            Tile[] tileAry;
+            int setCount;
+
+            Set<Tile> tileSet = TileSet.getRandom(TILES);
+            int genTries = 0;
+            do {
+                genTries++;
+                tileAry = tileSet.toArray(new Tile[TILES]);
+                setCount = TileSet.countSets(tileAry);
+
+                Log.d(TAG, String.format("[Generation Attempt %d]: Board has %d sets of target %d sets.", genTries, setCount, targetSetCount));
 
                 Tile minTile = null, maxTile = null;
                 int minCount = Integer.MAX_VALUE, maxCount = Integer.MIN_VALUE;
-                for (Tile tile : tiles) {
-                    int count = TileSet.countSetsContainingTile(tile, tiles);
+                for (Tile tile : tileAry) {
+                    int count = TileSet.countSetsContainingTile(tile, tileAry);
                     if (count < minCount) {
                         minCount = count;
                         minTile = tile;
@@ -85,14 +105,24 @@ public class Board {
                 while (tileSet.contains(newTile))
                     newTile = Tile.generateRandom();
 
-                if (sets < targetSetCount)
+                if (setCount < targetSetCount) {
                     tileSet.remove(minTile);
-                else
+                    tileSet.add(newTile);
+                }
+                else if (setCount > targetSetCount) {
                     tileSet.remove(maxTile);
+                    tileSet.add(newTile);
+                }
+            } while (setCount != targetSetCount);
 
-                tileSet.add(newTile);
-            }
-        }
+            Log.d(TAG, String.format("[Generation Attempt %d]: Generated board with %d sets", genTries, setCount));
+            genBoard = new Board(tileAry);
+
+            Log.d(TAG, String.format("[Difficulty Attempt %d]: Board has hardness %f, should be between values %f, %f", diffTries, genBoard.difficulty, minBoardDiff, maxBoardDiff));
+        } while (genBoard.difficulty < minBoardDiff || genBoard.difficulty > maxBoardDiff);
+
+        Log.d(TAG, String.format("[Difficulty Attempt %d]: Generated board with hardness %f", diffTries, genBoard.difficulty));
+        return genBoard;
     }
 
     public int size() {
@@ -114,6 +144,8 @@ public class Board {
 
         return tiles[index];
     }
+
+    public double getDifficulty() {return difficulty;}
 
     @Override
     public String toString() {
