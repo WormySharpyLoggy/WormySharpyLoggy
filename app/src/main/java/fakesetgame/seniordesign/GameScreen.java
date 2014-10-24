@@ -126,9 +126,9 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
                     messageUser("Good job!");
                     int set = game.getFoundSetCount() - 1;
 
-                    found[set][0].setImageDrawable(tiles[0].getDrawable(this));
-                    found[set][1].setImageDrawable(tiles[1].getDrawable(this));
-                    found[set][2].setImageDrawable(tiles[2].getDrawable(this));
+                    found[set][0].setImageDrawable(tiles[0].getSmallDrawable(this));
+                    found[set][1].setImageDrawable(tiles[1].getSmallDrawable(this));
+                    found[set][2].setImageDrawable(tiles[2].getSmallDrawable(this));
                 } else {
                     messageUser("Try again");
                 }
@@ -207,6 +207,6 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 
         for (int set = 0; set < found.length; set++)
             for (int tile = 0; tile < found[set].length; tile++)
-                found[set][tile].setImageDrawable(getResources().getDrawable(R.drawable.tile_blank));
+                found[set][tile].setImageDrawable(getResources().getDrawable(R.drawable.tile_small_blank));
     }
 }
