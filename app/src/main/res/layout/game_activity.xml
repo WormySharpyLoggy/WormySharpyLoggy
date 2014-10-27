@@ -26,20 +26,17 @@
                 <ImageView
                     android:id="@+id/FoundSet1_1"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet1_2"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet1_3"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -50,20 +47,17 @@
                 <ImageView
                     android:id="@+id/FoundSet2_1"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet2_2"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet2_3"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -74,20 +68,17 @@
                 <ImageView
                     android:id="@+id/FoundSet3_1"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet3_2"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet3_3"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -99,20 +90,17 @@
                 <ImageView
                     android:id="@+id/FoundSet4_1"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet4_2"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet4_3"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -124,20 +112,17 @@
                 <ImageView
                     android:id="@+id/FoundSet5_1"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet5_2"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet5_3"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -149,20 +134,17 @@
                 <ImageView
                     android:id="@+id/FoundSet6_1"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet6_2"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
 
                 <ImageView
                     android:id="@+id/FoundSet6_3"
                     android:layout_width="40dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/tile_small_blank" />
+                    android:layout_height="28dp" />
             </LinearLayout>
 
         </LinearLayout>

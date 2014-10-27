@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class Game {
 
-    public static final int SETS = 6;
+    public static final int SETS = 5;
     public static final int TILES_IN_A_SET = 3;
 
     Set<GameOverListener> gameOverListeners = new HashSet<GameOverListener>();
@@ -24,7 +24,7 @@ public class Game {
 
     private Date startTime;
     private long accumulatedTime;
-    private boolean active;
+    private boolean paused;
     private boolean gameOver;
     private boolean hintUsed = false;
 
@@ -101,21 +101,21 @@ public class Game {
     public void restartTimer() {
         startTime = new Date();
         accumulatedTime = 0;
-        active = true;
+        paused = false;
         gameOver = false;
     }
 
     public void pauseTimer() {
-        if (active) {
+        if (!paused) {
             accumulatedTime += new Date().getTime() - startTime.getTime();
-            active = false;
+            paused = true;
         }
     }
 
     public void unpauseTimer() {
-        if (!active && !gameOver) {
+        if (paused && !gameOver) {
             startTime = new Date();
-            active = true;
+            paused = false;
         }
     }
 
@@ -126,7 +126,7 @@ public class Game {
      */
     public long getElapsedTime() {
         long elapsed = accumulatedTime;
-        if (active)
+        if (!paused)
             elapsed += new Date().getTime() - startTime.getTime();
         return elapsed;
     }
