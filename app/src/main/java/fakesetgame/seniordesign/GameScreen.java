@@ -195,7 +195,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     }
 
     private void newGame() {
-        game = new Game();
+        game = new Game(Game.GameMode.Normal);
         game.addGameOverListener(this);
 
         clearTileSelection();

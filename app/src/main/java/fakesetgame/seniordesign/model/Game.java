@@ -21,6 +21,7 @@ public class Game {
     public final HintProvider hintProvider = new HintProvider(this);
     private final int sets;
     private final List<FoundSet> foundSetList;
+    private final GameMode gameMode;
 
     private Date startTime;
     private long accumulatedTime;
@@ -41,11 +42,21 @@ public class Game {
             listener.gameOver(e);
     }
 
-    public Game() {
+    public Game(GameMode gameMode) {
         sets = SETS;
         board = Board.generateRandom(sets, Double.MIN_VALUE, Double.MAX_VALUE);
         foundSetList = new ArrayList<FoundSet>();
         restartTimer();
+        this.gameMode = gameMode;
+    }
+
+    public enum GameMode{
+        TimeAttack,
+        Normal;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
     }
 
     public boolean isFound(Collection<Tile> tiles) {
