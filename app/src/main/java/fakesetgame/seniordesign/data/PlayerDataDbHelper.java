@@ -10,7 +10,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fakesetgame.seniordesign.model.Game;
 import fakesetgame.seniordesign.model.Tile;
@@ -21,7 +23,7 @@ import fakesetgame.seniordesign.model.Tile;
 public class PlayerDataDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "PlayerData.db";
     public static final String TAG = "PlayerDataDbHelper";
 
@@ -32,7 +34,10 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
                     GameOutcome.TableDef.COLUMN_NAME_ELAPSED + " INTEGER, " +
                     GameOutcome.TableDef.COLUMN_NAME_INSERTED + " INTEGER, " +
                     GameOutcome.TableDef.COLUMN_NAME_HINT + " INTEGER" +
-                    " )",
+                    " );\n"+
+                    "CREATE INDEX " + GameOutcome.TableDef.TABLE_NAME + "_" +
+                    GameOutcome.TableDef.COLUMN_NAME_ELAPSED + "_idx ON" +
+                    GameOutcome.TableDef.TABLE_NAME + " (" + GameOutcome.TableDef.COLUMN_NAME_ELAPSED + " ASC);",
             "CREATE TABLE " + FoundSetRecord.TableDef.TABLE_NAME + " (" +
                     FoundSetRecord.TableDef._ID + " INTEGER PRIMARY KEY, " +
                     FoundSetRecord.TableDef.COLUMN_NAME_OUTCOME + " INTEGER, " +
@@ -42,7 +47,17 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
                     FoundSetRecord.TableDef.COLUMN_NAME_HINT + " INTEGER," +
                     FoundSetRecord.TableDef.COLUMN_NAME_INSERTED + " INTEGER, " +
                     "FOREIGN KEY (" + FoundSetRecord.TableDef.COLUMN_NAME_OUTCOME + ") " +
-                    "REFERENCES " + GameOutcome.TableDef.TABLE_NAME + " (" + GameOutcome.TableDef._ID + "))"
+                    "REFERENCES " + GameOutcome.TableDef.TABLE_NAME + " (" + GameOutcome.TableDef._ID + "));" +
+                    "CREATE INDEX " + FoundSetRecord.TableDef.TABLE_NAME + "_" +
+                    FoundSetRecord.TableDef.COLUMN_NAME_OUTCOME + "_idx ON " +
+                    FoundSetRecord.TableDef.TABLE_NAME + " (" + FoundSetRecord.TableDef.COLUMN_NAME_OUTCOME + " ASC);",
+            "CREATE TABLE " + Setting.TableDef.TABLE_NAME + " (" +
+                    Setting.TableDef._ID + " INTEGER PRIMARY KEY, " +
+                    Setting.TableDef.COLUMN_NAME_NAME + " TEXT, " +
+                    Setting.TableDef.COLUMN_NAME_VALUE + " TEXT);\n" +
+                    "CREATE UNIQUE INDEX " + Setting.TableDef.TABLE_NAME + "_" +
+                    Setting.TableDef.COLUMN_NAME_NAME +"_idx ON " +
+                    Setting.TableDef.TABLE_NAME + " (" + Setting.TableDef.COLUMN_NAME_NAME + " ASC);"
     };
 
     private static final String[] SQL_DELETE_ENTRIES = new String[]{
@@ -86,6 +101,117 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
     public static void InstantiateHelper(Context context) {
         if (helper == null)
             helper = new PlayerDataDbHelper(context);
+    }
+
+    public static void saveSetting(Context context, String name, String value){
+        InstantiateHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(Setting.TableDef.COLUMN_NAME_NAME, name);
+        values.put(Setting.TableDef.COLUMN_NAME_VALUE, value);
+
+        db.beginTransaction();
+
+        try {
+            // attempt update
+            int rows = db.update(
+                    Setting.TableDef.TABLE_NAME,
+                    values,
+                    Setting.TableDef.COLUMN_NAME_NAME + "=?",
+                    new String[]{name}
+            );
+
+            if (rows == 0) {
+                // update affected no rows, so insert
+                db.insert(
+                        Setting.TableDef.TABLE_NAME,
+                        null,
+                        values
+                );
+            }
+            db.setTransactionSuccessful();
+        }
+        finally{
+            db.endTransaction();
+        }
+    }
+
+    public static boolean deleteSetting(Context context, String name){
+        InstantiateHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        try{
+            return 0 < db.delete(
+                    Setting.TableDef.TABLE_NAME,
+                    Setting.TableDef.COLUMN_NAME_NAME + "=?",
+                    new String[]{name}
+            );
+        }
+        finally{
+            db.close();
+        }
+    }
+
+    public static Setting getSetting(Context context, String name){
+        InstantiateHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        try {
+            // Define a projection that specifies which columns from the database
+            // you will actually use after this query.
+            String[] projection = Setting.TableDef.ALL_COLUMNS;
+
+            Cursor c = db.query(
+                    Setting.TableDef.TABLE_NAME,        // The table to query
+                    projection,                         // The columns to return
+                    Setting.TableDef.COLUMN_NAME_NAME + "=?",        // The columns for the WHERE clause
+                    new String[]{name},   // The values for the WHERE clause
+                    null,                               // don't group the rows
+                    null,                               // don't filter by row groups
+                    null                                // The sort order
+            );
+
+            if (c.moveToFirst()) {
+                return Setting.fromCursor(c);
+            }
+
+            return null;
+        }
+        finally {
+            db.close();
+        }
+    }
+
+    public static Map<String, Setting> getSettings(Context context){
+        InstantiateHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = Setting.TableDef.ALL_COLUMNS;
+
+        Map<String, Setting> settings = new HashMap<String, Setting>();
+
+        Cursor c = db.query(
+                Setting.TableDef.TABLE_NAME,    // The table to query
+                projection, // The columns to return
+                null,       // The columns for the WHERE clause
+                null,       // The values for the WHERE clause
+                null,       // don't group the rows
+                null,       // don't filter by row groups
+                null   // The sort order
+        );
+
+        while(c.moveToNext()){
+            Setting setting = Setting.fromCursor(c);
+            settings.put(setting.getName(), setting);
+        }
+
+        db.close();
+
+        return settings;
     }
 
     public static long saveOutcome(Context context, Game game) {
