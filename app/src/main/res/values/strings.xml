@@ -19,6 +19,9 @@
     <item name="TILE_INDEX" type="id"/>
     <string name="hintUsed">Last game was won using hints. To see your time on the board, win without hints!</string>
     <string name="hintNotUsed">You won without using any hints!</string>
+    <string name="foundSet">Good job!</string>
+    <string name="badSet">Try again</string>
+    <string name="foundSetAlready">You already got that one</string>
 
     <string name="title_activity_options_screen">OptionsScreen</string>
     <string name="title_activity_summary_screen">SummaryScreen</string>

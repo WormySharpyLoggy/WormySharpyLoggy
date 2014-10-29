@@ -122,15 +122,17 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
             // this should call Game class, but it isn't finished yet
             if (selectedTiles.size() == 3) {
                 Tile[] tiles = selectedTiles.toArray(new Tile[3]);
-                if (game.attemptSet(tiles[0], tiles[1], tiles[2])) {
-                    messageUser("Good job!");
+                if(game.isFound(selectedTiles)){
+                    messageUser(getString(R.string.foundSetAlready));
+                } else if (game.attemptSet(tiles[0], tiles[1], tiles[2])) {
+                    messageUser(getString(R.string.foundSet));
                     int set = game.getFoundSetCount() - 1;
 
                     found[set][0].setImageDrawable(tiles[0].getSmallDrawable(this));
                     found[set][1].setImageDrawable(tiles[1].getSmallDrawable(this));
                     found[set][2].setImageDrawable(tiles[2].getSmallDrawable(this));
                 } else {
-                    messageUser("Try again");
+                    messageUser(getString(R.string.badSet));
                 }
                 clearTileSelection();
             }
