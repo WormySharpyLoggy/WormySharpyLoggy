@@ -1,5 +1,7 @@
 package fakesetgame.seniordesign.model;
 
+import android.os.Handler;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,12 +24,24 @@ public class Game {
     private final int sets;
     private final List<FoundSet> foundSetList;
     private final GameMode gameMode;
+    private final Handler handler = new Handler();
+
 
     private Date startTime;
     private long accumulatedTime;
     private boolean paused;
     private boolean gameOver;
     private boolean hintUsed = false;
+
+    private final Runnable checkGameOver = new Runnable() {
+
+        public void run() {
+            if (getTimeRemaining() <= 0) {
+                onGameOver();
+            }
+        }
+
+    };
 
     public void addGameOverListener(GameOverListener listener) {
         gameOverListeners.add(listener);
@@ -140,6 +154,13 @@ public class Game {
         if (!paused)
             elapsed += new Date().getTime() - startTime.getTime();
         return elapsed;
+    }
+
+    public long getTimeRemaining() {
+        if (getGameMode() != GameMode.TimeAttack) {
+            return -1;
+        }
+        return (getElapsedTime() - (15 + (10*foundSetList.size())));
     }
 
     public class FoundSet {
