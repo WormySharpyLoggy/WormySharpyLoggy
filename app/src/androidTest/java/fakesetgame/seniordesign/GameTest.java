@@ -65,13 +65,13 @@ public class GameTest extends ApplicationTestCase<Application> {
         long elapsed = game.getElapsedTime();
         Assert.assertTrue(
                 String.format("Timer should have elapsed about 200ms, but elapsed %dms instead.", game.getElapsedTime()),
-                Math.abs(game.getElapsedTime() - 200) < 10
+                Math.abs(game.getElapsedTime() - 200) < 50
         );
 
         game.unpauseTimer();
         Assert.assertTrue(
                 "Starting a timer that is already running should not cause a change in elapsed time, but it has.",
-                Math.abs(elapsed - game.getElapsedTime()) < 10
+                Math.abs(elapsed - game.getElapsedTime()) < 50
         );
 
         game.pauseTimer();
@@ -100,7 +100,7 @@ public class GameTest extends ApplicationTestCase<Application> {
 
         Assert.assertTrue(
                 String.format("Timer should have 400 ms elapsed time, but it shows %dms.", elapsed),
-                Math.abs(game.getElapsedTime() - 400) < 10);
+                Math.abs(game.getElapsedTime() - 400) < 50);
 
         Thread.sleep(200);
         Assert.assertEquals(
@@ -117,13 +117,13 @@ public class GameTest extends ApplicationTestCase<Application> {
 
         Assert.assertTrue(
                 String.format("Timer should have 600 ms elapsed time (2nd pause), but it shows %dms.", game.getElapsedTime()),
-                Math.abs(game.getElapsedTime() - 600) < 10);
+                Math.abs(game.getElapsedTime() - 600) < 50);
 
         game.restartTimer();
         Thread.sleep(100);
         Assert.assertTrue(
                 String.format("Timer should have 100 ms elapsed time, but it shows %dms.", game.getElapsedTime()),
-                Math.abs(game.getElapsedTime() - 100) < 10);
+                Math.abs(game.getElapsedTime() - 100) < 50);
     }
 }
 

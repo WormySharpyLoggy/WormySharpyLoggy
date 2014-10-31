@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Sami on 9/24/2014.
@@ -62,6 +64,13 @@ public class Game {
         foundSetList = new ArrayList<FoundSet>();
         restartTimer();
         this.gameMode = gameMode;
+
+        Timer checkTimeRemainingTimer = new Timer();
+        checkTimeRemainingTimer.schedule(new TimerTask() {
+            public void run() {
+                handler.post(checkGameOver);
+            }
+        }, 0, 200);
     }
 
     public enum GameMode{
@@ -79,6 +88,9 @@ public class Game {
     }
 
     public boolean attemptSet(Tile tile1, Tile tile2, Tile tile3) {
+        if (getGameMode() == GameMode.TimeAttack) {
+            checkGameOver.run();
+        }
         if (TileSet.isValidSet(tile1, tile2, tile3)) {
             FoundSet tileSet = new FoundSet(
                     new HashSet<Tile>(Arrays.asList(tile1, tile2, tile3)));
@@ -162,6 +174,8 @@ public class Game {
         }
         return (getElapsedTime() - (15 + (10*foundSetList.size())));
     }
+
+
 
     public class FoundSet {
         private final Set<Tile> tileSet;
