@@ -34,12 +34,13 @@ public class Game {
     private boolean paused;
     private boolean gameOver;
     private boolean hintUsed = false;
+    private Outcome outcome;
 
     private final Runnable checkGameOver = new Runnable() {
 
         public void run() {
-            if (getTimeRemaining() <= 0) {
-                onGameOver();
+            if (getGameMode() == GameMode.TimeAttack && getTimeRemaining() <= 0) {
+                onGameOver(Outcome.Lose);
             }
         }
 
@@ -49,9 +50,10 @@ public class Game {
         gameOverListeners.add(listener);
     }
 
-    private void onGameOver() {
+    private void onGameOver(Outcome outcome) {
         pauseTimer();
         gameOver = true;
+        this.outcome = outcome;
 
         GameOverEvent e = new GameOverEvent(this);
         for (GameOverListener listener : gameOverListeners)
@@ -65,21 +67,22 @@ public class Game {
         restartTimer();
         this.gameMode = gameMode;
 
-        Timer checkTimeRemainingTimer = new Timer();
-        checkTimeRemainingTimer.schedule(new TimerTask() {
-            public void run() {
-                handler.post(checkGameOver);
-            }
-        }, 0, 200);
-    }
-
-    public enum GameMode{
-        TimeAttack,
-        Normal;
+        if(getGameMode() == GameMode.TimeAttack) {
+            Timer checkTimeRemainingTimer = new Timer();
+            checkTimeRemainingTimer.schedule(new TimerTask() {
+                public void run() {
+                    handler.post(checkGameOver);
+                }
+            }, 0, 200);
+        }
     }
 
     public GameMode getGameMode() {
         return gameMode;
+    }
+
+    public Outcome getOutcome() {
+        return outcome;
     }
 
     public boolean isFound(Collection<Tile> tiles) {
@@ -98,7 +101,7 @@ public class Game {
             if (!foundSetList.contains(tileSet)) {
                 foundSetList.add(tileSet);
                 if (getFoundSetCount() == getBoardSetCount()) {
-                    onGameOver();
+                    onGameOver(Outcome.Win);
                 }
 
                 return true;
@@ -172,11 +175,10 @@ public class Game {
         if (getGameMode() != GameMode.TimeAttack) {
             return -1;
         }
-        return (getElapsedTime() - (15 + (10*foundSetList.size())));
+        return (getElapsedTime() - (15 + (10 * foundSetList.size())));
     }
 
-
-
+    /* Inner Classes and Enums */
     public class FoundSet {
         private final Set<Tile> tileSet;
         private final long totalElapsed;
@@ -217,5 +219,15 @@ public class Game {
         public int hashCode() {
             return tileSet.hashCode();
         }
+    }
+
+    public enum GameMode {
+        TimeAttack,
+        Normal
+    }
+
+    public enum Outcome {
+        Win,
+        Lose
     }
 }

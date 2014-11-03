@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import fakesetgame.seniordesign.model.Board;
+import fakesetgame.seniordesign.model.Game;
 
 /**
  * Created by Chris on 10/17/2014.
@@ -19,14 +20,18 @@ public class GameOutcome {
     private final long elapsed;
     private final Date inserted;
     private final boolean hintUsed;
+    private final Game.GameMode mode;
+    private final Game.Outcome outcome;
     private final List<FoundSetRecord> foundSetRecordList;
 
-    private GameOutcome(long _id, String board, long elapsed, long inserted, boolean hintUsed, List<FoundSetRecord> foundSets) {
+    private GameOutcome(long _id, String board, long elapsed, long inserted, boolean hintUsed, String mode, String outcome, List<FoundSetRecord> foundSets) {
         this._id = _id;
         this.board = Board.fromString(board);
         this.elapsed = elapsed;
         this.inserted = new Date(inserted);
         this.hintUsed = hintUsed;
+        this.mode = Game.GameMode.valueOf(mode);
+        this.outcome = Game.Outcome.valueOf(outcome);
         this.foundSetRecordList = new ArrayList<FoundSetRecord>(foundSets);
     }
 
@@ -50,6 +55,14 @@ public class GameOutcome {
         return hintUsed;
     }
 
+    public Game.GameMode getMode() {
+        return mode;
+    }
+
+    public Game.Outcome getOutcome() {
+        return outcome;
+    }
+
     public List<FoundSetRecord> getFoundSetList() {
         return new ArrayList<FoundSetRecord>(foundSetRecordList);
     }
@@ -64,6 +77,8 @@ public class GameOutcome {
                 c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_ELAPSED)),
                 c.getLong(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_INSERTED)),
                 c.getInt(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_HINT)) == 1,
+                c.getString(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_MODE)),
+                c.getString(c.getColumnIndexOrThrow(TableDef.COLUMN_NAME_OUTCOME)),
                 PlayerDataDbHelper.getFoundSetsByGameOutcome(context, outcomeId)
         );
     }
@@ -79,13 +94,17 @@ public class GameOutcome {
         public static final String COLUMN_NAME_ELAPSED = "elapsed";
         public static final String COLUMN_NAME_INSERTED = "inserted";
         public static final String COLUMN_NAME_HINT = "hint";
+        public static final String COLUMN_NAME_MODE = "mode";
+        public static final String COLUMN_NAME_OUTCOME = "outcome";
 
         public static final String[] ALL_COLUMNS = {
-                TableDef._ID,
-                TableDef.COLUMN_NAME_BOARD,
-                TableDef.COLUMN_NAME_ELAPSED,
-                TableDef.COLUMN_NAME_INSERTED,
-                TableDef.COLUMN_NAME_HINT
+                _ID,
+                COLUMN_NAME_BOARD,
+                COLUMN_NAME_ELAPSED,
+                COLUMN_NAME_INSERTED,
+                COLUMN_NAME_HINT,
+                COLUMN_NAME_MODE,
+                COLUMN_NAME_OUTCOME
         };
     }
 }

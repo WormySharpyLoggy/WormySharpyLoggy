@@ -28,7 +28,7 @@ public class SummaryScreen extends Activity {
         TextView elapsed = (TextView) findViewById(R.id.elapsedTime);
         elapsed.setText(String.format("%d:%02d", lastGameTime / 60, lastGameTime % 60));
 
-        GameSummaryListItemCursorAdapter adapter = new GameSummaryListItemCursorAdapter(this, PlayerDataDbHelper.getBestOutcomes(this, 5, false), 0);
+        GameSummaryListItemCursorAdapter adapter = new GameSummaryListItemCursorAdapter(this, PlayerDataDbHelper.getBestOutcomes(this, lastGame.getMode(), 5, false), 0);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
