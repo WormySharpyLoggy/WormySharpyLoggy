@@ -60,9 +60,8 @@ public class Game {
             listener.gameOver(e);
     }
 
-    public Game(GameMode gameMode) {
-        sets = SETS;
-        board = Board.generateRandom(sets, Double.MIN_VALUE, Double.MAX_VALUE);
+    public Game(GameMode gameMode, int setCount, double minDiff, double maxDiff) {
+        board = Board.generateRandom(setCount, minDiff, maxDiff);
         foundSetList = new ArrayList<FoundSet>();
         restartTimer();
         this.gameMode = gameMode;

@@ -5,6 +5,7 @@ import android.test.ApplicationTestCase;
 
 import junit.framework.Assert;
 
+import fakesetgame.seniordesign.data.OptionsHelper;
 import fakesetgame.seniordesign.data.PlayerDataDbHelper;
 import fakesetgame.seniordesign.data.Setting;
 
@@ -41,5 +42,19 @@ public class SettingsTest extends ApplicationTestCase<Application> {
         PlayerDataDbHelper.deleteSetting(getContext(), testSettingName);
         setting = PlayerDataDbHelper.getSetting(getContext(), testSettingName);
         Assert.assertNull(setting);
+    }
+
+    public void testOptionsHelper() {
+        for (int i = 0; i < 4; i++) {
+            OptionsHelper.setHardness(getContext(), i);
+            int retrDiff = OptionsHelper.getHardness(getContext());
+            Assert.assertEquals(i, retrDiff);
+        }
+
+        for (int i = 4; i < 7; i++) {
+            OptionsHelper.setSetCount(getContext(), i);
+            int retrCount = OptionsHelper.getSetCount(getContext());
+            Assert.assertEquals(i, retrCount);
+        }
     }
 }

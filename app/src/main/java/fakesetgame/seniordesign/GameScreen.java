@@ -1,5 +1,6 @@
 package fakesetgame.seniordesign;
 
+import fakesetgame.seniordesign.data.OptionsHelper;
 import fakesetgame.seniordesign.data.PlayerDataDbHelper;
 import fakesetgame.seniordesign.model.Board;
 import fakesetgame.seniordesign.model.Game;
@@ -197,7 +198,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     }
 
     private void newGame() {
-        game = new Game(Game.GameMode.Normal);
+        game = new Game(Game.GameMode.Normal, OptionsHelper.getSetCount(this), Double.MIN_VALUE, Double.MAX_VALUE);
         game.addGameOverListener(this);
 
         clearTileSelection();

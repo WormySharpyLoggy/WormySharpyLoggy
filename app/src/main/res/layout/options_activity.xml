@@ -1,29 +1,43 @@
-<TableLayout
+<GridLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:columnCount="1"
+    android:rowCount="5">
 
-    <TableRow
+    <TextView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/diff"
+        android:id="@+id/diffText"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:gravity="center" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/textView" />
-
-    </TableRow>
-
-    <TableRow
+    <SeekBar
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content"
+        android:id="@+id/diffSlider"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:max="2" />
 
-        <SeekBar
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/diffSlider"
-            android:max="2" />
-    </TableRow>
-</TableLayout>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/sparse"
+        android:id="@+id/countText"
+        android:layout_column="0"
+        android:layout_row="2"
+        android:gravity="center" />
+
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/countSlider"
+        android:layout_column="0"
+        android:layout_row="3"
+        android:max="2" />
+</GridLayout>

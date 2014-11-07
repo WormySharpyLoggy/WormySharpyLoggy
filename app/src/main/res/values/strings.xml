@@ -16,6 +16,8 @@
     <string name="newGame">New Game</string>
     <string name="mainMenu">Main Menu</string>
     <string name="hint">Hint</string>
+    <string name="diff">Difficulty</string>
+    <string name="sparse">Sparseness</string>
     <item name="TILE_INDEX" type="id"/>
     <string name="hintUsed">Last game was won using hints. To see your time on the board, win without hints!</string>
     <string name="hintNotUsed">You won without using any hints!</string>
