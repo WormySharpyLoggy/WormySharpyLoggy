@@ -61,6 +61,7 @@ public class Game {
     }
 
     public Game(GameMode gameMode, int setCount, double minDiff, double maxDiff) {
+        sets = setCount;
         board = Board.generateRandom(setCount, minDiff, maxDiff);
         foundSetList = new ArrayList<FoundSet>();
         restartTimer();

@@ -20,12 +20,35 @@ public class OptionsScreen extends Activity {
         countBar = (SeekBar) findViewById(R.id.countSlider);
         diffBar = (SeekBar) findViewById(R.id.diffSlider);
 
-        if (OptionsHelper.getHardness(this) == 0) {
-            handleUICornerCases();
-        } else {
-            diffBar.setProgress(OptionsHelper.getHardness(this));
-            countBar.setProgress(OptionsHelper.getSetCount(this) - 3);
-        }
+        diffBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (seekBar.getProgress() == 0) { countBar.setProgress(0); }
+            }
+        });
+        countBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (seekBar.getProgress() != 0 && diffBar.getProgress() == 0) { diffBar.setProgress(1); }
+            }
+        });
+
+        diffBar.setProgress(OptionsHelper.getHardness(this));
+        countBar.setProgress(OptionsHelper.getSetCount(this) - 3);
+
+        //handleUICornerCases();
     }
 
     @Override
@@ -40,12 +63,5 @@ public class OptionsScreen extends Activity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-    }
-
-    private void handleUICornerCases() {
-        if (OptionsHelper.getHardness(this) == 0) {
-            countBar.setProgress(0);
-            countBar.setEnabled(false);
-        } else { countBar.setEnabled(true); }
     }
 }

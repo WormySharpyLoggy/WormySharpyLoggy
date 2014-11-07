@@ -198,7 +198,8 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     }
 
     private void newGame() {
-        game = new Game(Game.GameMode.Normal, OptionsHelper.getSetCount(this), Double.MIN_VALUE, Double.MAX_VALUE);
+        game = new Game(Game.GameMode.Normal, OptionsHelper.getSetCount(this),
+                OptionsHelper.getMinDiff(this), OptionsHelper.getMaxDiff(this));
         game.addGameOverListener(this);
 
         clearTileSelection();

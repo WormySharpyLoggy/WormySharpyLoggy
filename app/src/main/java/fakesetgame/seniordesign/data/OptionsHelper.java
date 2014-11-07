@@ -2,7 +2,8 @@ package fakesetgame.seniordesign.data;
 
 import android.content.Context;
 
-import java.lang.reflect.Modifier;
+import fakesetgame.seniordesign.model.Modifier;
+
 
 /**
  * Created by Jeremy on 10/31/2014.
