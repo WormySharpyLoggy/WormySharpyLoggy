@@ -227,7 +227,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         values.put(GameOutcome.TableDef.COLUMN_NAME_ELAPSED, game.getElapsedTime());
         values.put(GameOutcome.TableDef.COLUMN_NAME_INSERTED, new Date().getTime());
         values.put(GameOutcome.TableDef.COLUMN_NAME_HINT, game.wasHintUsed());
-        values.put(GameOutcome.TableDef.COLUMN_NAME_MODE, game.getGameMode().toString());
+        values.put(GameOutcome.TableDef.COLUMN_NAME_MODE, game.getGameType().toString());
         values.put(GameOutcome.TableDef.COLUMN_NAME_OUTCOME, game.getOutcome().toString());
 
         // Insert the new row, returning the primary key value of the new row
@@ -288,7 +288,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         );
     }
 
-    public static Cursor getLastOutcomes(Context context, Game.GameMode mode, int rows) {
+    public static Cursor getLastOutcomes(Context context, Game.GameType mode, int rows) {
         return getTopOutcomes(
                 context,
                 rows,
@@ -298,7 +298,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         );
     }
 
-    public static Cursor getBestOutcomes(Context context, Game.GameMode mode, int rows, boolean showGamesWithHints) {
+    public static Cursor getBestOutcomes(Context context, Game.GameType mode, int rows, boolean showGamesWithHints) {
 
         List<String> where = new ArrayList<String>();
         List<String> whereArgs = new ArrayList<String>();

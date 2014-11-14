@@ -25,7 +25,7 @@ public class Game {
     public final HintProvider hintProvider = new HintProvider(this);
     private final int sets;
     private final List<FoundSet> foundSetList;
-    private final GameMode gameMode;
+    private final GameType gameType;
     private final Handler handler = new Handler();
 
 
@@ -39,7 +39,7 @@ public class Game {
     private final Runnable checkGameOver = new Runnable() {
 
         public void run() {
-            if (getGameMode() == GameMode.TimeAttack && getTimeRemaining() <= 0) {
+            if (getGameType() == GameType.TimeAttack && getTimeRemaining() <= 0) {
                 onGameOver(Outcome.Lose);
             }
         }
@@ -60,14 +60,14 @@ public class Game {
             listener.gameOver(e);
     }
 
-    public Game(GameMode gameMode, int setCount, double minDiff, double maxDiff) {
+    public Game(GameType gameType, int setCount, double minDiff, double maxDiff) {
         sets = setCount;
         board = Board.generateRandom(setCount, minDiff, maxDiff);
         foundSetList = new ArrayList<FoundSet>();
         restartTimer();
-        this.gameMode = gameMode;
+        this.gameType = gameType;
 
-        if(getGameMode() == GameMode.TimeAttack) {
+        if(getGameType() == GameType.TimeAttack) {
             Timer checkTimeRemainingTimer = new Timer();
             checkTimeRemainingTimer.schedule(new TimerTask() {
                 public void run() {
@@ -77,8 +77,8 @@ public class Game {
         }
     }
 
-    public GameMode getGameMode() {
-        return gameMode;
+    public GameType getGameType() {
+        return gameType;
     }
 
     public Outcome getOutcome() {
@@ -91,7 +91,7 @@ public class Game {
     }
 
     public boolean attemptSet(Tile tile1, Tile tile2, Tile tile3) {
-        if (getGameMode() == GameMode.TimeAttack) {
+        if (getGameType() == GameType.TimeAttack) {
             checkGameOver.run();
         }
         if (TileSet.isValidSet(tile1, tile2, tile3)) {
@@ -172,7 +172,7 @@ public class Game {
     }
 
     public long getTimeRemaining() {
-        if (getGameMode() != GameMode.TimeAttack) {
+        if (getGameType() != GameType.TimeAttack) {
             return -1;
         }
         return (getElapsedTime() - (15 + (10 * foundSetList.size())));
@@ -221,7 +221,7 @@ public class Game {
         }
     }
 
-    public enum GameMode {
+    public enum GameType {
         TimeAttack,
         Normal
     }
