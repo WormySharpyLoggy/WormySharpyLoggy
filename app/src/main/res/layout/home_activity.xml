@@ -10,9 +10,10 @@
     tools:context=".HomeScreen"
     android:clickable="true">
 
+
     <Button
         android:id="@+id/newSingle"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
@@ -21,17 +22,27 @@
         android:enabled="true" />
 
     <Button
-        android:id="@+id/newMulti"
-        android:layout_width="wrap_content"
+        android:id="@+id/newTimeAttack"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/newSingle"
+        android:layout_centerHorizontal="true"
+        android:onClick="StartTA"
+        android:text="@string/newTimeAttack"
+        android:enabled="true" />
+
+    <Button
+        android:id="@+id/newMulti"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newTimeAttack"
         android:layout_centerHorizontal="true"
         android:enabled="false"
         android:text="@string/newMulti" />
 
     <Button
         android:id="@+id/options"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/newMulti"
         android:layout_centerHorizontal="true"

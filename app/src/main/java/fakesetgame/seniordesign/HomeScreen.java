@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import fakesetgame.seniordesign.model.Game;
+
 
 public class HomeScreen extends Activity {
 
@@ -21,8 +23,16 @@ public class HomeScreen extends Activity {
     }
 
     public void StartSP(View v) {
-        Intent i = new Intent(HomeScreen.this, GameScreen.class);
+        Intent i = new Intent(this, GameScreen.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("mode", Game.GameMode.Normal);
+        startActivity(i);
+    }
+
+    public void StartTA(View v) {
+        Intent i = new Intent(this, GameScreen.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("mode", Game.GameMode.TimeAttack);
         startActivity(i);
     }
 

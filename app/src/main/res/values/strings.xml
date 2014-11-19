@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="newSingle">New Single-player Game</string>
+    <string name="newSingle">Start Standard Game</string>
+    <string name="newTimeAttack">Start Time Attack</string>
     <string name="newMulti">New Multi-player Game</string>
     <string name="options">Options</string>
     <string name="app_name">SeniorDesign Team 11</string>

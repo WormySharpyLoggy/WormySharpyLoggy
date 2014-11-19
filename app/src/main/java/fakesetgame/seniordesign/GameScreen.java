@@ -145,7 +145,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     @Override
     public void gameOver(GameOverEvent e) {
         long lastGame = PlayerDataDbHelper.saveOutcome(this, game);
-        Intent i = new Intent(GameScreen.this, SummaryScreen.class);
+        Intent i = new Intent(this, SummaryScreen.class);
         i.putExtra("lastGame", lastGame);
         startActivity(i);
     }
