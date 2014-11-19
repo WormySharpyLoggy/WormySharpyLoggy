@@ -21,7 +21,7 @@ public class GameTest extends ApplicationTestCase<Application> {
     }
 
     public void testInvalidAttemptingSet() throws Exception {
-        Game gameState = new Game(Game.GameType.Normal);
+        Game gameState = new Game(Game.GameType.Normal, 5, Double.MIN_VALUE, Double.MAX_VALUE);
         int initialScore;
         boolean isValidFalse;
 
@@ -37,7 +37,7 @@ public class GameTest extends ApplicationTestCase<Application> {
     }
 
     public void testValidAttemptingSet() throws Exception {
-        Game gameState = new Game(Game.GameType.Normal);
+        Game gameState = new Game(Game.GameType.Normal, 5, Double.MIN_VALUE, Double.MAX_VALUE);
         int initialScore;
         boolean isValidTrue;
 
@@ -57,7 +57,7 @@ public class GameTest extends ApplicationTestCase<Application> {
     }
 
     public void testGameTimer() throws Exception {
-        Game game = new Game(Game.GameType.Normal);
+        Game game = new Game(Game.GameType.Normal, 5, Double.MIN_VALUE, Double.MAX_VALUE);
 
         // sleep 200 ms
         Thread.sleep(200);
