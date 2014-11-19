@@ -33,6 +33,8 @@ public class RegistrationEndpoint {
 
     private static final Logger log = Logger.getLogger(RegistrationEndpoint.class.getName());
 
+    //TODO: Follow tutorial here https://cloud.google.com/tools/android_studio_templates/run_test_deploy
+
     /**
      * Register a device to the backend
      *
