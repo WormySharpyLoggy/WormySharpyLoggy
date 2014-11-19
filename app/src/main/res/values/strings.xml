@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="newSingle">Start Standard Game</string>
-    <string name="newTimeAttack">Start Time Attack</string>
-    <string name="newMulti">New Multi-player Game</string>
+    <string name="singlePlay">Single-player</string>
+    <string name="multiPlay">Multi-player</string>
+    <string name="newGame">New Game</string>
+    <string name="newTAGame">New Time Attack Game</string>
     <string name="options">Options</string>
     <string name="app_name">SeniorDesign Team 11</string>
     <string name="dummy_button">Dummy Button</string>
@@ -14,7 +15,6 @@
     <string name="title_activity_game_screen">GameScreen</string>
     <string name="elapsedTime">Your Last Time:</string>
     <string name="defaultTime">00:00</string>
-    <string name="newGame">New Game</string>
     <string name="mainMenu">Main Menu</string>
     <string name="hint">Hint</string>
     <string name="diff">Difficulty</string>

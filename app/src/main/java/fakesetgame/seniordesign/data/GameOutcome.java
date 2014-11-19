@@ -20,7 +20,7 @@ public class GameOutcome {
     private final long elapsed;
     private final Date inserted;
     private final boolean hintUsed;
-    private final Game.GameMode mode;
+    private final Game.GameType mode;
     private final Game.Outcome outcome;
     private final List<FoundSetRecord> foundSetRecordList;
 
@@ -30,7 +30,7 @@ public class GameOutcome {
         this.elapsed = elapsed;
         this.inserted = new Date(inserted);
         this.hintUsed = hintUsed;
-        this.mode = Game.GameMode.valueOf(mode);
+        this.mode = Game.GameType.valueOf(mode);
         this.outcome = Game.Outcome.valueOf(outcome);
         this.foundSetRecordList = new ArrayList<FoundSetRecord>(foundSets);
     }
@@ -55,7 +55,7 @@ public class GameOutcome {
         return hintUsed;
     }
 
-    public Game.GameMode getMode() {
+    public Game.GameType getMode() {
         return mode;
     }
 
