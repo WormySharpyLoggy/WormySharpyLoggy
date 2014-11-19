@@ -175,7 +175,7 @@ public class Game {
         if (getGameType() != GameType.TimeAttack) {
             return -1;
         }
-        return (getElapsedTime() - (15 + (10 * foundSetList.size())));
+        return ((15 + (10 * foundSetList.size())) - (getElapsedTime() / 1000))*(1000);
     }
 
     /* Inner Classes and Enums */
