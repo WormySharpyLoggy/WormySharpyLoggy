@@ -3,9 +3,11 @@ package fakesetgame.seniordesign;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import fakesetgame.seniordesign.model.Game;
 
 
 public class HomeScreen extends Activity {
@@ -20,13 +22,37 @@ public class HomeScreen extends Activity {
         setContentView(R.layout.home_activity);
     }
 
-    public void StartSP(View v) {
+    public void StartGame(View v) {
         Intent i = new Intent(HomeScreen.this, GameScreen.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        RadioGroup rg = (RadioGroup) findViewById(R.id.playMode);
+        switch (rg.getCheckedRadioButtonId()) {
+            case R.id.singlePlay:
+                i.putExtra("mode", "single");
+                break;
+            case R.id.multiPlay:
+                i.putExtra("mode", "multi");
+                break;
+            default:
+                break;
+        }
+
+        switch (v.getId()) {
+            case R.id.newStandard:
+                i.putExtra("type", Game.GameType.Normal);
+                break;
+            case R.id.newTA:
+                i.putExtra("type", Game.GameType.TimeAttack);
+                break;
+            default:
+                break;
+        }
+
         startActivity(i);
     }
 
-    public void SetOptions(View v) {
+    public void ViewOptions(View v) {
         Intent i = new Intent(HomeScreen.this, OptionsScreen.class);
         startActivity(i);
     }

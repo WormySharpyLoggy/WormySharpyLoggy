@@ -1,5 +1,6 @@
 package fakesetgame.seniordesign;
 
+import fakesetgame.seniordesign.data.OptionsHelper;
 import fakesetgame.seniordesign.data.PlayerDataDbHelper;
 import fakesetgame.seniordesign.model.Board;
 import fakesetgame.seniordesign.model.Game;
@@ -144,7 +145,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     @Override
     public void gameOver(GameOverEvent e) {
         long lastGame = PlayerDataDbHelper.saveOutcome(this, game);
-        Intent i = new Intent(GameScreen.this, SummaryScreen.class);
+        Intent i = new Intent(this, SummaryScreen.class);
         i.putExtra("lastGame", lastGame);
         startActivity(i);
     }
@@ -197,7 +198,9 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     }
 
     private void newGame() {
-        game = new Game(Game.GameMode.Normal);
+        Game.GameType type = (Game.GameType) getIntent().getExtras().get("type");
+        game = new Game(type, OptionsHelper.getSetCount(this), OptionsHelper.getMinDiff(this),
+                OptionsHelper.getMaxDiff(this));
         game.addGameOverListener(this);
 
         clearTileSelection();
