@@ -12,6 +12,7 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import javax.inject.Named;
@@ -41,14 +42,29 @@ public class RegistrationEndpoint {
      * @param regId The Google Cloud Messaging registration Id to add
      */
     @ApiMethod(name = "register")
-    public void registerDevice(@Named("regId") String regId) {
+    public RegistrationRecord registerDevice(@Named("regId") String regId) {
         if (findRecord(regId) != null) {
-            log.info("Device " + regId + " already registered, skipping register");
-            return;
+            String message = "Device " + regId + " already registered, skipping register";
+            log.info(message);
+            throw new RuntimeException(message);
         }
+
         RegistrationRecord record = new RegistrationRecord();
+
+        Random r = new Random();
+        String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        int alphaLen = alphabet.length();
+        StringBuilder secret = new StringBuilder();
+        for (int i = 0; i < 40; ++i) {
+            int index = r.nextInt(alphaLen);
+            secret.append(alphabet.substring(index, index + 1));
+        }
+        record.setSecret(secret.toString());
+
         record.setRegId(regId);
         ofy().save().entity(record).now();
+
+        return record;
     }
 
     /**
@@ -57,10 +73,14 @@ public class RegistrationEndpoint {
      * @param regId The Google Cloud Messaging registration Id to remove
      */
     @ApiMethod(name = "unregister")
-    public void unregisterDevice(@Named("regId") String regId) {
+    public void unregisterDevice(@Named("regId") String regId, @Named("secret") String secret) {
         RegistrationRecord record = findRecord(regId);
         if (record == null) {
             log.info("Device " + regId + " not registered, skipping unregister");
+            return;
+        }
+        if (secret == null || !secret.equals(record.getSecret())) {
+            log.info("Device " + regId + " exists, but wrong secret key was provided. Unregister failed.");
             return;
         }
         ofy().delete().entity(record).now();
@@ -75,6 +95,8 @@ public class RegistrationEndpoint {
     @ApiMethod(name = "listDevices")
     public CollectionResponse<RegistrationRecord> listDevices(@Named("count") int count) {
         List<RegistrationRecord> records = ofy().load().type(RegistrationRecord.class).limit(count).list();
+        for(RegistrationRecord r: records)
+            r.setSecret(null);
         return CollectionResponse.<RegistrationRecord>builder().setItems(records).build();
     }
 
