@@ -1,7 +1,10 @@
 package fakesetgame.seniordesign.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import fakesetgame.seniordesign.R;
 import fakesetgame.seniordesign.model.Modifier;
 
 
@@ -11,9 +14,9 @@ import fakesetgame.seniordesign.model.Modifier;
 public class OptionsHelper {
 
     public static int getHardness(Context ctx){
-        Setting set = PlayerDataDbHelper.getSetting(ctx, "difficulty");
-        if (set == null) return 1;
-        return Integer.parseInt(set.getValue());
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ctx);
+        return Integer.valueOf(sp.getString(ctx.getString(R.string.optDiffKey),
+                ctx.getString(R.string.optDiffMidLevelValue)));
     }
 
     public static double getMinDiff(Context ctx) {
@@ -43,28 +46,8 @@ public class OptionsHelper {
     }
 
     public static int getSetCount(Context ctx) {
-        Setting set = PlayerDataDbHelper.getSetting(ctx, "setcount");
-        if (set == null) return 4;
-        return Integer.parseInt(set.getValue());
-    }
-
-    public static void setHardness(Context ctx, Integer newDiff) {
-        PlayerDataDbHelper.saveSetting(ctx, "difficulty", newDiff.toString());
-    }
-
-    public static void setSetCount(Context ctx, int newCount) {
-        Integer normCount;
-        switch (newCount) {
-            case 2:
-                normCount = 5;
-                break;
-            case 1:
-                normCount = 4;
-                break;
-            default:
-                normCount = 3;
-                break;
-        }
-        PlayerDataDbHelper.saveSetting(ctx, "setcount", normCount.toString());
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ctx);
+        return Integer.valueOf(sp.getString(ctx.getString(R.string.optSparseKey),
+                ctx.getString(R.string.optSparseMidLevelValue)));
     }
 }

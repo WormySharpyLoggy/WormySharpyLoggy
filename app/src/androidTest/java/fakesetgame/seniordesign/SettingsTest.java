@@ -45,16 +45,6 @@ public class SettingsTest extends ApplicationTestCase<Application> {
     }
 
     public void testOptionsHelper() {
-        for (int i = 0; i < 4; i++) {
-            OptionsHelper.setHardness(getContext(), i);
-            int retrDiff = OptionsHelper.getHardness(getContext());
-            Assert.assertEquals(i, retrDiff);
-        }
-
-        for (int i = 4; i < 7; i++) {
-            OptionsHelper.setSetCount(getContext(), i);
-            int retrCount = OptionsHelper.getSetCount(getContext());
-            Assert.assertEquals(i, retrCount);
-        }
+        // TODO: Rewrite this test
     }
 }

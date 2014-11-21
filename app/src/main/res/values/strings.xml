@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="optDiffKey">pref_difficulty</string>
+    <string name="optDiffTitle">Game Difficulty</string>
+
+    <string name="optDiffLowLevelEntry">Easy</string>
+    <string name="optDiffLowLevelValue">0</string>
+    <string name="optDiffMidLevelEntry">Normal</string>
+    <string name="optDiffMidLevelValue">1</string>
+    <string name="optDiffHighLevelEntry">Challenging</string>
+    <string name="optDiffHighLevelValue">2</string>
+
+    <string-array name="optDiffEntries">
+        <item>@string/optDiffLowLevelEntry</item>
+        <item>@string/optDiffMidLevelEntry</item>
+        <item>@string/optDiffHighLevelEntry</item>
+    </string-array>
+
+    <string-array name="optDiffValues">
+        <item>@string/optDiffLowLevelValue</item>
+        <item>@string/optDiffMidLevelValue</item>
+        <item>@string/optDiffHighLevelValue</item>
+    </string-array>
+
+    <string name="optSparseKey">pref_sparseness</string>
+    <string name="optSparseTitle">Sets Per Game</string>
+    <string name="optSparseLowLevelEntry">3 Sets Per Game</string>
+    <string name="optSparseLowLevelValue">3</string>
+    <string name="optSparseMidLevelEntry">4 Sets Per Game</string>
+    <string name="optSparseMidLevelValue">4</string>
+    <string name="optSparseHighLevelEntry">5 Sets Per Game</string>
+    <string name="optSparseHighLevelValue">5</string>
+
+    <string-array name="optSparseEntries">
+        <item>@string/optSparseLowLevelEntry</item>
+        <item>@string/optSparseMidLevelEntry</item>
+        <item>@string/optSparseHighLevelEntry</item>
+    </string-array>
+    <string-array name="optSparseValues">
+        <item>@string/optSparseLowLevelValue</item>
+        <item>@string/optSparseMidLevelValue</item>
+        <item>@string/optSparseHighLevelValue</item>
+    </string-array>
+
     <string name="singlePlay">Single-player</string>
     <string name="multiPlay">Multi-player</string>
     <string name="newGame">New Game</string>
@@ -19,14 +61,16 @@
     <string name="hint">Hint</string>
     <string name="diff">Difficulty</string>
     <string name="sparse">Sparseness</string>
+
     <item name="TILE_INDEX" type="id"/>
+
     <string name="hintUsed">Last game was won using hints. To see your time on the board, win without hints!</string>
     <string name="hintNotUsed">You won without using any hints!</string>
     <string name="foundSet">Good job!</string>
     <string name="badSet">Try again</string>
     <string name="foundSetAlready">You already got that one</string>
-
     <string name="title_activity_options_screen">OptionsScreen</string>
     <string name="title_activity_summary_screen">SummaryScreen</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

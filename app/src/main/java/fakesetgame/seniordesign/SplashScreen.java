@@ -14,6 +14,7 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
 
+        //PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
         new Handler().postDelayed(new Runnable() {
 
             /*

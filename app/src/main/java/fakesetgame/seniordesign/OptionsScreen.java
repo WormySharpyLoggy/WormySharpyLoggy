@@ -1,7 +1,10 @@
 package fakesetgame.seniordesign;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
+import android.preference.PreferenceFragment;
 import android.widget.SeekBar;
 
 import fakesetgame.seniordesign.data.OptionsHelper;
@@ -15,53 +18,49 @@ public class OptionsScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.options_activity);
-
-        countBar = (SeekBar) findViewById(R.id.countSlider);
-        diffBar = (SeekBar) findViewById(R.id.diffSlider);
-
-        diffBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                if (seekBar.getProgress() == 0) { countBar.setProgress(0); }
-            }
-        });
-        countBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                if (seekBar.getProgress() != 0 && diffBar.getProgress() == 0) { diffBar.setProgress(1); }
-            }
-        });
-
-        diffBar.setProgress(OptionsHelper.getHardness(this));
-        countBar.setProgress(OptionsHelper.getSetCount(this) - 3);
-
-        //handleUICornerCases();
+//        getFragmentManager().beginTransaction()
+//                .replace(R.id.settingsContainer, new OptionsFragment(), "settings")
+//                .commit();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    public static class OptionsFragment extends PreferenceFragment
+            implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-        OptionsHelper.setHardness(this, diffBar.getProgress());
-        OptionsHelper.setSetCount(this, countBar.getProgress());
+        ListPreference diff;
+        ListPreference sparse;
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            addPreferencesFromResource(R.xml.options);
+            diff = (ListPreference) findPreference(getString(R.string.optDiffKey));
+            sparse = (ListPreference) findPreference(getString(R.string.optSparseKey));
+
+            getPreferenceScreen().getSharedPreferences()
+                    .registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
+                // If user is selecting easy mode, reduce number of sets to find
+                if (key.equals(getString(R.string.optDiffKey))) {
+                    if (diff.getValue() == getString(R.string.optDiffLowLevelValue)) {
+                        sparse.setValue(getString(R.string.optSparseLowLevelValue));
+                    }
+                    // If user is increasing number of sets, bump them out of easy mode
+                } else if (key.equals(getString(R.string.optSparseKey))) {
+                    if (sparse.getValue() != getString(R.string.optSparseLowLevelValue)
+                            && diff.getValue() == getString(R.string.optDiffLowLevelValue)) {
+                        diff.setValue(getString(R.string.optDiffMidLevelValue));
+                    }
+                }
+
+                ListPreference lp = (ListPreference) findPreference(key);
+                lp.setSummary(lp.getEntry());
+        }
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-    }
 }
