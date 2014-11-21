@@ -26,7 +26,3 @@ proguard/
 .idea/workspace.xml
 .idea/libraries
 .DS_Store
-
-# This file contains a key that should remain secret
-# ask Christopher St. John for a copy of file if you need it
-backend/src/main/webapp/WEB-INF/appengine-web.xml
