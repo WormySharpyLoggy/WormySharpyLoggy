@@ -40,8 +40,14 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
     private final Runnable updateClock = new Runnable() {
         @Override
         public void run() {
-            long elapsedSeconds = game.getElapsedTime() / 1000;
-            timeView.setText(String.format("%d:%02d", elapsedSeconds / 60, elapsedSeconds % 60));
+            if (game.getGameType() == Game.GameType.Normal) {
+                long elapsedSeconds = game.getElapsedTime() / 1000;
+                timeView.setText(String.format("%d:%02d", elapsedSeconds / 60, elapsedSeconds % 60));
+            }
+            if (game.getGameType() == Game.GameType.TimeAttack) {
+                long timeRemaining = game.getTimeRemaining() / 1000;
+                timeView.setText(String.format("%d:%02d", timeRemaining / 60, timeRemaining % 60));
+            }
         }
     };
 
