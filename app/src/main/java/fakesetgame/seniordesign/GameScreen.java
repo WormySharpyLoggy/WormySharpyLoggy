@@ -31,7 +31,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 
     private static final String TAG = "GameScreen";
     private ShadedImageView[] tiles = new ShadedImageView[Board.TILES];
-    private ImageView[][] found = new ImageView[Game.SETS][Game.TILES_IN_A_SET];
+    private ImageView[][] found;
     private TextView timeView = null;
     private final Handler handler = new Handler();
     private Game game = null;
@@ -56,6 +56,8 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.game_activity);
+
+        found = new ImageView[OptionsHelper.getSetCount(this)][Game.TILES_IN_A_SET];
 
         // Init board imageviews
         for (int i = 0; i < Board.TILES; i++) {

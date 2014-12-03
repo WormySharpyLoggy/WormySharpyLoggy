@@ -10,9 +10,11 @@
     tools:context=".HomeScreen"
     android:clickable="true">
 
+
+
     <Button
         android:id="@+id/newStandard"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:onClick="StartGame"
         android:text="@string/newGame"
@@ -23,7 +25,7 @@
 
     <Button
         android:id="@+id/newTA"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:enabled="true"
         android:text="@string/newTAGame"
@@ -34,7 +36,7 @@
 
     <Button
         android:id="@+id/options"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:enabled="true"
         android:text="@string/options"
@@ -48,7 +50,8 @@
         android:orientation="horizontal"
         android:id="@+id/playMode"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -63,5 +66,14 @@
             android:text="@string/multiPlay"
             android:id="@+id/multiPlay" />
     </RadioGroup>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:src="@drawable/tile_3332" />
 
 </RelativeLayout>

@@ -48,7 +48,7 @@
     <string name="newGame">New Game</string>
     <string name="newTAGame">New Time Attack Game</string>
     <string name="options">Options</string>
-    <string name="app_name">SeniorDesign Team 11</string>
+    <string name="app_name">Wormy Sharpy</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_home_screen">HomeScreen</string>
@@ -64,8 +64,9 @@
 
     <item name="TILE_INDEX" type="id"/>
 
-    <string name="hintUsed">Last game was won using hints. To see your time on the board, win without hints!</string>
+    <string name="hintUsed">Last game was won using hints. Showing board with cheaters\' times.</string>
     <string name="hintNotUsed">You won without using any hints!</string>
+    <string name="lostGame">Aww, you lost. Sorry you\'re kinda dumb :(</string>
     <string name="foundSet">Good job!</string>
     <string name="badSet">Try again</string>
     <string name="foundSetAlready">You already got that one</string>

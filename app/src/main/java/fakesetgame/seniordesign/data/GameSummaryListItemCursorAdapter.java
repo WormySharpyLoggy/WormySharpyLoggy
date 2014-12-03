@@ -40,8 +40,15 @@ public class GameSummaryListItemCursorAdapter extends CursorAdapter {
         GameOutcome outcome = GameOutcome.fromCursor(context, cursor);
         rankView.setText(Integer.valueOf(rank).toString());
         long seconds = outcome.getElapsed() / 1000;
-        firstLineView.setText(String.format("%d:%02d", seconds / 60, seconds % 60));
-        secondLineView.setText(DateFormat.getDateInstance().format(outcome.getInserted()));
+        int setsFound = outcome.getFoundSetList().size();
+        double difficulty = outcome.getBoard().getDifficulty();
+        firstLineView.setText(String.format("Time: %d:%02d | Sets: %d | Dif.: %.2f%s",
+                seconds / 60,
+                seconds % 60,
+                setsFound,
+                difficulty,
+                outcome.wasHintUsed()? " | CHEATER" : ""));
+        secondLineView.setText(DateFormat.getDateTimeInstance().format(outcome.getInserted()));
     }
 
     @Override

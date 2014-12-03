@@ -17,7 +17,6 @@ import java.util.TimerTask;
  */
 public class Game {
 
-    public static final int SETS = 5;
     public static final int TILES_IN_A_SET = 3;
 
     Set<GameOverListener> gameOverListeners = new HashSet<GameOverListener>();
@@ -40,7 +39,7 @@ public class Game {
     private final Runnable checkGameOver = new Runnable() {
 
         public void run() {
-            if (getGameType() == GameType.TimeAttack && getTimeRemaining() <= 0) {
+            if (!paused && getGameType() == GameType.TimeAttack && getTimeRemaining() <= 0) {
                 onGameOver(Outcome.Lose);
             }
         }
@@ -138,10 +137,6 @@ public class Game {
 
     public boolean wasHintUsed() {
         return hintUsed;
-    }
-
-    public int getScore() {
-        return foundSetList.size();
     }
 
     public void restartTimer() {

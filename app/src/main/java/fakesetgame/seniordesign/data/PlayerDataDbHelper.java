@@ -306,6 +306,9 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         where.add(GameOutcome.TableDef.COLUMN_NAME_MODE + "=?");
         whereArgs.add(mode.toString());
 
+        where.add(GameOutcome.TableDef.COLUMN_NAME_OUTCOME + "=?");
+        whereArgs.add(Game.Outcome.Win.toString());
+
         if (!showGamesWithHints) {
             where.add(GameOutcome.TableDef.COLUMN_NAME_HINT + "=?");
             whereArgs.add("0");
