@@ -45,6 +45,7 @@ public class OptionsScreen extends Activity {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
+            if(isAdded()) {
                 // If user is selecting easy mode, reduce number of sets to find
                 if (key.equals(getString(R.string.optDiffKey))) {
                     if (diff.getValue() == getString(R.string.optDiffLowLevelValue)) {
@@ -60,6 +61,7 @@ public class OptionsScreen extends Activity {
 
                 ListPreference lp = (ListPreference) findPreference(key);
                 lp.setSummary(lp.getEntry());
+            }
         }
     }
 
