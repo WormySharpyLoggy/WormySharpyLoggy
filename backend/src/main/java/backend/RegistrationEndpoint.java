@@ -33,6 +33,8 @@ import static backend.OfyService.ofy;
 public class RegistrationEndpoint {
 
     private static final Logger log = Logger.getLogger(RegistrationEndpoint.class.getName());
+    private static final int SECRET_LENGTH = 40;
+    private static final Random random = new Random();
 
     //TODO: Follow tutorial here https://cloud.google.com/tools/android_studio_templates/run_test_deploy
 
@@ -51,12 +53,11 @@ public class RegistrationEndpoint {
 
         RegistrationRecord record = new RegistrationRecord();
 
-        Random r = new Random();
         String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         int alphaLen = alphabet.length();
         StringBuilder secret = new StringBuilder();
-        for (int i = 0; i < 40; ++i) {
-            int index = r.nextInt(alphaLen);
+        for (int i = 0; i < SECRET_LENGTH; ++i) {
+            int index = random.nextInt(alphaLen);
             secret.append(alphabet.substring(index, index + 1));
         }
         record.setSecret(secret.toString());
