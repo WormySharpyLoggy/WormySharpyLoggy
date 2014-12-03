@@ -35,6 +35,7 @@ public class Game {
     private boolean gameOver;
     private boolean hintUsed = false;
     private Outcome outcome;
+    private Timer checkTimeRemainingTimer = null;
 
     private final Runnable checkGameOver = new Runnable() {
 
@@ -51,9 +52,14 @@ public class Game {
     }
 
     private void onGameOver(Outcome outcome) {
+        if(isGameOver()) return; // we already did this
+
         pauseTimer();
         gameOver = true;
         this.outcome = outcome;
+
+        if(checkTimeRemainingTimer != null)
+            checkTimeRemainingTimer.cancel();
 
         GameOverEvent e = new GameOverEvent(this);
         for (GameOverListener listener : gameOverListeners)
@@ -68,7 +74,7 @@ public class Game {
         this.gameType = gameType;
 
         if(getGameType() == GameType.TimeAttack) {
-            Timer checkTimeRemainingTimer = new Timer();
+            checkTimeRemainingTimer = new Timer();
             checkTimeRemainingTimer.schedule(new TimerTask() {
                 public void run() {
                     handler.post(checkGameOver);
