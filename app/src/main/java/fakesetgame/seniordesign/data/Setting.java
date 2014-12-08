@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 
 /**
- * Created by Chris on 10/27/2014.
+ * A class to hold a game setting value retrieved from the database.
  */
 public class Setting {
 

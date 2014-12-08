@@ -13,7 +13,7 @@ import java.text.DateFormat;
 import fakesetgame.seniordesign.R;
 
 /**
- * Created by Chris on 10/22/2014.
+ * A class to shove game outcome information into summary view rows.
  */
 public class GameSummaryListItemCursorAdapter extends CursorAdapter {
     private LayoutInflater mInflater;

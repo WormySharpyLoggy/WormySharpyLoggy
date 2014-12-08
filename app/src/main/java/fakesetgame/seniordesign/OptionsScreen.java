@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 
-
+/**
+ * This is the Activity class for the screen on which
+ * a player may change game settings, like difficulty.
+ */
 public class OptionsScreen extends Activity {
 
     @Override

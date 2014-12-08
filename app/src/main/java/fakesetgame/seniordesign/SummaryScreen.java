@@ -14,7 +14,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+/**
+ * This is the Activity class for the overlay screen
+ * that is shown to the user at the conclusion of a game.
+ */
 public class SummaryScreen extends Activity {
 
     private Game.GameType mode;

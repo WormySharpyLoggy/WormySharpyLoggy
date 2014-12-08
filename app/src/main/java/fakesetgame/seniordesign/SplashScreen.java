@@ -5,6 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+
+/**
+ * This is the Activity class for the splash screen,
+ * which displays a brief graphic on app startup.
+ */
 public class SplashScreen extends Activity {
 
     private static int TIMEOUT = 1500;

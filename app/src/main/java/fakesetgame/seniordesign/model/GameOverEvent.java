@@ -3,7 +3,7 @@ package fakesetgame.seniordesign.model;
 import java.util.EventObject;
 
 /**
- * Created by Chris on 10/17/2014.
+ * An event fired when a game is over.
  */
 public class GameOverEvent extends EventObject {
 

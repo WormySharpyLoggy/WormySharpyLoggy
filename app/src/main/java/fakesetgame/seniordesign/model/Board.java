@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Sami on 9/17/2014.
+ * A class to model the role of a board of tiles.
  */
 public class Board {
     private double difficulty = 0;

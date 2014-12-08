@@ -26,7 +26,10 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+/**
+ * This is the Activity class for the screen on which
+ * the game is played.
+ */
 public class GameScreen extends Activity implements View.OnClickListener, GameOverListener {
 
     private static final String TAG = "GameScreen";
@@ -111,10 +114,14 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         game.unpauseTimer();
     }
 
-    protected void onNewIntent(Intent n) {
-        newGame();
-    }
-
+    /**
+     * Selects a tile. If there are three tiles selected
+     * after selecting the specified tile, attempts a set
+     * using the Game class (Game.attemptSet) and handles the results of that
+     * call accordingly.
+     * @param tileIndex
+     * @param selected
+     */
     private void setTileSelected(int tileIndex, boolean selected) {
         if (tileIndex < 0 || tileIndex > Board.TILES)
             throw new IllegalArgumentException("tileIndex out of bounds.");
@@ -128,7 +135,8 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         if (selected) {
             selectedTiles.add(game.board.getTile(tileIndex));
 
-            // this should call Game class, but it isn't finished yet
+            // If we've selected 3 tiles, check with Game class to see
+            // if it's a good set.
             if (selectedTiles.size() == 3) {
                 Tile[] tiles = selectedTiles.toArray(new Tile[3]);
                 if(game.isFound(selectedTiles)){
@@ -150,6 +158,11 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         }
     }
 
+    /**
+     * Event handler for the Game Over event. Saves
+     * the game outcome and opens the Summary screen.
+     * @param e
+     */
     @Override
     public void gameOver(GameOverEvent e) {
         long lastGame = PlayerDataDbHelper.saveOutcome(this, game);
@@ -158,6 +171,11 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         startActivity(i);
     }
 
+    /**
+     * Gets the selected state of a tile, by its index.
+     * @param tileIndex
+     * @return
+     */
     private boolean getTileSelected(int tileIndex) {
         if (tileIndex < 0 || tileIndex > Board.TILES)
             throw new IllegalArgumentException("tileIndex out of bounds.");
@@ -165,12 +183,19 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         return tiles[tileIndex].getShaded();
     }
 
+    /**
+     * Deselects all tiles.
+     */
     private void clearTileSelection() {
         selectedTiles.clear();
         for (int i = 0; i < Board.TILES; i++)
             setTileSelected(i, false);
     }
 
+    /**
+     * Event handler for clicks on Tile images.
+     * @param view
+     */
     public void onClick(View view) {
         Object o = view.getTag(R.id.TILE_INDEX);
         if (view instanceof ImageView && o instanceof Integer) {
@@ -184,6 +209,11 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         }
     }
 
+    /**
+     * The event handler for the Hint button click. Selects
+     * a tile that is part of a good set that hasn't been found.
+     * @param view
+     */
     public void onClickHint(View view) {
         Set<Tile> hintTiles = game.hintProvider.getHint();
 
@@ -198,6 +228,10 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         }
     }
 
+    /**
+     * Displays a message to the user in a Toast.
+     * @param message
+     */
     private void messageUser(String message) {
         Toast toast = Toast.makeText(this, message,
                 (message.length() > 24 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT));
@@ -205,6 +239,9 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
         toast.show();
     }
 
+    /**
+     * Sets up a new game.
+     */
     private void newGame() {
         Game.GameType type = (Game.GameType) getIntent().getExtras().get("type");
         game = new Game(type, OptionsHelper.getSetCount(this), OptionsHelper.getMinDiff(this),

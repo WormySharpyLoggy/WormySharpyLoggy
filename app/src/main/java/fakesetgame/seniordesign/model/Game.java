@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Sami on 9/24/2014.
+ * A class to model an instance of a game and the player's interaction with the game.
  */
 public class Game {
 
@@ -222,11 +222,17 @@ public class Game {
         }
     }
 
+    /**
+     * An enumeration of different modes of play.
+     */
     public enum GameType {
         TimeAttack,
         Normal
     }
 
+    /**
+     * An enumeration of possible game outcomes (win/lose).
+     */
     public enum Outcome {
         Win,
         Lose

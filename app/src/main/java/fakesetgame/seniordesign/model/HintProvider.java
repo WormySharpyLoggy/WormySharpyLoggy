@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Chris on 10/22/2014.
+ * A class to provide hints about the game to the player.
  */
 public class HintProvider {
     private final Game game;

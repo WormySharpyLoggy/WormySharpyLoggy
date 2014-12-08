@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Chris on 9/10/2014.
+ * An enumeration of possible tile shapes.
  */
 public enum Shape {
     Oval(1),

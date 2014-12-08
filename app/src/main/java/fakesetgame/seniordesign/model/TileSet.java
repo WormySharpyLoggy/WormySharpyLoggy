@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.Set;
 
 /**
- * Created by Chris on 9/10/2014.
+ * A class providing computational operations on sets of tiles.
  */
 public class TileSet {
 

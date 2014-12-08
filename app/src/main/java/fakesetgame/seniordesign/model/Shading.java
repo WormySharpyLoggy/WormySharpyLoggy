@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Chris on 9/10/2014.
+ * An enumeration of possible tile shadings.
  */
 public enum Shading {
     Filled(1),

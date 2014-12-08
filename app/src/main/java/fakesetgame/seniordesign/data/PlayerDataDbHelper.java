@@ -18,7 +18,7 @@ import fakesetgame.seniordesign.model.Game;
 import fakesetgame.seniordesign.model.Tile;
 
 /**
- * Created by Chris on 10/17/2014.
+ * Handles CRUD operations on database, database version upgrades.
  */
 public class PlayerDataDbHelper extends SQLiteOpenHelper {
 
@@ -109,6 +109,12 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
             helper = new PlayerDataDbHelper(context);
     }
 
+    /**
+     * Saves a string/value pair in the settings table.
+     * @param context
+     * @param name
+     * @param value
+     */
     public static void saveSetting(Context context, String name, String value) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -143,6 +149,12 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Deletes a saved setting from the database, by name.
+     * @param context
+     * @param name
+     * @return
+     */
     public static boolean deleteSetting(Context context, String name) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -158,6 +170,12 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Retrieves one setting stored in the database, by name.
+     * @param context
+     * @param name
+     * @return
+     */
     public static Setting getSetting(Context context, String name) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -187,6 +205,11 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Retrieves all settings stored in the database.
+     * @param context
+     * @return
+     */
     public static Map<String, Setting> getSettings(Context context) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -217,6 +240,12 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         return settings;
     }
 
+    /**
+     * Saves one game outcome to the database.
+     * @param context
+     * @param game
+     * @return
+     */
     public static long saveOutcome(Context context, Game game) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -268,6 +297,15 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         return outcomeId;
     }
 
+    /**
+     * Gets a Cursor over outcomes given a sort order and filters.
+     * @param context
+     * @param rows
+     * @param sortOrder
+     * @param where
+     * @param whereArgs
+     * @return
+     */
     private static Cursor getTopOutcomes(Context context, int rows, String sortOrder, String where, String[] whereArgs) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -288,6 +326,13 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         );
     }
 
+    /**
+     * Gets a Cursor over the most recently recorded game outcomes.
+     * @param context
+     * @param mode
+     * @param rows
+     * @return
+     */
     public static Cursor getLastOutcomes(Context context, Game.GameType mode, int rows) {
         return getTopOutcomes(
                 context,
@@ -298,6 +343,14 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         );
     }
 
+    /**
+     * Gets a Cursor over the top games (quickest solve time)
+     * @param context
+     * @param mode
+     * @param rows
+     * @param showGamesWithHints
+     * @return
+     */
     public static Cursor getBestOutcomes(Context context, Game.GameType mode, int rows, boolean showGamesWithHints) {
 
         List<String> where = new ArrayList<String>();
@@ -324,6 +377,12 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         return getTopOutcomes(context, rows, GameOutcome.TableDef.COLUMN_NAME_ELAPSED + " ASC", whereSB.toString(), whereArgs.toArray(new String[whereArgs.size()]));
     }
 
+    /**
+     * Gets the details of a particular game outcome by id.
+     * @param context
+     * @param id
+     * @return
+     */
     public static GameOutcome getOutcome(Context context, long id) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -349,6 +408,12 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    /**
+     * Gets a list of sets found during a game, from the saved outcome.
+     * @param context
+     * @param outcome
+     * @return
+     */
     public static List<FoundSetRecord> getFoundSetsByGameOutcome(Context context, long outcome) {
         InstantiateHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();

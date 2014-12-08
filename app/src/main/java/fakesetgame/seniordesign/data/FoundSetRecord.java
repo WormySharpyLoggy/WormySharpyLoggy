@@ -11,7 +11,7 @@ import java.util.Set;
 import fakesetgame.seniordesign.model.Tile;
 
 /**
- * Created by Chris on 10/20/2014.
+ * A class to hold information retrieved from the database about sets found during a game.
  */
 public class FoundSetRecord {
     private final long _id;

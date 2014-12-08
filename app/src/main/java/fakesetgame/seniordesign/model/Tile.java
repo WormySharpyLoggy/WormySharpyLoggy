@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import java.util.Random;
 
 /**
- * Created by Chris on 9/10/2014.
+ * A class modeling a single tile, it's attributes and visual representation.
  */
 public class Tile {
 

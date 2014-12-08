@@ -9,7 +9,9 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * Created by Chris on 10/9/2014.
+ * A custom ImageView that provides shading, for use in visually
+ * distinguishing selected game tiles from unselected tiles, without
+ * producing a set of shaded tile images.
  */
 public class ShadedImageView extends ImageView {
     public ShadedImageView(Context context, AttributeSet attrs) {

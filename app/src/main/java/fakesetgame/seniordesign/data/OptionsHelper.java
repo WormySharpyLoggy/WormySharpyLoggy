@@ -9,7 +9,7 @@ import fakesetgame.seniordesign.model.Modifier;
 
 
 /**
- * Created by Jeremy on 10/31/2014.
+ * A class to assist in saving and retrieving specific game settings.
  */
 public class OptionsHelper {
 

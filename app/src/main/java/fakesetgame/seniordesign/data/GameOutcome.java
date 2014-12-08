@@ -12,7 +12,7 @@ import fakesetgame.seniordesign.model.Board;
 import fakesetgame.seniordesign.model.Game;
 
 /**
- * Created by Chris on 10/17/2014.
+ * A class to hold information retrieved from the database about a game outcome.
  */
 public class GameOutcome {
     private final long _id;

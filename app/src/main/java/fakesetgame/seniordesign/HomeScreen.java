@@ -8,7 +8,11 @@ import android.widget.RadioGroup;
 
 import fakesetgame.seniordesign.model.Game;
 
-
+/**
+ * This is the Activity class for the main screen of the app,
+ * from which a player starts new games or opens the
+ * settings screen.
+ */
 public class HomeScreen extends Activity {
 
     @Override

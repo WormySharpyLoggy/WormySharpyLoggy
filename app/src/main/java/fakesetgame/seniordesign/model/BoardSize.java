@@ -1,7 +1,7 @@
 package fakesetgame.seniordesign.model;
 
 /**
- * Created by Jeremy on 10/24/2014.
+ * A enumeration of available board sizes.
  */
 public enum BoardSize {
 

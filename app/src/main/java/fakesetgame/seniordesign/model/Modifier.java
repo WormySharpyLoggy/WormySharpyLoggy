@@ -1,7 +1,7 @@
 package fakesetgame.seniordesign.model;
 
 /**
- * Created by Jeremy on 10/24/2014.
+ * An enumeration of scoring modifiers used in calculating game difficulty.
  */
 public enum Modifier {
 
