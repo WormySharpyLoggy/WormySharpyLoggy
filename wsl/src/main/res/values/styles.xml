@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar.Fullscreen">
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="TileRow">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="TileButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <!-- Backward-compatible version of ?android:attr/buttonBarStyle -->
+	<style name="ButtonBar">
+		<item name="android:paddingLeft">2dp</item>
+		<item name="android:paddingTop">5dp</item>
+		<item name="android:paddingRight">2dp</item>
+		<item name="android:paddingBottom">0dp</item>
+		<item name="android:background">@android:drawable/bottom_bar</item>
+	</style>
+
+    <!-- Backward-compatible version of ?android:attr/buttonBarButtonStyle -->
+	<style name="ButtonBarButton" />
+
+</resources>

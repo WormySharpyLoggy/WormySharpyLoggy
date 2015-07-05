@@ -1,0 +1,125 @@
+<!--
+  ~ Copyright (C) 2015 Jeremy Brown. Released under the Non-Profit Open Software License version 3.0 (NPOSL-3.0)
+  -->
+
+<ScrollView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		tools:context="com.mischivous.wormysharpyloggy.wsl.InstructionsScreen"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:id="@+id/scrollView" >
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/instPara1"
+				android:id="@+id/paraOne" />
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/exCard"
+				android:layout_gravity="center_horizontal"
+				android:src="@mipmap/tile_2122"
+				android:contentDescription="@string/exampleCard" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/instPara2"
+				android:id="@+id/paraTwo" />
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:id="@+id/exSet">
+
+				<ImageView
+					android:id="@+id/exSetCard1"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:src="@mipmap/tile_1312"
+					android:adjustViewBounds="true"
+					android:contentDescription="@string/exampleSetCard1" />
+
+				<ImageView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/exSetCard2"
+					android:layout_weight="1"
+					android:src="@mipmap/tile_2212"
+					android:cropToPadding="false"
+					android:adjustViewBounds="true"
+					android:contentDescription="@string/exampleSetCard2" />
+
+				<ImageView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/exSetCard3"
+					android:layout_weight="1"
+					android:src="@mipmap/tile_3112"
+					android:adjustViewBounds="true"
+					android:contentDescription="@string/exampleSetCard3" />
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/instPara3"
+				android:id="@+id/paraThree" />
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:id="@+id/exNotSet">
+
+				<ImageView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/exNotSetCard1"
+					android:layout_weight="1"
+					android:src="@mipmap/tile_1131"
+					android:adjustViewBounds="true"
+					android:contentDescription="@string/exampleNotSetCard1" />
+
+				<ImageView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/exNotSetCard2"
+					android:layout_weight="1"
+					android:src="@mipmap/tile_1121"
+					android:adjustViewBounds="true"
+					android:contentDescription="@string/exampleNotSetCard2" />
+
+				<ImageView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/exNotSetCard3"
+					android:layout_weight="1"
+					android:src="@mipmap/tile_1113"
+					android:adjustViewBounds="true"
+					android:contentDescription="@string/exampleNotSetCard3" />
+			</LinearLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="@string/instPara4"
+				android:id="@+id/paraFour" />
+
+		</LinearLayout>
+	</ScrollView>

@@ -1,0 +1,135 @@
+<!--
+  ~ Copyright (C) 2015 Jeremy Brown. Released under the Non-Profit Open Software License version 3.0 (NPOSL-3.0)
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:keepScreenOn="true"
+	android:orientation="vertical"
+	tools:context=".GameScreen">
+
+
+	<ImageView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/joinImage"
+		android:background="@mipmap/tile_small_blank"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:contentDescription="@string/joinString" />
+
+	<Button
+		tools:ignore="RelativeOverlap"
+		android:id="@+id/HintButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:width="75dp" />
+
+	<TextView
+		android:id="@+id/TimeView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:text="@string/defaultTime"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_below="@+id/HintButton"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:layout_marginRight="10dp"
+		android:layout_marginEnd="10dp"/>
+
+	<LinearLayout
+		android:id="@+id/Board"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical"
+		android:layout_below="@+id/joinImage"
+		android:layout_centerHorizontal="true">
+
+		<LinearLayout style="@style/TileRow">
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile1"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile2"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile3"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+		</LinearLayout>
+
+		<LinearLayout style="@style/TileRow">
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile4"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile5"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile6"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+		</LinearLayout>
+
+		<LinearLayout style="@style/TileRow">
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile7"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile8"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile9"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+		</LinearLayout>
+	</LinearLayout>
+</RelativeLayout>

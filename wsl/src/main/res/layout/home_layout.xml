@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeScreen"
+    android:clickable="true">
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/new_normal"
+		android:id="@+id/normalButton"
+		android:onClick="StartGame"
+		android:layout_above="@+id/taButton"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true"
+ />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/new_ta"
+		android:id="@+id/taButton"
+		android:onClick="StartGame"
+		android:layout_above="@+id/powerButton"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true"
+ />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/new_power"
+		android:id="@+id/powerButton"
+		android:onClick="StartGame"
+		android:layout_above="@+id/instructButton"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true"
+		android:layout_marginBottom="100dp" />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/settings"
+		android:id="@+id/settingsButton"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true"
+		android:onClick="GotoSettings" />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/instructions"
+		android:id="@+id/instructButton"
+		android:layout_above="@+id/settingsButton"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true"
+		android:onClick="GotoInstructions" />
+
+</RelativeLayout>

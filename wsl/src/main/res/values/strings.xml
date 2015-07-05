@@ -1,0 +1,116 @@
+<resources>
+	<item name="TILE_INDEX" type="id" />
+    <string name="app_name">WormySharpyLoggy</string>
+
+    <string name="new_normal">New Standard Game</string>
+    <string name="new_ta">New Time Attack Game</string>
+    <string name="new_power">New PowerSet Game</string>
+	<string name="instructions">How To Play</string>
+	<string name="settings">Settings</string>
+
+	<string name="optDiffKey">pref_difficulty</string>
+	<string name="optDiffTitle">Game Difficulty</string>
+
+	<string name="optDiffLowLevelEntry">Easy</string>
+	<string name="optDiffLowLevelValue">0</string>
+	<string name="optDiffMidLevelEntry">Normal</string>
+	<string name="optDiffMidLevelValue">1</string>
+	<string name="optDiffHighLevelEntry">Challenging</string>
+	<string name="optDiffHighLevelValue">2</string>
+
+	<string-array name="optDiffEntries">
+		<item>@string/optDiffLowLevelEntry</item>
+		<item>@string/optDiffMidLevelEntry</item>
+		<item>@string/optDiffHighLevelEntry</item>
+	</string-array>
+
+	<string-array name="optDiffValues">
+		<item>@string/optDiffLowLevelValue</item>
+		<item>@string/optDiffMidLevelValue</item>
+		<item>@string/optDiffHighLevelValue</item>
+	</string-array>
+
+	<string name="optSparseKey">pref_sparseness</string>
+	<string name="optSparseTitle">Sets Per Game</string>
+	<string name="optSparseLowLevelEntry">3 Sets Per Game</string>
+	<string name="optSparseLowLevelValue">3</string>
+	<string name="optSparseMidLevelEntry">4 Sets Per Game</string>
+	<string name="optSparseMidLevelValue">4</string>
+	<string name="optSparseHighLevelEntry">5 Sets Per Game</string>
+	<string name="optSparseHighLevelValue">5</string>
+	<string name="optSparseTopLevelEntry">6 Sets Per Game</string>
+	<string name="optSparseTopLevelValue">6</string>
+
+
+	<string-array name="optSparseEntries">
+		<item>@string/optSparseLowLevelEntry</item>
+		<item>@string/optSparseMidLevelEntry</item>
+		<item>@string/optSparseHighLevelEntry</item>
+		<item>@string/optSparseTopLevelEntry</item>
+	</string-array>
+	<string-array name="optSparseValues">
+		<item>@string/optSparseLowLevelValue</item>
+		<item>@string/optSparseMidLevelValue</item>
+		<item>@string/optSparseHighLevelValue</item>
+		<item>@string/optSparseTopLevelValue</item>
+	</string-array>
+
+	<string name="elapsedTime">Your Last Time:</string>
+	<string name="defaultTime">00:00</string>
+	<string name="newGame">New Game</string>
+	<string name="mainMenu">Main Menu</string>
+	<string name="hintUsed">Last game was won using hints. Showing board with cheaters\' times.</string>
+	<string name="hintNotUsed">You won without using any hints!</string>
+	<string name="lostGame">Aww, you lost. Sorry you\'re kinda dumb :(</string>
+	<string name="foundSet">Good job!</string>
+	<string name="badSet">Try again</string>
+	<string name="foundSetAlready">You already got that one</string>
+	<string name="defSummaryItemRank">11</string>
+	<string name="defSummaryItemDescription">Description</string>
+	<string name="defSummaryGameOverview">Example application</string>
+	<string name="firstSetPlaceholder">One of the Tiles in the first found Set</string>
+	<string name="secondSetPlaceholder">One of the Tiles in the second found Set</string>
+	<string name="thirdSetPlaceholder">One of the Tiles in the third found Set</string>
+	<string name="fourthSetPlaceholder">One of the Tiles in the fourth found Set</string>
+	<string name="fifthSetPlaceholder">One of the Tiles in the fifth found Set</string>
+	<string name="sixthSetPlaceholder">One of the Tiles in the sixth found Set</string>
+	<string name="joinString">The current join to find a PowerSet for</string>
+	<string name="splashString">A random Tile used as the image for the splash screen</string>
+
+	<string name="exampleCard">A card showing two green shaded ovals</string>
+	<string name="exampleSetCard1">A card showing one red shaded squiggle</string>
+	<string name="exampleSetCard2">A card showing two red shaded diamonds</string>
+	<string name="exampleSetCard3">A card showing three red shaded ovals</string>
+	<string name="exampleNotSetCard1">A card showing one filled purple oval</string>
+	<string name="exampleNotSetCard2">A card showing one filled green oval</string>
+	<string name="exampleNotSetCard3">A card showing one empty red oval</string>
+	<string name="instPara1">When you begin playing, you will be shown a group of nine cards,
+		each of which will look something like this:
+	</string>
+	<string name="instPara2">All cards have four attributes: count, color, shading and shape.
+		For this card, the count is two, the color is green, the shading is dashed and the shape is oval.
+		\n\nThe purpose of the game is to find all the Sets available in the cards you are shown.
+		\n\nA Set is any collection of three cards where for each attribute,
+		all cards share the same version of the attribute or none of them do.
+		\n\nFor example, these three cards make up a Set:
+	</string>
+	<string name="instPara3">As you can see, all of them share the same color (red) and
+		the same shading (dashed), but none of them share the number of shapes on them or
+		their shape.
+		\n\nHowever, these three cards do not make up a set:
+	</string>
+	<string name="instPara4">As you can see, all of them share the same shape (oval) and
+		the same number of shapes on them (one) and none of them share the same color,
+		but the first two share the same shading (full) while the third does not (empty).
+		\n\nThe rules are simple, but trying to find that last Set can be anything but!
+		\n\nThere are three game modes available: Normal, Time Attack and PowerSet.
+		\n\nNormal is the simplest form of the game; you are given a group of cards with a specified
+		number of Sets, and you try to find them.
+		\n\nTime Attack is like Normal mode, except for the fact that you have a countdown timer,
+		and you have to find all the Sets before the timer reaches zero.
+		\n\nPowerSet is the most extreme of the modes; when you play you are given a special tenth
+		card called the join, and your goal is to find the four cards in the group such that the
+		first two make a Set with the join and the last two make a Set with the join.
+		For those who like a bit of challenge, PowerSet mode is highly recommended.
+		\n\nAnd that covers everything! Now go play!</string>
+</resources>

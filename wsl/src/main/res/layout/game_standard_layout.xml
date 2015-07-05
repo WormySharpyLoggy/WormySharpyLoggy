@@ -1,0 +1,286 @@
+<!--
+  ~ Copyright (C) 2015 Jeremy Brown. Released under the Non-Profit Open Software License version 3.0 (NPOSL-3.0)
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:keepScreenOn="true"
+	android:orientation="vertical"
+	tools:context=".GameScreen">
+
+
+	<ImageView
+		android:id="@+id/FoundSet1_1"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:background="@mipmap/tile_small_blank"
+		android:contentDescription="@string/firstSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet1_2"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:background="@mipmap/tile_small_blank"
+		android:layout_below="@+id/FoundSet1_1"
+		android:contentDescription="@string/firstSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet1_3"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:background="@mipmap/tile_small_blank"
+		android:layout_below="@+id/FoundSet1_2"
+		android:contentDescription="@string/firstSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet2_1"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:background="@mipmap/tile_small_blank"
+		android:layout_toRightOf="@+id/FoundSet1_1"
+		android:layout_toEndOf="@id/FoundSet1_1"
+		android:contentDescription="@string/secondSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet2_2"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:background="@mipmap/tile_small_blank"
+		android:layout_below="@+id/FoundSet2_1"
+		android:layout_toRightOf="@+id/FoundSet1_2"
+		android:layout_toEndOf="@id/FoundSet1_2"
+		android:contentDescription="@string/secondSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet2_3"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:background="@mipmap/tile_small_blank"
+		android:layout_below="@+id/FoundSet2_2"
+		android:layout_toRightOf="@+id/FoundSet1_3"
+		android:layout_toEndOf="@id/FoundSet1_3"
+		android:contentDescription="@string/secondSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet3_1"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:background="@mipmap/tile_small_blank"
+		android:layout_toRightOf="@+id/FoundSet2_1"
+		android:layout_toEndOf="@id/FoundSet2_1"
+		android:contentDescription="@string/thirdSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet3_2"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:background="@mipmap/tile_small_blank"
+		android:layout_toRightOf="@+id/FoundSet2_2"
+		android:layout_below="@+id/FoundSet3_1"
+		android:layout_toEndOf="@id/FoundSet2_2"
+		android:contentDescription="@string/thirdSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet3_3"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:background="@mipmap/tile_small_blank"
+		android:layout_below="@+id/FoundSet3_2"
+		android:layout_toRightOf="@+id/FoundSet2_3"
+		android:layout_toEndOf="@id/FoundSet2_3"
+		android:contentDescription="@string/thirdSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet4_1"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:layout_toRightOf="@+id/FoundSet3_1"
+		android:layout_toEndOf="@id/FoundSet3_1"
+		android:contentDescription="@string/fourthSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet4_2"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:layout_toRightOf="@+id/FoundSet3_2"
+		android:layout_below="@+id/FoundSet4_1"
+		android:layout_toEndOf="@id/FoundSet3_2"
+		android:contentDescription="@string/fourthSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet4_3"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:layout_below="@+id/FoundSet4_2"
+		android:layout_toRightOf="@+id/FoundSet3_3"
+		android:layout_toEndOf="@id/FoundSet3_3"
+		android:contentDescription="@string/fourthSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet5_1"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:layout_toRightOf="@+id/FoundSet4_1"
+		android:layout_toEndOf="@id/FoundSet4_1"
+		android:contentDescription="@string/fifthSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet5_2"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:layout_toRightOf="@+id/FoundSet4_2"
+		android:layout_below="@+id/FoundSet5_1"
+		android:layout_toEndOf="@id/FoundSet4_2"
+		android:clickable="false"
+		android:contentDescription="@string/fifthSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet5_3"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:layout_toRightOf="@+id/FoundSet4_3"
+		android:layout_below="@+id/FoundSet5_2"
+		android:layout_toEndOf="@id/FoundSet4_3"
+		android:contentDescription="@string/fifthSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet6_1"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:layout_toRightOf="@+id/FoundSet5_1"
+		android:layout_toEndOf="@id/FoundSet5_1"
+		android:contentDescription="@string/sixthSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet6_2"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:layout_toRightOf="@+id/FoundSet5_2"
+		android:layout_below="@+id/FoundSet6_1"
+		android:layout_toEndOf="@id/FoundSet5_2"
+		android:contentDescription="@string/sixthSetPlaceholder" />
+
+	<ImageView
+		android:id="@+id/FoundSet6_3"
+		android:layout_width="40dp"
+		android:layout_height="28dp"
+		android:layout_toRightOf="@+id/FoundSet5_3"
+		android:layout_below="@+id/FoundSet6_2"
+		android:layout_toEndOf="@id/FoundSet5_3"
+		android:contentDescription="@string/sixthSetPlaceholder" />
+
+	<Button
+		tools:ignore="RelativeOverlap"
+		android:id="@+id/HintButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:width="75dp" />
+
+	<TextView
+		android:id="@+id/TimeView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/defaultTime"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_below="@+id/HintButton"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true" />
+
+	<LinearLayout
+		android:id="@+id/Board"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_below="@+id/FoundSet1_3"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true">
+
+		<LinearLayout style="@style/TileRow">
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile1"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile2"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile3"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+		</LinearLayout>
+
+		<LinearLayout style="@style/TileRow">
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile4"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile5"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile6"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+		</LinearLayout>
+
+		<LinearLayout style="@style/TileRow">
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile7"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile8"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+
+			<com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView
+				android:id="@+id/Tile9"
+				style="@style/TileButton"
+				android:clickable="true"
+				android:src="@mipmap/tile_blank"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+		</LinearLayout>
+	</LinearLayout>
+</RelativeLayout>

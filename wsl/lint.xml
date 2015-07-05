@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+	<!-- Keep lint from treating Tiles as unused resources -->
+	<issue id="UnusedResources">
+		<ignore path="src/main/res/mipmap-mdpi" />
+		<ignore path="src/main/res/mipmap-hdpi" />
+		<ignore path="src/main/res/mipmap-xhdpi" />
+		<ignore path="src/main/res/mipmap-xxhdpi" />
+	</issue>
+</lint>

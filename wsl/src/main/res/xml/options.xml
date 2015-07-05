@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2015 Jeremy Brown. Released under the Non-Profit Open Software License version 3.0 (NPOSL-3.0)
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<ListPreference
+		android:key="@string/optDiffKey"
+		android:title="@string/optDiffTitle"
+		android:entries="@array/optDiffEntries"
+		android:entryValues="@array/optDiffValues"
+		android:defaultValue="@string/optDiffMidLevelValue"
+		android:summary="%s" />
+
+	<ListPreference
+		android:key="@string/optSparseKey"
+		android:title="@string/optSparseTitle"
+		android:entries="@array/optSparseEntries"
+		android:entryValues="@array/optSparseValues"
+		android:defaultValue="@string/optSparseMidLevelValue"
+		android:summary="%s" />
+
+</PreferenceScreen>
