@@ -1,0 +1,16 @@
+language: android
+script: gradlew check
+
+android:
+  components:
+    - build-tools-22.0.1
+    - android-22
+
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
+
+branches:
+  only:
+    master
