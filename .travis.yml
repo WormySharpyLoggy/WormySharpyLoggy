@@ -1,5 +1,5 @@
 language: android
-script: ./gradlew check
+#script: ./gradlew check
 
 android:
   components:
