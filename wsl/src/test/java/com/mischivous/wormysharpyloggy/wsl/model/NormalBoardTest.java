@@ -22,62 +22,62 @@ public class NormalBoardTest {
 	// Set: 1 gre sha squ, 2 pur fil ova, 3 red hol dia
 	String normalBoard = "Normal, [2 Red Filled Oval, 1 Green Dashed Squiggle, 3 Purple Hollow Diamond, 2 Purple Filled Oval, 1 Purple Dashed Diamond, 1 Red Dashed Oval, 1 Green Dashed Oval, 2 Red Hollow Diamond, 3 Red Hollow Diamond]";
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalEasyThreeBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 3, 1, 2.5);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalMediumThreeBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 3, 2.5, 2.85);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalHardThreeBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 3, 2.85, 4);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalEasyFourBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 4, 1, 2.5);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalMediumFourBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 4, 2.5, 2.85);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalHardFourBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 4, 2.85, 4);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalEasyFiveBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 5, 1, 2.5);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalMediumFiveBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 5, 2.5, 2.85);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalHardFiveBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 5, 2.5, 4);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalEasySixBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 6, 1, 2.5);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalMediumSixBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 6, 2.5, 2.85);
 	}
 
-	@Test(timeout = 100)
+	@Test(timeout = 50)
 	public void testNormalHardSixBoardGen() throws Exception {
 		Board b = new Board(GameType.Normal, 6, 2.85, 4);
 	}

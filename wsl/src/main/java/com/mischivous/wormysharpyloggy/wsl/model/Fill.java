@@ -19,14 +19,14 @@ public enum Fill {
     Hollow(3);
 
     private int numVal;
-    Fill(final int numVal){this.numVal = numVal;}
+    Fill(final int numVal) { this.numVal = numVal; }
 
 	/**
 	 * Returns the integer value associated to the Fill.
 	 *
 	 * @return The integer value related to the Fill
 	 */
-    public int GetNumVal(){return numVal;}
+    public int GetNumVal() { return numVal; }
 
 	/**
 	 * Given two different Fill types, returns the last Fill type.

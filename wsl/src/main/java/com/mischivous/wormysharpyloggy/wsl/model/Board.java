@@ -71,18 +71,13 @@ public class Board implements Comparable<Board> {
 			// generated board.
 			stats = ComputeStats(type, maybeBoard);
 
-			// This if should be removed once I've confirmed the
-			// difficulty calculation works; until then I don't
-			// consider the difficulty of Powerset boards.
-			if (type == GameType.Normal || type == GameType.TimeAttack) {
-				// Make sure we have the correct number of sets and the
-				// right difficulty.
-				if (stats[0] != setCount
-						|| stats[1] < setCount * minDiff
-						|| stats[1] > setCount * maxDiff) {
-					continue;
-					}
-				} else {if (stats[0] != setCount) {continue;}}
+			// Make sure we have the correct number of sets and the
+			// right difficulty.
+			if (stats[0] != setCount
+					|| stats[1] < setCount * minDiff
+					|| stats[1] > setCount * maxDiff) {
+				continue;
+				}
 
 			// If we arrive here, the board has the correct number
 			// of sets, and is within the required difficulty range

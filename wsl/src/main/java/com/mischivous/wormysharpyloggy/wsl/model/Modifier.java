@@ -22,6 +22,6 @@ public enum Modifier {
 	public static final double maxModifier = NUMBER_DIFFERENCE.modValue * COLOR_DIFFERENCE.modValue * FILL_DIFFERENCE.modValue * SHAPE_DIFFERENCE.modValue;
 
 	private double modValue;
-	Modifier(double modValue) {this.modValue = modValue;}
-	public double GetValue() {return modValue;}
+	Modifier(double modValue) { this.modValue = modValue; }
+	public double GetValue() { return modValue; }
 }

@@ -25,22 +25,20 @@ public class OptionsHelper {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ctx);
 		return Integer.valueOf(sp.getString(ctx.getString(R.string.optDiffKey),
 				ctx.getString(R.string.optDiffMidLevelValue)));
-	}
+		}
 
 	// Returns the minimum difficulty value per set for each game type
 	// at the player's chosen hardness.
 	public static double GetMinDiff(Context ctx, GameType type) {
 		switch (GetHardness(ctx)) {
 			case 2:
-				if (type == GameType.PowerSet) {return 1;}
-				else {return 2.85;}
+				return 2.85;
 			case 1:
-				if (type == GameType.PowerSet) {return 1;}
-				else {return 2.5;}
+				return 2.5;
 			default:
 				return 1;
+			}
 		}
-	}
 
 	// Returns the maximum difficulty value per set for each game type
 	// at the player's chosen hardness.
@@ -49,13 +47,11 @@ public class OptionsHelper {
 			case 2:
 				return 4;
 			case 1:
-				if (type == GameType.PowerSet) {return 4;}
-				else {return 2.85;}
+				return 2.85;
 			default:
-				if (type == GameType.PowerSet) {return 4;}
-				else {return 2.5;}
+				return 2.5;
+			}
 		}
-	}
 
 	// Gets the player-chosen number of sets to be found per game,
 	// defaulting to four when a predetermined value cannot be found.
@@ -63,5 +59,5 @@ public class OptionsHelper {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ctx);
 		return Integer.valueOf(sp.getString(ctx.getString(R.string.optSparseKey),
 				ctx.getString(R.string.optSparseMidLevelValue)));
-	}
+		}
 }

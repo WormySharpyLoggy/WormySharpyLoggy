@@ -19,14 +19,14 @@ public enum Shape {
     Squiggle(3);
 
     private int numVal;
-    Shape(int numVal){this.numVal = numVal;}
+    Shape(int numVal) { this.numVal = numVal;}
 
 	/**
 	 * Returns the integer value associated to the Shape.
 	 *
 	 * @return The integer value related to the Shape
 	 */
-    public int GetNumVal(){return numVal;}
+    public int GetNumVal() { return numVal; }
 
 	/**
 	 * Given two different Shape types, returns the last Shape type.

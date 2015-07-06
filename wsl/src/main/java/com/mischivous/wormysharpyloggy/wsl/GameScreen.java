@@ -85,8 +85,8 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 
 		// Choose the correct number of tiles possible for selection
 		// at one time.
-		if (type == GameType.PowerSet) {selected = new Tile[4];}
-		else {selected = new Tile[3];}
+		if (type == GameType.PowerSet) { selected = new Tile[4]; }
+		else { selected = new Tile[3]; }
 
 
 		// Initialize the ImageView for each Tile on the Board

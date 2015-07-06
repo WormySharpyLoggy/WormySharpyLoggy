@@ -19,14 +19,14 @@ public enum Color {
     Purple(3);
 
     private int numVal;
-    Color(final int numVal){this.numVal = numVal;}
+    Color(final int numVal) { this.numVal = numVal; }
 
 	/**
 	 * Returns the integer value associated to the Color.
 	 *
 	 * @return The integer value related to the Color
 	 */
-    public int GetNumVal(){return numVal;}
+    public int GetNumVal() { return numVal; }
 
 	/**
 	 * Given two different Color types, returns the last Color type.
