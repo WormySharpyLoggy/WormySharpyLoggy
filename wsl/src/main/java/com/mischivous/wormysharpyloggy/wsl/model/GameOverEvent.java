@@ -14,6 +14,7 @@ import java.util.EventObject;
  * @since June 30, 2015
  */
 public class GameOverEvent extends EventObject {
+	private static final long serialVersionUID = 6611030258112238996L;
 
 	public GameOverEvent(Object source){
 		super(source);

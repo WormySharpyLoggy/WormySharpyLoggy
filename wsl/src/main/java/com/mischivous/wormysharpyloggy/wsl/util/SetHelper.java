@@ -118,11 +118,11 @@ public class SetHelper {
 		Set<Tile> boardSet = new HashSet<>(Arrays.asList(board));
 		ICombinatoricsVector<Tile> tileVector = Factory.createVector(board);
 		Generator<Tile> gen = Factory.createSimpleCombinationGenerator(tileVector, 4);
-		for (ICombinatoricsVector v : gen) {
-			Tile a = (Tile) v.getValue(0);
-			Tile b = (Tile) v.getValue(1);
-			Tile c = (Tile) v.getValue(2);
-			Tile d = (Tile) v.getValue(3);
+		for (ICombinatoricsVector<Tile> v : gen) {
+			Tile a = v.getValue(0);
+			Tile b = v.getValue(1);
+			Tile c = v.getValue(2);
+			Tile d = v.getValue(3);
 
 			// Get the last tile to create a Set from each Tile
 			// pair to search for joins

@@ -13,7 +13,9 @@ import org.paukov.combinatorics.Factory;
 import org.paukov.combinatorics.Generator;
 import org.paukov.combinatorics.ICombinatoricsVector;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents the game board.
@@ -22,7 +24,7 @@ import java.util.*;
  * @version 1.0
  * @since June 28, 2015
  */
-public class Board implements Comparable {
+public class Board implements Comparable<Board> {
 	private static final String TAG = "Board";
 	private final GameType type;
 	private double difficulty = 0;
@@ -140,10 +142,10 @@ public class Board implements Comparable {
 		if (type == GameType.Normal || type == GameType.TimeAttack) {
 			ICombinatoricsVector<Tile> tileVector = Factory.createVector(board);
 			Generator<Tile> gen = Factory.createSimpleCombinationGenerator(tileVector, 3);
-			for (ICombinatoricsVector v : gen) {
-				Tile t1 = (Tile) v.getValue(0);
-				Tile t2 = (Tile) v.getValue(1);
-				Tile t3 = (Tile) v.getValue(2);
+			for (ICombinatoricsVector<Tile> v : gen) {
+				Tile t1 = v.getValue(0);
+				Tile t2 = v.getValue(1);
+				Tile t3 = v.getValue(2);
 
 				if (SetHelper.IsValidSet(t1, t2, t3)) {
 					stats[0] += 1;
@@ -158,11 +160,11 @@ public class Board implements Comparable {
 			Set<Tile> boardSet = new HashSet<>(Arrays.asList(board));
 			ICombinatoricsVector<Tile> tileVector = Factory.createVector(board);
 			Generator<Tile> gen = Factory.createSimpleCombinationGenerator(tileVector, 4);
-			for (ICombinatoricsVector v : gen) {
-				Tile a = (Tile) v.getValue(0);
-				Tile b = (Tile) v.getValue(1);
-				Tile c = (Tile) v.getValue(2);
-				Tile d = (Tile) v.getValue(3);
+			for (ICombinatoricsVector<Tile> v : gen) {
+				Tile a = v.getValue(0);
+				Tile b = v.getValue(1);
+				Tile c = v.getValue(2);
+				Tile d = v.getValue(3);
 
 				// Get the last tile to create a Set from each Tile
 				// pair to search for joins
@@ -309,13 +311,11 @@ public class Board implements Comparable {
 		else if (((Board) o).tiles.length != tiles.length) { return false; }
 		else if (((Board) o).type != type) { return false; }
 
-		List<Tile> thisBoard = Arrays.asList(this.tiles);
-		List<Tile> thatBoard = Arrays.asList(((Board) o).tiles);
-		Collections.sort(thisBoard);
-		Collections.sort(thatBoard);
+		Arrays.sort(this.tiles);
+		Arrays.sort(((Board) o).tiles);
 
 		for (int i = 0; i < tiles.length; i++) {
-			if (thisBoard.get(i) != thatBoard.get(i)) { return false; }
+			if (tiles[i] != ((Board) o).tiles[i]) { return false; }
 			}
 
 		return true;
@@ -325,20 +325,18 @@ public class Board implements Comparable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int compareTo(@NonNull Object o) {
-		if (o == this) { return 0; }
-		else if (o == null) { throw new NullPointerException("Comparison Board cannot be null."); }
-		else if (!(o instanceof Board)) { throw new IllegalArgumentException("Object entered is not Board"); }
+	public int compareTo(@NonNull Board b) {
+		if (b == this) { return 0; }
+		else if (b == null) { throw new NullPointerException("Comparison Board cannot be null."); }
 
-			List<Tile> thisBoard = Arrays.asList(this.tiles);
-			List<Tile> thatBoard = Arrays.asList(((Board) o).tiles);
-			Collections.sort(thisBoard);
-			Collections.sort(thatBoard);
+		Arrays.sort(this.tiles);
+		Arrays.sort(b.tiles);
 
-			for (int i = 0; i < tiles.length; i++) {
-				if (thisBoard.get(i).hashCode() < thatBoard.get(i).hashCode()) {return -1;}
-				else if (thisBoard.get(i).hashCode() > thatBoard.get(i).hashCode()) {return 1;}
-				}
-			return 0;
+		for (int i = 0; i < tiles.length; i++) {
+			if (this.tiles[i].hashCode() < b.tiles[i].hashCode()) { return -1; }
+			else if (this.tiles[i].hashCode() > b.tiles[i].hashCode()) { return 1; }
+			}
+
+		return 0;
 		}
 	}

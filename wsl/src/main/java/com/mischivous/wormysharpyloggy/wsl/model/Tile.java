@@ -24,7 +24,7 @@ import java.util.*;
  * @version 1.0
  * @since June 28, 2015
  */
-public class Tile implements Comparable {
+public class Tile implements Comparable<Tile> {
 	private static final List<Tile> allTiles;
 	static {
 		allTiles = new ArrayList<>(81);
@@ -143,9 +143,9 @@ public class Tile implements Comparable {
 
 			ICombinatoricsVector<Tile> tileVector = Factory.createVector(maybeBoard);
 			Generator<Tile> gen = Factory.createSimpleCombinationGenerator(tileVector, 2);
-			for (ICombinatoricsVector v : gen) {
-				Tile t1 = (Tile) v.getValue(0);
-				Tile t2 = (Tile) v.getValue(1);
+			for (ICombinatoricsVector<Tile> v : gen) {
+				Tile t1 = v.getValue(0);
+				Tile t2 = v.getValue(1);
 				Tile t = SetHelper.GetLastTile(t1, t2);
 
 				if (!maybeBoard.contains(t)) {maybeBoard.add(t);}
@@ -337,11 +337,9 @@ public class Tile implements Comparable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int compareTo(@NonNull Object o) {
-		if (o == null) { throw new NullPointerException("Comparison object cannot be null."); }
-		if (!(o instanceof Tile)) { throw new IllegalArgumentException("Object entered is not Tile"); }
+	public int compareTo(@NonNull Tile t) {
+		if (t == null) { throw new NullPointerException("Comparison object cannot be null."); }
 
-		Tile t = (Tile) o;
 		if (this.hashCode() == t.hashCode()) { return 0; }
 		else if (this.hashCode() < t.hashCode()) { return -1; }
 		else { return 1; }
