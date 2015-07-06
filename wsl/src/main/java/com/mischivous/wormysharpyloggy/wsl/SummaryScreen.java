@@ -49,7 +49,7 @@ public class SummaryScreen extends Activity {
 		else elapsed.setText(":(");
 
 		GameSummaryListItemCursorAdapter adapter = new GameSummaryListItemCursorAdapter(this, PlayerDataDbHelper.getBestOutcomes(this, lastGame.getMode(), 5, lastGame.wasHintUsed()), 0);
-		ListView listView = (ListView) findViewById(R.id.listView);
+		ListView listView = (ListView) findViewById(R.id.topTimes);
 		listView.setAdapter(adapter);
 
 		if(lastGame.getOutcome() == GameResult.Win)
@@ -63,7 +63,7 @@ public class SummaryScreen extends Activity {
 	 * @param msg The message to display
 	 */
 	private void messageUser(String msg) {
-		Toast toast = Toast.makeText(getApplicationContext(), msg,
+		Toast toast = Toast.makeText(this, msg,
 				(msg.length() > 24 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT));
 		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
 		toast.show();
@@ -87,5 +87,12 @@ public class SummaryScreen extends Activity {
 	 */
 	public void MainMenu(View v) {
 		finish();
-	}
+		}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		finish();
+		}
+
 }

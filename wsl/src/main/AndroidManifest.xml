@@ -15,11 +15,30 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".HomeScreen" />
-        <activity android:name=".SettingsScreen"/>
-        <activity android:name=".GameScreen" />
-        <activity android:name=".SummaryScreen" />
-        <activity android:name=".InstructionsScreen" />
+        <activity
+			android:configChanges="orientation|keyboardHidden|screenSize"
+			android:name=".HomeScreen"
+			android:screenOrientation="portrait" />
+
+        <activity
+			android:configChanges="orientation|keyboardHidden|screenSize"
+			android:name=".SettingsScreen"
+			android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".GameScreen"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+			android:screenOrientation="portrait" />
+
+        <activity
+			android:configChanges="orientation|keyboardHidden|screenSize"
+			android:name=".SummaryScreen"
+			android:screenOrientation="portrait" />
+
+        <activity
+			android:configChanges="orientation|keyboardHidden|screenSize"
+			android:name=".InstructionsScreen"
+			android:screenOrientation="portrait" />
     </application>
 
 </manifest>

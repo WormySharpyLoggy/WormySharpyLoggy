@@ -316,7 +316,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 	 */
 	private void messageUser(@NonNull String msg) {
 		if (msg == null) { throw new NullPointerException("Message to user cannot be null."); }
-		Toast toast = Toast.makeText(getApplicationContext(), msg,
+		Toast toast = Toast.makeText(this, msg,
 				(msg.length() > 24 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT));
 		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
 		toast.show();

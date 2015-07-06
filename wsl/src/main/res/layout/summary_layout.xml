@@ -2,73 +2,69 @@
   ~ Copyright (C) 2015 Jeremy Brown. Released under the Non-Profit Open Software License version 3.0 (NPOSL-3.0)
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical">
 
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="5">
+	<ListView
+		android:id="@+id/topTimes"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/lastTimeText"
+		android:layout_alignParentTop="true" />
 
-		<ListView
-			android:id="@+id/listView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
-	</LinearLayout>
+	<TextView
+		android:id="@+id/lastTimeText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="6dp"
+		android:text="@string/elapsedTime"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_above="@+id/buttonsLayout"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true" />
+
+	<TextView
+		android:id="@+id/elapsedTime"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="6dp"
+		android:text="@string/defaultTime"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_above="@+id/buttonsLayout"
+		android:layout_toRightOf="@+id/lastTimeText"
+		android:layout_toEndOf="@+id/lastTimeText" />
 
 	<LinearLayout
 		android:layout_width="fill_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:orientation="vertical">
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		style="?android:buttonBarStyle"
+		android:id="@+id/buttonsLayout"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true">
 
-		<LinearLayout
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content">
-
-			<TextView
-				android:id="@+id/lastTimeText"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:padding="6dp"
-				android:text="@string/elapsedTime"
-				android:textAppearance="?android:attr/textAppearanceLarge" />
-
-			<TextView
-				android:id="@+id/elapsedTime"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:padding="6dp"
-				android:text="@string/defaultTime"
-				android:textAppearance="?android:attr/textAppearanceLarge" />
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_width="fill_parent"
+		<Button
+			style="?android:buttonBarButtonStyle"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			style="?android:buttonBarStyle">
+			android:layout_weight="1"
+			android:onClick="StartNewGame"
+			android:singleLine="true"
+			android:text="@string/newGame"
+			android:id="@+id/summNG" />
 
-			<Button
-				style="?android:buttonBarButtonStyle"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:onClick="StartNewGame"
-				android:singleLine="true"
-				android:text="@string/newGame" />
-
-			<Button
-				style="?android:buttonBarButtonStyle"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:onClick="MainMenu"
-				android:singleLine="true"
-				android:text="@string/mainMenu" />
-		</LinearLayout>
+		<Button
+			style="?android:buttonBarButtonStyle"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="MainMenu"
+			android:singleLine="true"
+			android:text="@string/mainMenu"
+			android:id="@+id/summMM" />
 	</LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
