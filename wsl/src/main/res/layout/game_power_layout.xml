@@ -8,7 +8,8 @@
 	android:layout_height="fill_parent"
 	android:keepScreenOn="true"
 	android:orientation="vertical"
-	tools:context=".GameScreen">
+	tools:context=".GameScreen"
+	android:id="@+id/root">
 
 
 	<ImageView
@@ -20,15 +21,14 @@
 		android:layout_centerHorizontal="true"
 		android:contentDescription="@string/joinString" />
 
-	<Button
-		tools:ignore="RelativeOverlap"
-		android:id="@+id/HintButton"
+	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentRight="true"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:text="@string/elapsedString"
+		android:id="@+id/timeTitle"
 		android:layout_alignParentEnd="true"
-		android:width="75dp" />
+		android:layout_alignParentRight="true"/>
 
 	<TextView
 		android:id="@+id/TimeView"
@@ -37,11 +37,10 @@
 		android:layout_gravity="center_horizontal"
 		android:text="@string/defaultTime"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:layout_below="@+id/HintButton"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentEnd="true"
-		android:layout_marginRight="10dp"
-		android:layout_marginEnd="10dp"/>
+		android:layout_below="@+id/timeTitle"
+		android:layout_alignLeft="@+id/timeTitle"
+		android:layout_alignRight="@+id/timeTitle"
+		android:gravity="center_horizontal" />
 
 	<LinearLayout
 		android:id="@+id/Board"
@@ -49,7 +48,8 @@
 		android:layout_height="fill_parent"
 		android:orientation="vertical"
 		android:layout_below="@+id/joinImage"
-		android:layout_centerHorizontal="true">
+		android:layout_centerHorizontal="true"
+		android:layout_above="@+id/gameButtons">
 
 		<LinearLayout style="@style/TileRow">
 
@@ -131,5 +131,38 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent" />
 		</LinearLayout>
+
 	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		style="?android:buttonBarStyle"
+		android:id="@+id/gameButtons"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true">
+
+		<Button
+			style="?android:buttonBarButtonStyle"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="pauseAndUnpause"
+			android:singleLine="true"
+			android:text="@string/pause"
+			android:id="@+id/gamePause" />
+
+		<Button
+			style="?android:buttonBarButtonStyle"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="getHint"
+			android:singleLine="true"
+			android:text="@string/getHint"
+			android:id="@+id/gameHint" />
+	</LinearLayout>
+
 </RelativeLayout>

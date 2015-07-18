@@ -7,8 +7,6 @@ package com.mischivous.wormysharpyloggy.wsl.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Random;
-
 /**
  * A brief description of the class, to be filled in later
  *
@@ -62,9 +60,7 @@ public class TileTest {
 
 	@Test
 	public void testGetRandomTiles() throws Exception {
-		Random r = new Random();
-		int i = r.nextInt(81);
-		Assert.assertEquals(i, Tile.GetRandomTiles(i).length);
+		for (int i = 1; i < 82; i++) { Assert.assertEquals(i, Tile.GetRandomTiles(i).length); }
 		}
 
 	@Test

@@ -4,9 +4,11 @@
 
 package com.mischivous.wormysharpyloggy.wsl;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IntRange;
@@ -16,9 +18,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.mischivous.wormysharpyloggy.wsl.data.OptionsHelper;
 import com.mischivous.wormysharpyloggy.wsl.data.PlayerDataDbHelper;
 import com.mischivous.wormysharpyloggy.wsl.model.Game;
@@ -143,6 +143,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 	 *
 	 * @param type The type of Game to initialize
 	 */
+	@TargetApi(17)
 	private void StartGame(@NonNull GameType type) {
 		if (type == null) { throw new IllegalArgumentException("Game type cannot be null."); }
 
@@ -173,8 +174,21 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 								R.mipmap.tile_small_blank,
 								null));
 				}
-			// Place the first join in the correct location
+			// Center the Found Sets string
+			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+					findViewById(R.id.foundSetsTitle).getLayoutParams());
+
+			int id = getResources().getIdentifier(
+					String.format("FoundSet%d_1", found.length),
+					"id",
+					getPackageName());
+
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+				lp.addRule(RelativeLayout.ALIGN_END, id);
+				} else { lp.addRule(RelativeLayout.ALIGN_RIGHT, id); }
+			findViewById(R.id.foundSetsTitle).setLayoutParams(lp);
 			} else {
+			// Place the first join in the correct location
 			int id = getResources().getIdentifier(
 					"joinImage",
 					"id",
@@ -182,7 +196,12 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 
 			ImageView iv = (ImageView) findViewById(id);
 			if (iv == null) {Log.e(TAG, "Failed to set joinImage. Value is null.");}
-			else {iv.setImageDrawable(game.GetNextJoin().GetDrawable(this));}
+			else { iv.setImageDrawable(game.GetNextJoin().GetDrawable(this)); }
+			}
+
+		// Change elapsed time string to time remaining string for Time Attack
+		if (type == GameType.TimeAttack) {
+			((TextView) findViewById(R.id.timeTitle)).setText(getString(R.string.remainingString));
 			}
 		}
 
@@ -194,7 +213,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 	private boolean IsTileSelected(@IntRange(from = 0, to = 8) int tileIndex) {
 		if (tileIndex < 0 || tileIndex >= boardSize) {
 			throw new IllegalArgumentException("tileIndex out of bounds.");
-		} else {return tiles[tileIndex].getShaded();}
+		} else { return tiles[tileIndex].getShaded(); }
 	}
 
 	/**
@@ -285,8 +304,6 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 				}
 				// Deselect the tile and remove it from the selected array
 			} else {
-//			if (game.GetGameType() == GameType.Normal || game.GetGameType() == GameType.TimeAttack) { tiles[tileIndex].setShaded(selected); }
-//			else { tiles[tileIndex].setShaded(0); }
 			tiles[tileIndex].setShaded(selected);
 			Log.d(TAG, String.format("Setting tile %d shading = %s", tileIndex, Boolean.valueOf(selected).toString()));
 
@@ -317,7 +334,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 	private void messageUser(@NonNull String msg) {
 		if (msg == null) { throw new NullPointerException("Message to user cannot be null."); }
 		Toast toast = Toast.makeText(this, msg,
-				(msg.length() > 24 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT));
+		                             (msg.length() > 24 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT));
 		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
 		toast.show();
 		}
@@ -352,6 +369,52 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 		i.putExtra("lastGame", lastGame);
 		startActivity(i);
 		finish();
+		}
+
+	/**
+	 * Handles pause and unpause game logic, largely blanking the screen.
+	 * @param v The pause button, ignorable
+	 */
+	public void pauseAndUnpause(@Nullable View v) {
+		Button b = (Button) findViewById(R.id.gamePause);
+		LinearLayout l = (LinearLayout) findViewById(R.id.Board);
+		int viz;
+
+		// Common operations for pause/unpause between modes - blank and unblank board,
+		// start and stop timer, change text on button
+		if (game.IsPaused()) {
+			viz = View.VISIBLE;
+			game.UnpauseTimer();
+			l.setVisibility(viz);
+			b.setText(R.string.pause);
+			} else {
+			viz = View.INVISIBLE;
+			l.setVisibility(View.INVISIBLE);
+			game.PauseTimer();
+			b.setText(R.string.unpause);
+			}
+
+		// Blank and unblank the found sets for normal/Time Attack modes,
+		// blank and unblank the join for PowerSet mode
+		if (game.GetGameType() == GameType.Normal || game.GetGameType() == GameType.TimeAttack) {
+			for (int set = 1; set <= game.GetFullSetCount(); set++) {
+				for (int tile = 1; tile <= 3; tile++) {
+					int id = getResources().getIdentifier(
+							String.format("FoundSet%d_%d", set, tile),
+							"id",
+							getPackageName());
+
+					findViewById(id).setVisibility(viz);
+					}
+				}
+			} else { findViewById(R.id.joinImage).setVisibility(viz); }
+		}
+
+	public void getHint (@Nullable View v) {
+		if (game.IsPaused()) { messageUser(getString(R.string.pausedHints)); }
+		else {
+			messageUser("Hints are not yet available.");
+			}
 		}
 
 	/**

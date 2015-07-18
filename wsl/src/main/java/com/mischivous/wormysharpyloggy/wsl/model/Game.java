@@ -306,6 +306,10 @@ public class Game {
 		return isGameOver;
 		}
 
+	public boolean IsPaused() {
+		return paused;
+		}
+
 	/**
 	 * Returns whether the game was won or lost.
 	 *
