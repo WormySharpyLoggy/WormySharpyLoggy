@@ -26,6 +26,7 @@ import com.mischivous.wormysharpyloggy.wsl.model.GameOverEvent;
 import com.mischivous.wormysharpyloggy.wsl.model.GameType;
 import com.mischivous.wormysharpyloggy.wsl.model.Tile;
 import com.mischivous.wormysharpyloggy.wsl.util.GameOverListener;
+import com.mischivous.wormysharpyloggy.wsl.util.SetHelper;
 import com.mischivous.wormysharpyloggy.wsl.view.ShadedImageView;
 
 import java.util.Timer;
@@ -61,7 +62,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 				timeView.setText(String.format("%d:%02d", elapsedSeconds / 60, elapsedSeconds % 60));
 				// Setup the time display for time attack game type
 				} else {
-				long timeRemaining = game.GetTimeRemaining() / 1000;
+				long timeRemaining = game.GetTimeRemaining(getApplicationContext()) / 1000;
 				timeView.setText(String.format("%d:%02d", timeRemaining / 60, timeRemaining % 60));
 				}
 			}
@@ -147,12 +148,13 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 	private void StartGame(@NonNull GameType type) {
 		if (type == null) { throw new IllegalArgumentException("Game type cannot be null."); }
 
-			game = new Game(type, OptionsHelper.GetSetCount(this),
-				OptionsHelper.GetMinDiff(this, type),
-				OptionsHelper.GetMaxDiff(this, type));
+			game = new Game(type,
+			                OptionsHelper.GetSetCount(this),
+			                OptionsHelper.GetMinDiff(this),
+			                OptionsHelper.GetMaxDiff(this));
 
 		game.AddGameOverListener(this);
-		ClearTileSelection();
+		ClearTilesSelected();
 
 		for (int i = 0; i < tiles.length; i++) {
 			Drawable d = game.GetTileAt(i).GetDrawable(this);
@@ -235,10 +237,8 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 				if (this.selected[i] == null) {
 					this.selected[i] = t;
 					break;
-				} else {
-					selectedCount += 1;
+				} else { selectedCount += 1; }
 				}
-			}
 
 			// If we've selected the correct number of Tiles to check
 			// for Sets, check with Game class to see if the given
@@ -269,7 +269,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 						} else {
 							messageUser(getString(R.string.badSet));
 							}
-					ClearTileSelection();
+					ClearTilesSelected();
 					}
 			// If we've selected the correct number of Tiles to check
 			// for Powersets, check with Game class to see if the given
@@ -299,7 +299,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 						} else {
 							messageUser(getString(R.string.badSet));
 							}
-					ClearTileSelection();
+					ClearTilesSelected();
 					}
 				}
 				// Deselect the tile and remove it from the selected array
@@ -320,10 +320,11 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 	/**
 	 * Deselects all Tiles.
 	 */
-	private void ClearTileSelection() {
-		for (int i = 0; i < selected.length; i++) {selected[i] = null;}
+	private void ClearTilesSelected() {
+		for (int i = 0; i < selected.length; i++) { selected[i] = null; }
 		for (int i = 0; i < boardSize; i++)	{
-			SetTileSelected(i, false);}
+			SetTileSelected(i, false);
+			}
 		}
 
 	/**
@@ -410,10 +411,52 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 			} else { findViewById(R.id.joinImage).setVisibility(viz); }
 		}
 
-	public void getHint (@Nullable View v) {
+	/**
+	 * Gives the user a Tile in a Set on the board they haven't found yet
+	 *
+	 * @param v The pause button.
+	 */
+	public void GetHint (@Nullable View v) {
+		// For Normal/Time Attack modes, clear all selected Tiles and show the user a Tile from an unfound Set.
 		if (game.IsPaused()) { messageUser(getString(R.string.pausedHints)); }
-		else {
-			messageUser("Hints are not yet available.");
+		else if (game.GetGameType() == GameType.Normal || game.GetGameType() == GameType.TimeAttack) {
+			ClearTilesSelected();
+			SetTileSelected(game.GetHint(), true);
+		} else {
+			// Clear an incorrect first set
+			Tile[] foundSet = new Tile[2];
+
+			if (selected[0] == null
+					|| selected[1] == null
+					|| !SetHelper.IsValidSet(selected[0], selected[1], game.GetNextJoin())) {
+				for (int i = 0; i < boardSize; i++) {
+					if (game.GetTileAt(i) == selected[0] || game.GetTileAt(i) == selected[1]) {
+						SetTileSelected(i, false);
+						}
+					}
+				}
+
+			// Clear an incorrect second set
+			if (selected[2] == null
+					|| selected[3] == null
+					|| !SetHelper.IsValidSet(selected[2], selected[3], game.GetNextJoin())) {
+				for (int i = 0; i < boardSize; i++) {
+					if (game.GetTileAt(i) == selected[2] || game.GetTileAt(i) == selected[3]) {
+						SetTileSelected(i, false);
+					}
+				}
+			}
+
+			// If the player has found a valid set, don't get it again for the hint
+			if (selected[0] != null) {
+				foundSet[0] = selected[0];
+				foundSet[1] = selected[1];
+			} else if (selected[2] != null) {
+				foundSet[0] = selected[2];
+				foundSet[1] = selected[3];
+				}
+
+			SetTileSelected(game.GetHint(foundSet), true);
 			}
 		}
 

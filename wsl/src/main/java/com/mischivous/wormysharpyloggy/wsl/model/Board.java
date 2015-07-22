@@ -201,6 +201,17 @@ public class Board implements Comparable<Board> {
 		}
 
 	/**
+	 * Produces a generator for all combinations of Tiles in the Board of the specified size.
+	 *
+	 * @param comboSize The number of Tiles to choose per each iteration
+	 * @return A generator for the board choosing the specified number per iteration
+	 */
+	public Generator<Tile> GetBoardCombinations (@IntRange(from = 0, to = 3) int comboSize) {
+		ICombinatoricsVector<Tile> tileVector = Factory.createVector(tiles);
+		return Factory.createSimpleCombinationGenerator(tileVector, comboSize);
+		}
+
+	/**
 	 * Given an index into the Board, returns the Tile at that index.
 	 *
 	 * @param index The index of the Tile to return

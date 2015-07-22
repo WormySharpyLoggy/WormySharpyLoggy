@@ -205,7 +205,9 @@
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:layout_below="@+id/timeTitle"
 		android:layout_alignLeft="@+id/timeTitle"
+		android:layout_alignStart="@+id/timeTitle"
 		android:layout_alignRight="@+id/timeTitle"
+		android:layout_alignEnd="@+id/timeTitle"
 		android:gravity="center_horizontal" />
 
 	<LinearLayout
@@ -328,7 +330,7 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:onClick="getHint"
+			android:onClick="GetHint"
 			android:singleLine="true"
 			android:text="@string/getHint"
 			android:id="@+id/gameHint" />

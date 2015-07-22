@@ -4,13 +4,17 @@
 
 package com.mischivous.wormysharpyloggy.wsl.model;
 
+import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Size;
+import com.mischivous.wormysharpyloggy.wsl.data.OptionsHelper;
 import com.mischivous.wormysharpyloggy.wsl.util.GameOverListener;
 import com.mischivous.wormysharpyloggy.wsl.util.SetHelper;
+import org.paukov.combinatorics.Generator;
+import org.paukov.combinatorics.ICombinatoricsVector;
 
 import java.util.*;
 
@@ -35,13 +39,6 @@ public class Game {
 	private final Set<Set<Tile>> foundSets;
 	private final Handler handler = new Handler();
 	private final Timer timeRemaining;
-	private final Runnable checkGameOver = new Runnable() {
-		public void run() {
-			if (!paused && type == GameType.TimeAttack && GetTimeRemaining() <= 0) {
-				onGameOver(GameResult.Loss);
-			}
-		}
-	};
 
 	// Final variables used by Powerset games
 	private final Queue<Tile> joins;
@@ -53,7 +50,6 @@ public class Game {
 	private boolean isGameOver;
 	private boolean hintUsed = false;
 	private GameResult outcome;
-	private static Set<Tile> s = new HashSet<>(3);
 
 	public Game(@NonNull GameType gameType,
 	            @IntRange(from = 3, to = 6) int setCount,
@@ -85,12 +81,7 @@ public class Game {
 
 		if (type == GameType.TimeAttack) {
 			timeRemaining = new Timer();
-			timeRemaining.schedule(new TimerTask() {
-				public void run() {
-					handler.post(checkGameOver);
-					}
-				}, 0, 200);
-			} else {timeRemaining = null;}
+			} else { timeRemaining = null; }
 		}
 
 	/**
@@ -116,11 +107,11 @@ public class Game {
 
 		if (result) {
 			int index = foundSets.size();
-			if (index == 0) {deltas[0] = GetElapsedTime() / 1000;}
-			else {deltas[index] = (GetElapsedTime() / 1000) - deltas[index - 1];}
+			if (index == 0) { deltas[0] = GetElapsedTime() / 1000; }
+			else { deltas[index] = (GetElapsedTime() / 1000) - deltas[index - 1]; }
 
 			foundSets.add(new HashSet<>(Arrays.asList(tiles)));
-			if (foundSets.size() == sets) {onGameOver(GameResult.Win);}
+			if (foundSets.size() == sets) { onGameOver(GameResult.Win); }
 			}
 
 		// Check the results of a valid Powerset for Powerset games
@@ -132,7 +123,7 @@ public class Game {
 			result = SetHelper.IsValidSet(tiles[0], tiles[1], join) && SetHelper.IsValidSet(tiles[2], tiles[3], join);
 
 			if (result) {
-				if (joins.size() == sets) {deltas[0] = GetElapsedTime() / 1000;}
+				if (joins.size() == sets) { deltas[0] = GetElapsedTime() / 1000; }
 				else {
 					int index = sets - joins.size();
 					deltas[index] = (GetElapsedTime() / 1000) - deltas[index - 1];
@@ -155,14 +146,63 @@ public class Game {
 	 * @return Whether or not they belong to a set that was previously found
 	 */
 	public boolean WasFoundAlready(@Size(3) Tile[] tiles) {
-		if (tiles == null) {throw new NullPointerException("Set of Tiles cannot be null."); }
+		if (tiles == null) { throw new NullPointerException("Set of Tiles cannot be null."); }
 		else if (tiles.length != 3) { throw new IllegalArgumentException("Incorrect number of Tiles for Set."); }
 
-		s.clear();
+		Set<Tile> s = new HashSet<>(3);
 		s.addAll(Arrays.asList(tiles));
 		return foundSets.contains(s);
 		}
 
+	/**
+	 * Returns the index of a Tile in a Set the player has not yet found.
+	 *
+	 * @return The index of a Tile in a set the player has not yet found.
+	 */
+	public int GetHint() {
+		Generator<Tile> gen = board.GetBoardCombinations(3);
+		int result = -1;
+		hintUsed = true;
+
+		for (ICombinatoricsVector<Tile> v : gen) {
+			List<Tile> l = v.getVector();
+			Tile[] t = l.toArray(new Tile[3]);
+
+			if (SetHelper.IsValidSet(t[0], t[1], t[2]) && !WasFoundAlready(t)) {
+				for (int i = 0; i < 9; i++) {
+					if (v.getValue(0) == board.GetTile(i)) {
+						result = i;
+						break;
+						}
+					}
+				}
+			}
+		return result;
+		}
+
+	public int GetHint(Tile[] foundSet) {
+		Generator<Tile> gen = board.GetBoardCombinations(2);
+		Tile[] t = new Tile[3];
+		int result = -1;
+		hintUsed = true;
+
+		for (ICombinatoricsVector<Tile> v : gen) {
+			t[0] = GetNextJoin();
+			t[1] = v.getValue(0);
+			t[2] = v.getValue(1);
+
+			if (SetHelper.IsValidSet(t[0], t[1], t[2]) && t[1] != foundSet[0] && t[1] != foundSet[1]) {
+				for (int i = 0; i < 9; i++) {
+					if (v.getValue(0) == board.GetTile(i)) {
+						result = i;
+						break;
+					}
+				}
+			}
+		}
+
+		return result;
+	}
 	/**
 	 * Resets timer and associated variables before gameplay begins.
 	 */
@@ -180,7 +220,7 @@ public class Game {
 	 */
 	public long GetElapsedTime() {
 		long elapsed = accumulatedTime;
-		if (!paused) {elapsed += new Date().getTime() - startTime.getTime();}
+		if (!paused) { elapsed += new Date().getTime() - startTime.getTime(); }
 		return elapsed;
 		}
 
@@ -188,11 +228,16 @@ public class Game {
 	 * In a time attack game, determines how much time
 	 * the player has before they run out.
 	 *
+	 * @param ctx The Context to retrieve the beginning time allotment and extra time per found set
 	 * @return The amount of time remaining in milliseconds
 	 */
-	public long GetTimeRemaining() {
-		if (type != GameType.TimeAttack) {return -1;}
-		return ((15 + (10 * foundSets.size())) - (GetElapsedTime() / 1000))*(1000);
+	public long GetTimeRemaining(Context ctx) {
+		if (type != GameType.TimeAttack) { return -1; }
+		int startTime = OptionsHelper.GetStartingTimeAllotment(ctx);
+		int perSet = OptionsHelper.GetFoundSetTimeAllotment(ctx);
+		long result = ((startTime + (perSet * foundSets.size())) - (GetElapsedTime() / 1000))*(1000);
+		if (!paused && result <= 0) { onGameOver(GameResult.Loss); }
+		return result;
 		}
 
 	/**
@@ -254,7 +299,7 @@ public class Game {
 	public Tile GetNextJoin() {
 		if (type != GameType.PowerSet) {
 			throw new IllegalArgumentException("Cannot get joins for non-Powerset Board.");
-			} else {return joins.peek();}
+			} else { return joins.peek(); }
 		}
 
 	/**
@@ -306,6 +351,11 @@ public class Game {
 		return isGameOver;
 		}
 
+	/**
+	 * Returns whether or not the game is currently paused.
+	 *
+	 * @return The paused status of the game.
+	 */
 	public boolean IsPaused() {
 		return paused;
 		}
