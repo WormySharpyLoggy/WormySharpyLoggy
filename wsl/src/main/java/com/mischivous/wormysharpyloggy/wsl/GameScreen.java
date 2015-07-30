@@ -376,7 +376,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 	 * Handles pause and unpause game logic, largely blanking the screen.
 	 * @param v The pause button, ignorable
 	 */
-	public void pauseAndUnpause(@Nullable View v) {
+	public void PauseAndUnpause(@Nullable View v) {
 		Button b = (Button) findViewById(R.id.gamePause);
 		LinearLayout l = (LinearLayout) findViewById(R.id.Board);
 		int viz;
@@ -466,7 +466,7 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 	@Override
 	protected void onStop() {
 		super.onStop();
-		game.PauseTimer();
+		if (!game.IsPaused()) { PauseAndUnpause(null); }
 		}
 
 	/**
@@ -475,7 +475,6 @@ public class GameScreen extends Activity implements View.OnClickListener, GameOv
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		game.UnpauseTimer();
 		}
 
 }
