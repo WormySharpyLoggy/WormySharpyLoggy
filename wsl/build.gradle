@@ -8,10 +8,10 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 
-repositories {
-    jcenter()
-    mavenCentral()
-}
+//repositories {
+//    jcenter()
+//    mavenCentral()
+//}
 
 android {
     compileSdkVersion 22
@@ -41,6 +41,7 @@ gradle.projectsEvaluated {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+    testCompile 'com.google.guava:guava:18.0'
     //compile "com.android.support:support-v7:22.2.0" // If I need resources
     compile 'com.googlecode.combinatoricslib:combinatoricslib:2.1'
     compile 'com.android.support:support-v4:22.2.0'

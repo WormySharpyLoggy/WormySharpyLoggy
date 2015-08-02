@@ -225,8 +225,8 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
 	 */
 	public static Cursor getBestOutcomes(Context context, GameType mode, int rows, boolean showGamesWithHints) {
 
-		List<String> where = new ArrayList<String>();
-		List<String> whereArgs = new ArrayList<String>();
+		List<String> where = new ArrayList<>();
+		List<String> whereArgs = new ArrayList<>();
 
 		where.add(GameOutcome.TableDef.COLUMN_NAME_MODE + "=?");
 		whereArgs.add(mode.toString());
@@ -308,7 +308,7 @@ public class PlayerDataDbHelper extends SQLiteOpenHelper {
 				sortOrder   // The sort order
 		);
 
-		List<FoundSetRecord> foundSets = new ArrayList<FoundSetRecord>();
+		List<FoundSetRecord> foundSets = new ArrayList<>();
 		while (c.moveToNext()) {
 			foundSets.add(
 					FoundSetRecord.fromCursor(c)
